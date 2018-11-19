@@ -1,0 +1,37 @@
+<form #loginForm="ngForm" (ngSubmit)="submit()">
+
+  <mat-card class="login-form">
+    <mat-card-title>Login form</mat-card-title>
+    <mat-card-content>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Username</mat-label>
+        <input [(ngModel)]="formModel.username" #username="ngModel" matInput type="text" name="username" required minlength="3" maxlength="10">
+        <mat-icon matSuffix>person_outline</mat-icon>
+        <mat-hint>Type your username</mat-hint>
+        <mat-error *ngIf="username.invalid">
+          {{ username.errors | json }}
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input [(ngModel)]="formModel.password" #password="ngModel" matInput type="password" name="password" required minlength="3" maxlength="50">
+        <mat-icon matSuffix>code</mat-icon>
+        <mat-hint>Type your password</mat-hint>
+        <mat-error *ngIf="password.invalid">
+          {{ password.errors | json }}
+        </mat-error>
+      </mat-form-field>
+
+    </mat-card-content>
+    <mat-card-actions>
+
+      <button mat-button>
+        <mat-icon>lock_open</mat-icon> Login
+      </button>
+
+    </mat-card-actions>
+  </mat-card>
+
+</form>

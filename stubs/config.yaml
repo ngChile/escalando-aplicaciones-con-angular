@@ -1,0 +1,28 @@
+- request:
+    url: ^/auth-service/v1/login$
+    method: POST
+    post: '{"username":"admin","password":"admin"}'
+  response:
+    status: 200
+    latency: 1000
+    headers:
+      content-type: application/json
+    file: ./user.json
+
+- request:
+    url: ^/auth-service/v1/login$
+    method: POST
+  response:
+    status: 400
+    latency: 1000
+    headers:
+      content-type: application/json
+    body: >
+      {
+        "timestamp": 1500597044204,
+        "status": 400,
+        "error": "Bad Request",
+        "exception": "AuthenticationException",
+        "message": "Invalid credentials",
+        "path": "/login"
+      }

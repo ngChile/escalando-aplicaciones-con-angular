@@ -1,0 +1,24 @@
+@import '~@angular/material/theming';
+
+$primary: mat-palette($mat-deep-purple);
+
+:host {
+  background-color: mat-color($primary);
+  flex: 1;
+  align-items: center;
+  justify-content: center;
+  display: flex;
+
+  .login-form {
+
+    .mat-card-content {
+      display: flex;
+      flex-direction: column;
+
+      .mat-form-field {
+        width: 25rem;
+        margin-bottom: .5rem;
+      }
+    }
+  }
+}

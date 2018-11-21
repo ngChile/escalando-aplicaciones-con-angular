@@ -7,7 +7,7 @@
   form {
     width: 26.5em;
 
-    @media (max-width: 991px) {
+    @media (max-width: 26.5em) {
       width: 100%;
       padding: 1em;
     }
@@ -20,7 +20,7 @@
         background-size: 100%;
         background-position: center;
 
-        @media (max-width: 991px) {
+        @media (max-width: 26.5em) {
           background-size: 150%;
         }
       }

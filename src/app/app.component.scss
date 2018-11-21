@@ -1,4 +1,9 @@
+@import '~@angular/material/theming';
+
+$primary: mat-palette($mat-deep-purple);
+
 :host {
+  background-color: mat-color($primary, lighter);
   display: flex;
   height: 100%;
 }

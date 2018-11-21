@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router } from '@angular/router';
+import { finalize } from 'rxjs/operators';
 
 import { LoginService } from './login.service';
 
@@ -17,6 +18,7 @@ export class LoginComponent implements OnInit {
   @ViewChild('loginForm') loginForm: NgForm;
 
   formModel: LoginFormModel;
+  isLoading: boolean;
 
   constructor(
     private router: Router,
@@ -31,8 +33,12 @@ export class LoginComponent implements OnInit {
 
   submit() {
     if (this.loginForm.valid) {
+      this.isLoading = true;
       this.loginService
         .authenticate(this.formModel.username, this.formModel.password)
+        .pipe(
+          finalize(() => this.isLoading = false),
+        )
         .subscribe(_ => {
           this.router.navigate(['']);
         }, errorResponse => {

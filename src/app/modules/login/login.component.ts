@@ -40,7 +40,7 @@ export class LoginComponent implements OnInit {
           finalize(() => this.isLoading = false),
         )
         .subscribe(_ => {
-          this.router.navigate(['']);
+          this.router.navigateByUrl(this.loginService.fallbackUrl);
         }, errorResponse => {
           this.snackBar.open(errorResponse.error.message, null, { duration: 5000 });
         });

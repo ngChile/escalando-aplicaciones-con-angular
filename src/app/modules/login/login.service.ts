@@ -12,6 +12,8 @@ export class LoginService {
 
   private user: User;
 
+  fallbackUrl: string = '';
+
   get isLoggedIn(): boolean {
     return !!this.user;
   }

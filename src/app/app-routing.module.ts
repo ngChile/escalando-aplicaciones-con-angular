@@ -2,7 +2,7 @@ import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
 
 import { PageNotFoundComponent } from './modules/core';
-import { LoginComponent } from './modules/login';
+import { LoginComponent, AuthGuard } from './modules/login';
 
 const routes: Routes = [
   {
@@ -15,7 +15,8 @@ const routes: Routes = [
   },
   {
     path: '',
-    loadChildren: './pages/home/home.module#HomeModule'
+    loadChildren: './pages/home/home.module#HomeModule',
+    canLoad: [AuthGuard]
   },
   {
     path: '**',

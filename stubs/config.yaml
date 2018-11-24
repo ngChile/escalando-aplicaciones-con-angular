@@ -26,3 +26,13 @@
         "message": "Invalid credentials",
         "path": "/login"
       }
+
+- request:
+    url: ^/auth-service/v1/register$
+    method: POST
+  response:
+    status: 200
+    latency: 1000
+    headers:
+      content-type: application/json
+    file: ./user.json

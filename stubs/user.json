@@ -1,3 +1,5 @@
 {
-  "username": "Admin"
+  "id": 1,
+  "fullName": "Administrator",
+  "email": "admin@app.com"
 }

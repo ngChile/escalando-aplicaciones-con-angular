@@ -1,11 +1,11 @@
 export class LoginFormModel {
-  username: string;
+  email: string;
   password: string;
 
   constructor(values: {
     [key: string]: string
   } = {}) {
-    this.username = values.username;
+    this.email = values.email;
     this.password = values.password;
   }
 }

@@ -1,7 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { Router } from '@angular/router';
+import { Router, ActivatedRoute } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 
 import { LoginService } from './login.service';
@@ -21,11 +21,14 @@ export class LoginComponent implements OnInit {
   isLoading: boolean;
 
   constructor(
+    private route: ActivatedRoute,
     private router: Router,
     private snackBar: MatSnackBar,
     private loginService: LoginService,
   ) {
-    this.formModel = new LoginFormModel();
+    this.formModel = new LoginFormModel({
+      email: this.route.snapshot.queryParams.email
+    });
   }
 
   ngOnInit() {
@@ -35,7 +38,7 @@ export class LoginComponent implements OnInit {
     if (this.loginForm.valid) {
       this.isLoading = true;
       this.loginService
-        .authenticate(this.formModel.username, this.formModel.password)
+        .authenticate(this.formModel.email, this.formModel.password)
         .pipe(
           finalize(() => this.isLoading = false),
         )

@@ -5,12 +5,12 @@
     <mat-card-content>
 
       <mat-form-field appearance="outline">
-        <mat-label>Username</mat-label>
-        <input [(ngModel)]="formModel.username" #username="ngModel" matInput type="text" name="username" required minlength="3" maxlength="10" autocomplete="off">
-        <mat-icon matSuffix>person_outline</mat-icon>
-        <mat-hint>Type your username</mat-hint>
-        <mat-error *ngIf="username.invalid">
-          {{ username.errors | json }}
+        <mat-label>Email</mat-label>
+        <input [(ngModel)]="formModel.email" #email="ngModel" matInput type="email" name="email" required minlength="3" maxlength="100" autocomplete="off">
+        <mat-icon matSuffix>email</mat-icon>
+        <mat-hint>Type your email</mat-hint>
+        <mat-error *ngIf="email.invalid">
+          {{ email.errors | json }}
         </mat-error>
       </mat-form-field>
 

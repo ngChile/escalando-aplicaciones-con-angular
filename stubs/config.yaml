@@ -1,7 +1,7 @@
 - request:
     url: ^/auth-service/v1/login$
     method: POST
-    post: '{"username":"admin","password":"admin"}'
+    post: '{"email":"admin","password":"admin"}'
   response:
     status: 200
     latency: 1000

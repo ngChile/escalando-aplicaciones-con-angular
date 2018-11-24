@@ -8,6 +8,10 @@
   right: 0;
 }
 
+.app-spacer {
+  flex: 1 1 auto;
+}
+
 .app-is-mobile .app-toolbar {
   position: fixed;
   /* Make sure the toolbar will stay on top of the content as it scrolls past. */

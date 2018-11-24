@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 })
 export class LoginService {
 
-  private user: User;
+  user: User;
 
   fallbackUrl: string = '';
 
@@ -22,9 +22,9 @@ export class LoginService {
     private http: HttpClient,
   ) { }
 
-  authenticate(username: String, password: String): Observable<boolean> {
+  authenticate(email: String, password: String): Observable<boolean> {
     return this.http.post<User>(environment.endpoint.auth, {
-      username, password
+      email, password
     }).pipe(
       map(user => {
         this.user = user;
@@ -34,7 +34,8 @@ export class LoginService {
   }
 }
 
-interface User {
-  username: string;
+export interface User {
+  fullName: string;
+  email: string;
   password: string;
 }

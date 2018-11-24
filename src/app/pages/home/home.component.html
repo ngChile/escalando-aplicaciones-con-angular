@@ -2,6 +2,21 @@
   <mat-toolbar color="primary" class="app-toolbar">
     <button mat-icon-button (click)="snav.toggle()"><mat-icon>menu</mat-icon></button>
     <h1 class="app-name">App</h1>
+    <span class="app-spacer"></span>
+    <button mat-icon-button [matMenuTriggerFor]="userMenu">
+      <mat-icon>person</mat-icon>
+    </button>
+    <mat-menu #userMenu="matMenu">
+      <button mat-menu-item>{{ user.fullName }}</button>
+      <button mat-menu-item>Logout</button>
+    </mat-menu>
+    <button mat-icon-button [matMenuTriggerFor]="settingsMenu">
+      <mat-icon>more_vert</mat-icon>
+    </button>
+    <mat-menu #settingsMenu="matMenu">
+      <button mat-menu-item>Settings</button>
+      <button mat-menu-item>Help</button>
+    </mat-menu>
   </mat-toolbar>
 
   <mat-sidenav-container class="app-sidenav-container" [style.marginTop.px]="mobileQuery.matches ? 56 : 0">

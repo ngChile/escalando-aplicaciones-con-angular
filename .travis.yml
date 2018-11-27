@@ -1,0 +1,22 @@
+language: node_js
+services:
+  - docker
+sudo: false
+node_js: 
+  - "node"
+cache:
+  directories:
+    - ~/.npm
+    - ~/.cache
+stages:
+  - name: unit-tests
+  - name: deploy
+  - name: release
+jobs:
+  include:
+    - stage: unit-tests
+      script: bash ./ci/unit-tests
+    - stage: deploy
+      script: bash ./ci/deploy
+    - stage: release
+      script: bash ./ci/release

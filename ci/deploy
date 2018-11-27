@@ -1,0 +1,31 @@
+#!/bin/bash
+
+echo "============================================================="
+echo "          CONSTRUYENDO APLICACIÓN                            "
+echo "============================================================="
+npm run build
+
+echo "============================================================="
+echo "          ESTRUCTURA DIRECTORIO                              "
+echo "============================================================="
+ls -lha
+
+echo "============================================================="
+echo "      CREANDO IMAGEN DOCKER                                  "
+echo "============================================================="
+PACKAGE_VERSION=$(node -p -e "require('./package.json').version")
+IMAGE_NAME="registry.heroku.com/${HEROKU_APP_NAME}/web"
+
+mkdir -p ./docker/public
+cp -R dist/web-app/. ./docker/public
+cp server/server.js docker/
+
+cd docker
+
+echo "$HEROKU_KEY" | docker login --username ${HEROKU_OWNER_EMAIL} --password-stdin registry.heroku.com
+docker build -t registry.heroku.com/${HEROKU_APP_NAME}/web --build-arg app_version=${PACKAGE_VERSION} .
+
+echo "============================================================="
+echo "      PUBLICANDO ...                                         "
+echo "============================================================="
+docker push registry.heroku.com/${HEROKU_APP_NAME}/web

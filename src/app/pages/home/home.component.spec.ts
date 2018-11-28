@@ -4,16 +4,27 @@ import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { MatMenuModule} from '@angular/material/menu';
 
 import { HomeComponent } from './home.component';
+import { LoginService } from '../../modules/login/login.service';
 
 describe('HomeComponent', () => {
   let component: HomeComponent;
   let fixture: ComponentFixture<HomeComponent>;
 
+  class LoginServiceStub {
+    user = {};
+  }
+
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       imports: [
         MatMenuModule,
-        HttpClientTestingModule
+        HttpClientTestingModule,
+      ],
+      providers: [
+        {
+          provide: LoginService,
+          useClass: LoginServiceStub
+        }
       ],
       declarations: [ HomeComponent ],
       schemas: [ CUSTOM_ELEMENTS_SCHEMA ]

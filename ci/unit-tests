@@ -1,4 +1,4 @@
-echo '##############################################'
-echo 'Tests Pendientes' #npm run test
-echo '##############################################'
+#!/bin/bash
+
+npm run test -- --watch=false
 

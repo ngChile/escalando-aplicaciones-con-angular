@@ -10,10 +10,14 @@ cache:
     - ~/.cache
 stages:
   - name: unit-tests
+  - name: linter
   - name: deploy
+    if: branch = master
 jobs:
   include:
     - stage: unit-tests
       script: bash ./ci/unit-tests
+    - stage: linter
+      script: npm run lint
     - stage: deploy
       script: bash ./ci/deploy && bash ./ci/release

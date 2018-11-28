@@ -12,7 +12,7 @@ export class LoginService {
 
   user: User;
 
-  fallbackUrl: string = '';
+  fallbackUrl = '';
 
   get isLoggedIn(): boolean {
     return !!this.user;

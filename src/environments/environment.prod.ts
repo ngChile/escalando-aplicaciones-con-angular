@@ -1,3 +1,7 @@
 export const environment = {
-  production: true
+  production: true,
+  endpoint: {
+    auth: '/auth-service/v1/login',
+    register: '/auth-service/v1/register',
+  }
 };

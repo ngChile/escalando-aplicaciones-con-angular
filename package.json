@@ -1,14 +1,16 @@
 {
   "name": "escalando-aplicaciones-con-angular",
-  "version": "0.0.0",
+  "version": "0.2.0",
   "scripts": {
     "ng": "ng",
     "start": "npm run stubs | ng serve",
+    "build:prod": "ng build --prod",
     "build": "ng build",
-    "test": "ng test",
+    "test": "ng test --code-coverage",
     "lint": "ng lint",
     "e2e": "ng e2e",
-    "stubs": "npx stubby -d ./stubs/config.yaml -w"
+    "stubs": "npx stubby -d ./stubs/config.yaml -w",
+    "inspect-coverage": "npm run test -- --watch=false && http-server coverage"
   },
   "private": true,
   "dependencies": {
@@ -44,7 +46,9 @@
     "karma-coverage-istanbul-reporter": "~2.0.1",
     "karma-jasmine": "~2.0.1",
     "karma-jasmine-html-reporter": "^1.4.0",
+    "karma-spec-reporter": "0.0.32",
     "protractor": "~5.4.0",
+    "puppeteer": "^1.10.0",
     "stubby": "^4.0.0",
     "ts-node": "~7.0.1",
     "tslint": "~5.11.0",

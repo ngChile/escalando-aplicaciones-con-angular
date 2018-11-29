@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute } from '@angular/router';
-import { finalize } from 'rxjs/operators';
+// import { finalize } from 'rxjs/operators';
 
 import { LoginService } from './login.service';
 
@@ -35,11 +35,27 @@ export class LoginComponent implements OnInit {
 
   submit() {
     if (this.loginForm.valid) {
-      // this.isLoading = true;
+      this.isLoading = true;
       this.loginService
         .authenticate(this.formModel.email, this.formModel.password)
-        // Que tal quitar esto y pedir como historia de usuario que en el error debe mostrar el snack
-        // en el final apagar el loader, en success cambiar la url
+        // trabajando con promesas (que serán explicadas la primera clase)
+        // la idea es que en la 4ta clase ya contaremos porque usar Observable
+        // y explicar la teoría de estos y como ejercicio cambiar este código
+        // a la versión con observables
+          .then(isLoggedIn => {
+            this.isLoading = false;
+            if (isLoggedIn) {
+              this.router.navigateByUrl(this.loginService.fallbackUrl);
+            }
+          })
+          .catch(errorResponse => {
+            // La idea es que acá exista un bug
+            // el loader no se está cerrando.
+            // en la version con observables
+            // resolveremos este bug usando finalize
+            this.snackBar.open(errorResponse.error.message, null, { duration: 5000 });
+          });
+        // observables
         // .pipe(
         //   finalize(() => this.isLoading = false),
         // )
@@ -48,11 +64,6 @@ export class LoginComponent implements OnInit {
         // }, errorResponse => {
         //   this.snackBar.open(errorResponse.error.message, null, { duration: 5000 });
         // });
-
-        // en caso de no quitarlo hacer la logica del loading bien simple para poder
-        // explicar como testear y mockear esto para abarcar branches, etc
-
-        //En lo personal prefiero la opción 2.
     }
   }
 

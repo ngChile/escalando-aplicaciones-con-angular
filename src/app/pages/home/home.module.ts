@@ -11,10 +11,14 @@ import { CoreModule } from 'src/app/modules';
 
 import { HomeRoutingModule } from './home-routing.module';
 import { HomeComponent } from './home.component';
+import { DashComponent } from './pages/dash/dash.component';
+import { ListComponent } from './pages/list/list.component';
 
 @NgModule({
   declarations: [
-    HomeComponent
+    HomeComponent,
+    DashComponent,
+    ListComponent
   ],
   imports: [
     CommonModule,

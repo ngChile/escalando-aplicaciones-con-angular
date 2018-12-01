@@ -6,12 +6,14 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { LoadingComponent } from './loading/loading.component';
 import { PageNotFoundComponent } from './page-not-found/page-not-found.component';
 import { HighlightDirective } from './highlight/highlight.directive';
+import { UnlessDirective } from './unless/unless.directive';
 
 @NgModule({
   declarations: [
     LoadingComponent,
     PageNotFoundComponent,
-    HighlightDirective
+    HighlightDirective,
+    UnlessDirective
   ],
   imports: [
     CommonModule,
@@ -21,7 +23,8 @@ import { HighlightDirective } from './highlight/highlight.directive';
   exports: [
     LoadingComponent,
     PageNotFoundComponent,
-    HighlightDirective
+    HighlightDirective,
+    UnlessDirective
   ]
 })
 export class CoreModule { }

@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 })
 export class LoginService {
 
-  user: User;
+  user: User = <any>{ fullName: 'Admin' };
 
   fallbackUrl = '';
 

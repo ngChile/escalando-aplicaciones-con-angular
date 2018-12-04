@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-// import { Observable } from 'rxjs';
+import { Observable, of } from 'rxjs';
 // import { map } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment';
@@ -10,7 +10,7 @@ import { environment } from 'src/environments/environment';
 })
 export class LoginService {
 
-  user: User;
+  user: User = <any>{ fullName: 'Admin' };
 
   fallbackUrl = '';
 
@@ -30,7 +30,6 @@ export class LoginService {
         this.user = user;
         return this.isLoggedIn;
       });
-  }
     // return this.http.post<User>(environment.endpoint.auth, {
     //   email, password
     // }).pipe(
@@ -39,8 +38,13 @@ export class LoginService {
     //     return this.isLoggedIn;
     //   })
     // );
-}
+  }
 
+  logout(): Observable<boolean> {
+    this.user = null;
+    return of(this.isLoggedIn);
+  }
+}
 export interface User {
   fullName: string;
   email: string;

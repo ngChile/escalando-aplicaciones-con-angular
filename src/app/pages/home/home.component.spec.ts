@@ -1,7 +1,9 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { RouterTestingModule } from '@angular/router/testing';
 import { MatMenuModule} from '@angular/material/menu';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { HomeComponent } from './home.component';
 import { LoginService } from '../../modules/login/login.service';
@@ -19,6 +21,8 @@ describe('HomeComponent', () => {
       imports: [
         MatMenuModule,
         HttpClientTestingModule,
+        RouterTestingModule,
+        MatSnackBarModule
       ],
       providers: [
         {

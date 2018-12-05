@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnChanges } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -14,12 +14,11 @@ import { LoginFormModel } from './login-form.model';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-
+  firstName: string;
   @ViewChild('loginForm') loginForm: NgForm;
 
   formModel: LoginFormModel;
   isLoading: boolean;
-
   constructor(
     private route: ActivatedRoute,
     private router: Router,
@@ -27,12 +26,12 @@ export class LoginComponent implements OnInit {
     private loginService: LoginService,
   ) {
     this.formModel = new LoginFormModel({
-      email: this.route.snapshot.queryParams.email
+      email: this.route.snapshot.queryParams.email,
+      group: ''
     });
   }
 
   ngOnInit() {}
-
   submit() {
     if (this.loginForm.valid) {
       this.isLoading = true;

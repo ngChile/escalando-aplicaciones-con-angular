@@ -13,6 +13,8 @@ import { RouterModule } from '@angular/router';
 import { CoreModule } from '../core';
 
 import { LoginComponent } from './login.component';
+import {MatSelectModule} from '@angular/material/select';
+
 
 @NgModule({
   declarations: [
@@ -30,6 +32,7 @@ import { LoginComponent } from './login.component';
     MatIconModule,
     MatInputModule,
     MatSnackBarModule,
+    MatSelectModule,
   ],
   exports: [
     LoginComponent

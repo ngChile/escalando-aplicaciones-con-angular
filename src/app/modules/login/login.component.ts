@@ -14,7 +14,6 @@ import { LoginFormModel } from './login-form.model';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-
   @ViewChild('loginForm') loginForm: NgForm;
 
   formModel: LoginFormModel;
@@ -27,11 +26,16 @@ export class LoginComponent implements OnInit {
     private loginService: LoginService,
   ) {
     this.formModel = new LoginFormModel({
-      email: this.route.snapshot.queryParams.email
+      email: this.route.snapshot.queryParams.email,
+      group: 'B'
     });
   }
 
   ngOnInit() {}
+
+  change(firstName) {
+    console.log(firstName);
+  }
 
   submit() {
     if (this.loginForm.valid) {

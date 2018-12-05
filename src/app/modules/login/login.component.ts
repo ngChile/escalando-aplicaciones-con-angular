@@ -15,21 +15,22 @@ import { LoginFormModel } from './login-form.model';
 })
 export class LoginComponent implements OnInit {
 
-  @ViewChild('loginForm') loginForm: NgForm;
-
-  formModel: LoginFormModel;
-  isLoading: boolean;
-
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private snackBar: MatSnackBar,
-    private loginService: LoginService,
+    private loginService: LoginService
   ) {
     this.formModel = new LoginFormModel({
-      email: this.route.snapshot.queryParams.email
+      email: this.route.snapshot.queryParams.email,
+      group: ''
     });
   }
+
+  @ViewChild('loginForm') loginForm: NgForm;
+
+  formModel: LoginFormModel;
+  isLoading: boolean;
 
   ngOnInit() {}
 

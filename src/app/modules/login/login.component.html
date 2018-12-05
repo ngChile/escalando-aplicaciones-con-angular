@@ -1,5 +1,6 @@
-<form #loginForm="ngForm" (ngSubmit)="submit()">
 
+
+<form #loginForm="ngForm" (ngSubmit)="submit()">
   <mat-card>
     <div mat-card-image></div>
     <mat-card-content>
@@ -23,6 +24,21 @@
           {{ password.errors | json }}
         </mat-error>
       </mat-form-field>
+
+      <mat-form-field appearance="outline">
+          <mat-label>Grupo</mat-label>
+        <mat-select [(ngModel)]="formModel.group" #group="ngModel" name="group" required>
+          <mat-option value="">Seleccione grupo</mat-option>
+          <mat-option value="A">Grupo A</mat-option>
+          <mat-option value="B">Grupo B</mat-option>
+        </mat-select>
+        <mat-hint>Seleccione su grupo</mat-hint>
+        <mat-error *ngIf="group.invalid">
+            {{ group.errors | json }}
+          </mat-error>
+      </mat-form-field>
+
+      {{ formModel | json }}
 
     </mat-card-content>
     <mat-card-actions>

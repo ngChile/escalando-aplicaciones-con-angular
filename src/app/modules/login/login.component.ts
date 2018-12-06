@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute } from '@angular/router';
+
 // import { finalize } from 'rxjs/operators';
 
 import { LoginService } from './login.service';
@@ -19,6 +20,7 @@ export class LoginComponent implements OnInit {
 
   formModel: LoginFormModel;
   isLoading: boolean;
+  grupos = [{id : 'A' , value: 'Grupo A'}, { id : 'B' , value: 'Grupo B'}];
 
   constructor(
     private route: ActivatedRoute,

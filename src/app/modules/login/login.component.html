@@ -3,6 +3,16 @@
   <mat-card>
     <div mat-card-image></div>
     <mat-card-content>
+   
+      <mat-form-field>
+        <mat-select placeholder="Select" aria-required="true">
+            <mat-label>grupo</mat-label>
+            
+         <mat-option *ngFor ="let grupo of grupos" [value]="grupo.id">{{grupo.value}}</mat-option>
+         <input [(ngModel)]="formModel.grupo" #grupo="ngModel" matInput type="grupo" name="grupo" required>
+         <mat-hint>seleciona grupo</mat-hint>
+        </mat-select>
+      </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>Email</mat-label>
@@ -35,7 +45,14 @@
         <mat-icon>how_to_reg</mat-icon> Register
       </a>
 
+      <section class="example-section">
+        <mat-checkbox class="example-margin" [(ngModel)]="Recuerdame">Recuerdame</mat-checkbox>
+      </section>
+
     </mat-card-actions>
+
+
+
   </mat-card>
 
 </form>

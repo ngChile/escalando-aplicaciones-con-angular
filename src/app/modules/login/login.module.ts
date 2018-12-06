@@ -13,10 +13,14 @@ import { RouterModule } from '@angular/router';
 import { CoreModule } from '../core';
 
 import { LoginComponent } from './login.component';
+import { LoginService } from './login.service';
 
 @NgModule({
   declarations: [
     LoginComponent
+  ],
+  providers: [
+    LoginService
   ],
   imports: [
     CommonModule,
@@ -30,9 +34,6 @@ import { LoginComponent } from './login.component';
     MatIconModule,
     MatInputModule,
     MatSnackBarModule,
-  ],
-  exports: [
-    LoginComponent
   ]
 })
 export class LoginModule { }

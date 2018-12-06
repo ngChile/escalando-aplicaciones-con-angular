@@ -4,6 +4,7 @@
     <div mat-card-image></div>
     <mat-card-content>
 
+      
       <mat-form-field appearance="outline">
         <mat-label>Email</mat-label>
         <input [(ngModel)]="formModel.email" #email="ngModel" matInput type="email" name="email" required minlength="3" maxlength="100" autocomplete="off">
@@ -13,6 +14,27 @@
           {{ email.errors | json }}
         </mat-error>
       </mat-form-field>
+
+
+     <!-- <ul>
+        <li *ngFor="let item of [1,2,3,4]"  [ngStyle]="{'background-color': 'red'}">
+          item- {{item}}
+
+        </li>
+      </ul>
+    -->
+      <mat-form-field appearance="outline">
+        <mat-select placeholder="selec grupos" #nggrupo="ngModel" required [(ngModel)]="formModel.grupo" name='grupos'>
+          <mat-option *ngFor="let item of grupos"  [value]="item"> 
+            {{item.value}}
+          </mat-option>
+        </mat-select>
+        <mat-error *ngIf="nggrupo.invalid">
+         xxxx
+        </mat-error>
+
+      </mat-form-field>
+
 
       <mat-form-field appearance="outline">
         <mat-label>Password</mat-label>

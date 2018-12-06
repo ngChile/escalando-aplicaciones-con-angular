@@ -14,13 +14,14 @@ import { CoreModule } from '../core';
 
 import { LoginComponent } from './login.component';
 import { LoginService } from './login.service';
-
+import { AuthGuard } from './auth.guard';
 @NgModule({
   declarations: [
     LoginComponent
   ],
   providers: [
-    LoginService
+    LoginService,
+    AuthGuard
   ],
   imports: [
     CommonModule,

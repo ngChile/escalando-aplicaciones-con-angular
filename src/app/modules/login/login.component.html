@@ -3,7 +3,12 @@
   <mat-card>
     <div mat-card-image></div>
     <mat-card-content>
-
+      <!--<ol>
+        <li *ngFor="let item of [1, 2, 3, 4, 5]" [ngStyle]="{backgroundColor:'#C0C0C0'}">
+          Item - {{item}}
+        </li>
+      </ol>
+      -->
       <mat-form-field appearance="outline">
         <mat-label>Email</mat-label>
         <input [(ngModel)]="formModel.email" #email="ngModel" matInput type="email" name="email" required minlength="3" maxlength="100" autocomplete="off">
@@ -23,11 +28,23 @@
           {{ password.errors | json }}
         </mat-error>
       </mat-form-field>
+      
+      <mat-form-field appearance="outline">
+          <mat-select placeholder="Seleccione su grupo" [(ngModel)]="formModel.group" #group="ngModel" name="group"  required >
+            <mat-option>Seleccione su grupo</mat-option>
+            <mat-option *ngFor="let group of groups" [(value)]="group.id" >
+              {{group.value}}
+            </mat-option>
+          </mat-select>
+         <mat-error *ngIf="group.invalid">Por favor seleccione un grupo</mat-error>
+      </mat-form-field>
 
+        <mat-checkbox>Recuerdame</mat-checkbox>
+  
     </mat-card-content>
     <mat-card-actions>
 
-      <button mat-button color="primary">
+      <button mat-button color="primary" disabled>
         <mat-icon>lock_open</mat-icon> Login
       </button>
 

@@ -9,6 +9,7 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { RouterModule } from '@angular/router';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 
 import { CoreModule } from '../core';
 
@@ -30,6 +31,7 @@ import { LoginComponent } from './login.component';
     MatIconModule,
     MatInputModule,
     MatSnackBarModule,
+    MatCheckboxModule
   ],
   exports: [
     LoginComponent

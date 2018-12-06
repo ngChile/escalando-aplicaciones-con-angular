@@ -5,8 +5,28 @@
     <mat-card-content>
 
       <mat-form-field appearance="outline">
+        <mat-label>Seleccione su grupo</mat-label>
+
+        <mat-select placeholder="Seleccione su grupo"  [(ngModel)]="formModel.grupo" name="grupo" #validateCmb="ngModel" required>
+          <mat-option *ngFor="let item of grupo" value="item.id" >
+            {{item.value}}
+          </mat-option>
+        </mat-select>
+
+        <mat-hint>Seleccione...</mat-hint>
+
+        <mat-error *ngIf="validateCmb.invalid">
+            <mat-error *ngIf="validateCmb.errors.required">
+            Este es un campo requerido
+            </mat-error>  
+      
+        </mat-error>       
+      </mat-form-field>
+
+      <mat-form-field appearance="outline">
         <mat-label>Email</mat-label>
-        <input [(ngModel)]="formModel.email" #email="ngModel" matInput type="email" name="email" required minlength="3" maxlength="100" autocomplete="off">
+        <input [(ngModel)]="formModel.email" #email="ngModel" matInput type="email" name="email" required minlength="3"
+          maxlength="100" autocomplete="off">
         <mat-icon matSuffix>email</mat-icon>
         <mat-hint>Type your email</mat-hint>
         <mat-error *ngIf="email.invalid">
@@ -16,7 +36,8 @@
 
       <mat-form-field appearance="outline">
         <mat-label>Password</mat-label>
-        <input [(ngModel)]="formModel.password" #password="ngModel" matInput type="password" name="password" required minlength="3" maxlength="50" autocomplete="off">
+        <input [(ngModel)]="formModel.password" #password="ngModel" matInput type="password" name="password" required
+          minlength="3" maxlength="50" autocomplete="off">
         <mat-icon matSuffix>code</mat-icon>
         <mat-hint>Type your password</mat-hint>
         <mat-error *ngIf="password.invalid">

@@ -14,6 +14,8 @@ import { CoreModule } from '../core';
 
 import { LoginComponent } from './login.component';
 
+import {MatSelectModule} from '@angular/material/select';
+
 @NgModule({
   declarations: [
     LoginComponent
@@ -30,6 +32,7 @@ import { LoginComponent } from './login.component';
     MatIconModule,
     MatInputModule,
     MatSnackBarModule,
+    MatSelectModule,
   ],
   exports: [
     LoginComponent

@@ -19,6 +19,7 @@ export class LoginComponent implements OnInit {
 
   formModel: LoginFormModel;
   isLoading: boolean;
+  grupos: Array<any>;
 
   constructor(
     private route: ActivatedRoute,
@@ -29,6 +30,13 @@ export class LoginComponent implements OnInit {
     this.formModel = new LoginFormModel({
       email: this.route.snapshot.queryParams.email
     });
+    this.grupos = [{
+      id: 'A',
+      value: 'Grupo A'
+    }, {
+      id: 'B',
+      value: 'Grupo B'
+    }];
   }
 
   ngOnInit() {}

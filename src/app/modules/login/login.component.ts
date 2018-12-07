@@ -19,6 +19,14 @@ export class LoginComponent implements OnInit {
 
   formModel: LoginFormModel;
   isLoading: boolean;
+  groups = [{
+    id: 'A' ,
+    value: 'Group A'
+  }, {
+    id: 'B',
+    value: 'Group B'
+   }
+  ];
 
   constructor(
     private route: ActivatedRoute,

@@ -62,11 +62,8 @@ export class LoginComponent implements OnInit, OnChanges {
   ) {
     this.formModel = new LoginFormModel({
       email: this.route.snapshot.queryParams.email,
-<<<<<<< HEAD
-      remember: true
-=======
+      remember: true,
       group : ''
->>>>>>> b994ef20a314a8d61e6a1ac7d86cdcb8a15f214c
     });
   }
 

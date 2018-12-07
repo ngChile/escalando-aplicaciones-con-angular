@@ -10,6 +10,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { RouterModule } from '@angular/router';
 import {MatSelectModule} from '@angular/material/select';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 import { CoreModule } from '../core';
 
@@ -32,6 +33,7 @@ import { LoginComponent } from './login.component';
     MatInputModule,
     MatSnackBarModule,
     MatSelectModule,
+    MatCheckboxModule,
   ],
   exports: [
     LoginComponent

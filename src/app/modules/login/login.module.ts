@@ -1,39 +1,40 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { LoginComponent } from './login.component';
 import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatCardModule } from '@angular/material/card';
 import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule} from '@angular/material/checkbox';
-
 import { CoreModule } from '../core';
-import { LoginComponent } from './login.component';
 import { LoginService } from './login.service';
 import { AuthGuard } from './auth.guard';
+import { HttpClientModule } from '@angular/common/http';
+import { MatInputModule } from '@angular/material/input';
+import { MatButtonModule } from '@angular/material/button';
+import { GroupService } from './group.service';
 @NgModule({
   declarations: [
     LoginComponent
   ],
   providers: [
     LoginService,
-    AuthGuard
+    AuthGuard,
+    GroupService
   ],
   imports: [
     CommonModule,
     FormsModule,
-    HttpClientModule,
-    CoreModule,
-    MatSelectModule,
-    MatButtonModule,
-    MatCardModule,
     MatFormFieldModule,
+    MatCardModule,
     MatIconModule,
+    MatSelectModule,
+    MatCheckboxModule,
+    CoreModule,
+    HttpClientModule,
     MatInputModule,
-    MatCheckboxModule
+    MatButtonModule
   ]
 })
 export class LoginModule { }

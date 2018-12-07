@@ -29,8 +29,9 @@
           <mat-label>Grupo</mat-label>
           <mat-select [(ngModel)]="formModel.group" name="group" required #group="ngModel">
               <mat-option value="">Seleccione</mat-option>
-              <mat-option value="A">A</mat-option>
-              <mat-option value="B">B</mat-option>
+              <mat-option *ngFor="let group of groups" [(value)]=group.id>{{ group.value }}</mat-option>
+              <!--<mat-option value="A">A</mat-option>
+              <mat-option value="B">B</mat-option>-->
           </mat-select>
           <mat-hint>Seleccione grupo</mat-hint>
           <mat-error *ngIf="group.invalid">

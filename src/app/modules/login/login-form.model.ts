@@ -5,7 +5,7 @@ export class LoginFormModel {
   recuerdame: boolean;
 
   constructor(values: {
-    [key: string]: string
+    [key: string]: any
   } = {}) {
     this.email = values.email;
     this.password = values.password;

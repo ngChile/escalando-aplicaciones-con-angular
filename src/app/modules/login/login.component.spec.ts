@@ -69,9 +69,11 @@ describe('LoginComponent', () => {
 
   beforeEach(() => {
     authenticateSpy.calls.reset();
+    getGroupsSpy.calls.reset();
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
 
+    getGroupsSpy.and.returnValue(Promise.resolve({}));
     fixture.detectChanges();
   });
 

@@ -4,15 +4,10 @@ export class LoginFormModel {
   Recuerdame: boolean;
 
   constructor(values: {
-    [key: string]: string
+    [key: string]: any
   } = {}) {
     this.email = values.email;
     this.password = values.password;
-  }
-  constructor(values: {
-    [key: boolean]: boolean
-  } = {}) {
     this.Recuerdame = values.Recuerdame;
   }
-
 }

@@ -32,7 +32,7 @@ import { LoginComponent } from './login.component';
     MatSnackBarModule,
   ],
   exports: [
-    LoginComponent
+    LoginComponent,
   ]
 })
 export class LoginModule { }

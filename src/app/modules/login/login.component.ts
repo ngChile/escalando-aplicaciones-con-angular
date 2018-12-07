@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnChanges } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -13,25 +13,59 @@ import { LoginFormModel } from './login-form.model';
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export class LoginComponent implements OnInit {
+export interface Food {
+  value: string;
+  viewValue: string;
+}
+
+export interface Car {
+  value: string;
+  viewValue: string;
+}
+
+export class LoginComponent implements OnInit, OnChanges {
+  name: string;
+  // baseStyle = {border: '20px red solid'};
+
+  selectedValue: string;
+  selectedCar: string;
+  foods: Food[] = [
+    {value: 'steak-0', viewValue: 'Steak'},
+    {value: 'pizza-1', viewValue: 'Pizza'},
+    {value: 'tacos-2', viewValue: 'Tacos'}
+  ];
+
+  cars: Car[] = [
+    {value: 'volvo', viewValue: 'Volvo'},
+    {value: 'saab', viewValue: 'Saab'},
+    {value: 'mercedes', viewValue: 'Mercedes'}
+  ];
+
 
   @ViewChild('loginForm') loginForm: NgForm;
-
   formModel: LoginFormModel;
   isLoading: boolean;
-
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private snackBar: MatSnackBar,
-    private loginService: LoginService,
+    private loginService: LoginService
   ) {
     this.formModel = new LoginFormModel({
-      email: this.route.snapshot.queryParams.email
+      email: this.route.snapshot.queryParams.email,
+      group : ''
     });
   }
 
   ngOnInit() {}
+  ngOnChanges(changes: any): void {
+    console.log(this.name);
+
+  }
+
+  change(fname){
+    console.log(fname);
+  }
 
   submit() {
     if (this.loginForm.valid) {

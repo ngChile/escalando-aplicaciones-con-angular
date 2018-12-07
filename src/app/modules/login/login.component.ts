@@ -2,6 +2,7 @@ import { Component, OnInit, ViewChild, OnChanges } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute } from '@angular/router';
+
 // import { finalize } from 'rxjs/operators';
 
 import { LoginService } from './login.service';
@@ -16,6 +17,8 @@ import { LoginFormModel } from './login-form.model';
 export class LoginComponent implements OnInit {
   // firstName: string;
   // baseStyle = {}
+   recuerdame: boolean;
+
   @ViewChild('loginForm') loginForm: NgForm;
 
   formModel: LoginFormModel;
@@ -29,7 +32,8 @@ export class LoginComponent implements OnInit {
   ) {
     this.formModel = new LoginFormModel({
       email: this.route.snapshot.queryParams.email,
-      group: 'A'
+      group: 'A',
+      recuerdame: true,
     });
   }
 

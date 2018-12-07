@@ -1,6 +1,6 @@
 {
   "name": "escalando-aplicaciones-con-angular",
-  "version": "0.3.0",
+  "version": "0.3.6",
   "scripts": {
     "ng": "ng",
     "start": "npm run stubs | ng serve",

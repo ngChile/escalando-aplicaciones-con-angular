@@ -34,14 +34,22 @@ export class HomeComponent implements OnDestroy {
   }
 
   logout(): void {
-    this.loginService.logout().subscribe({
-      next: () => {
+    this.loginService.logout()
+      .then(() => {
+        this.loginService.clearUser();
         this.router.navigateByUrl('/login');
-      },
-      error: (error) => {
+      })
+      .catch(error => {
         this.snackBar.open(error.message, null, { duration: 5000 });
-      }
-    });
+      });
+    // .subscribe({
+    //   next: () => {
+    //     this.router.navigateByUrl('/login');
+    //   },
+    //   error: (error) => {
+    //     this.snackBar.open(error.message, null, { duration: 5000 });
+    //   }
+    // });
   }
 
 }

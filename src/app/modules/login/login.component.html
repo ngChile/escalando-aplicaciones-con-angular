@@ -38,6 +38,8 @@
           </mat-error>
       </mat-form-field>
 
+    <mat-checkbox [(ngModel)]="formModel.rememberMe" #rememberMe="ngModel" name="rememberMe" class="example-margin">Recuérdame</mat-checkbox>
+      
       {{ formModel | json }}
 
     </mat-card-content>

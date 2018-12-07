@@ -7,6 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { LoginService } from './login.service';
 
 import { LoginFormModel } from './login-form.model';
+import { getTypeNameForDebugging } from '@angular/core/src/change_detection/differs/iterable_differs';
 
 @Component({
   selector: 'app-login',
@@ -28,7 +29,8 @@ export class LoginComponent implements OnInit {
   ) {
     this.formModel = new LoginFormModel({
       email: this.route.snapshot.queryParams.email,
-      group: ''
+      group: '',
+      rememberMe: true
     });
   }
 

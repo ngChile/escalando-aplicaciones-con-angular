@@ -29,8 +29,10 @@
           <mat-label>Grupo</mat-label>
         <mat-select [(ngModel)]="formModel.group" #group="ngModel" name="group" required>
           <mat-option value="">Seleccione grupo</mat-option>
-          <mat-option value="A">Grupo A</mat-option>
-          <mat-option value="B">Grupo B</mat-option>
+          <mat-option *ngFor="let group of groups" [value]="group.id">{{group.value}}</mat-option>
+
+         <!-- <mat-option value="A">Grupo A</mat-option>
+          <mat-option value="B">Grupo B</mat-option>-->
         </mat-select>
         <mat-hint>Seleccione su grupo</mat-hint>
         <mat-error *ngIf="group.invalid">
@@ -38,7 +40,7 @@
           </mat-error>
       </mat-form-field>
 
-    <mat-checkbox [(ngModel)]="formModel.rememberMe" #rememberMe="ngModel" name="rememberMe" class="example-margin">Recuérdame</mat-checkbox>
+    <mat-checkbox [(ngModel)]="formModel.rememberMe" #rememberMe="ngModel" name="rememberMe">Recuérdame</mat-checkbox>
       
       {{ formModel | json }}
 

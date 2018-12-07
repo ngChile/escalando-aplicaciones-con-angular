@@ -13,30 +13,31 @@ import {MatSelectModule} from '@angular/material/select';
 import {MatCheckboxModule} from '@angular/material/checkbox';
 
 import { CoreModule } from '../core';
-
 import { LoginComponent } from './login.component';
-
+import { LoginService } from './login.service';
+import { AuthGuard } from './auth.guard';
 @NgModule({
   declarations: [
     LoginComponent
+  ],
+  providers: [
+    LoginService,
+    AuthGuard
   ],
   imports: [
     CommonModule,
     FormsModule,
     HttpClientModule,
-    RouterModule,
     CoreModule,
+    MatSelectModule,
     MatButtonModule,
     MatCardModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
     MatSnackBarModule,
-    MatSelectModule,
-    MatCheckboxModule,
-  ],
-  exports: [
-    LoginComponent
+    RouterModule,
+    MatCheckboxModule
   ]
 })
 export class LoginModule { }

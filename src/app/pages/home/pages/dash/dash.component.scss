@@ -1,0 +1,34 @@
+:host {
+  display: flex;
+}
+
+.mat-card {
+  margin: 1rem;
+  width: 100%;
+  &:first-child {
+    .mat-card-avatar {
+      background-image: url('https://media.licdn.com/dms/image/C5103AQHO_xFfVq28zg/profile-displayphoto-shrink_200_200/0?e=1548892800&v=beta&t=KeyIhBziBRVUIUhjPhpMJzKGpAFqGW5yzj4njMDcFtg');
+    }
+    .mat-card-image {
+      background-image: url('https://www.offing.es/wp-content/uploads/angular.jpg');
+    }
+  }
+  &:last-child {
+    .mat-card-avatar {
+      background-image: url('https://media.licdn.com/dms/image/C5603AQELaVeoZC2HnQ/profile-displayphoto-shrink_800_800/0?e=1548892800&v=beta&t=uovv5TJO74kMjg9Omor3_2z8KyJo4_zh2H3hG8i0VOI');
+    }
+    .mat-card-image {
+      background-image: url('https://angularfirebase.com/images/thumbs/testing-14.png');
+    }
+  }
+}
+
+.mat-card-avatar {
+  background-size: cover;
+}
+
+.mat-card-image {
+  height: 40vh;
+  background-size: cover;
+  background-position: center;
+}

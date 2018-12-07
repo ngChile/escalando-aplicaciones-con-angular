@@ -28,7 +28,8 @@ export class LoginComponent implements OnInit {
   ) {
     this.formModel = new LoginFormModel({
       email: this.route.snapshot.queryParams.email,
-      group: 'B'
+      group: 'B',
+      recuerdame: true,
     });
   }
 

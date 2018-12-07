@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnChanges } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -7,6 +7,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { LoginService } from './login.service';
 
 import { LoginFormModel } from './login-form.model';
+import { GroupService } from './group.service';
 
 @Component({
   selector: 'app-login',
@@ -14,25 +15,33 @@ import { LoginFormModel } from './login-form.model';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-
   @ViewChild('loginForm') loginForm: NgForm;
 
   formModel: LoginFormModel;
   isLoading: boolean;
+  groups: [];
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private snackBar: MatSnackBar,
     private loginService: LoginService,
+    private groupService: GroupService
   ) {
     this.formModel = new LoginFormModel({
-      email: this.route.snapshot.queryParams.email
+      email: this.route.snapshot.queryParams.email,
+      group: '',
+      rememberMe: true,
     });
   }
 
-  ngOnInit() {}
-
+  ngOnInit() {
+    this.groupService
+        .getGroups()
+        .then((response: any) => {
+          this.groups = response.list;
+        });
+  }
   submit() {
     if (this.loginForm.valid) {
       this.isLoading = true;

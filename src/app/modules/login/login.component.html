@@ -36,8 +36,10 @@
           {{ group.errors | json }}
         </mat-error>
       </mat-form-field>
-      <mat-checkbox [(ngModel)]="formModel.rememberMe" name="rememberMe">Recuérdame</mat-checkbox>
+
+      <mat-checkbox [(ngModel)]="formModel.rememberMe" name="rememberMe">{{formModel.RememberText}}</mat-checkbox>
       {{ formModel | json }}
+    
     </mat-card-content>
 
 

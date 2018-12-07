@@ -28,8 +28,8 @@
           <mat-label>"Seleccione"</mat-label>
           <mat-select [(ngModel)]="formModel.group" name="group" required #group="ngModel">
               <mat-option value="">Seleccione</mat-option>
-            <mat-option value="A">GrupoA</mat-option>
-            <mat-option value="B">GrupoB</mat-option>
+            <mat-option *ngFor='let group of groups' [value]="group.id"></mat-option>
+           {{group.value}}
           </mat-select>
           <mat-hint>Seleccione su grupo</mat-hint>
           <mat-error *ngIf="group.invalid"></mat-error>

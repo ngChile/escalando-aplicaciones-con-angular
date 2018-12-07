@@ -28,14 +28,15 @@ export class LoginComponent implements OnInit {
    }
   ];
 
-  constructor(
+  constructor (
     private route: ActivatedRoute,
     private router: Router,
     private snackBar: MatSnackBar,
     private loginService: LoginService,
   ) {
     this.formModel = new LoginFormModel({
-      email: this.route.snapshot.queryParams.email
+      email: this.route.snapshot.queryParams.email,
+      remember: true
     });
   }
 

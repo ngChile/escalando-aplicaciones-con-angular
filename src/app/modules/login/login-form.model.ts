@@ -2,9 +2,9 @@ export class LoginFormModel {
   email: string;
   password: string;
   group: string;
-  remember: string;
+  remember: boolean;
   constructor(values: {
-    [key: string]: string
+    [key: string]: any
   } = {}) {
     this.email = values.email;
     this.password = values.password;

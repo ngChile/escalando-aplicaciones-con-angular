@@ -1,5 +1,4 @@
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { FormsModule } from '@angular/forms';
 import { TestBed } from '@angular/core/testing';
 
 import { LoginService } from './login.service';
@@ -7,9 +6,11 @@ import { LoginService } from './login.service';
 describe('LoginService', () => {
   beforeEach(() => TestBed.configureTestingModule({
     imports: [
-      HttpClientTestingModule,
-      FormsModule
+      HttpClientTestingModule
     ],
+    providers: [
+      LoginService
+    ]
   }));
 
   it('should be created', () => {

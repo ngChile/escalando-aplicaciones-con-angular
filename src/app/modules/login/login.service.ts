@@ -20,6 +20,10 @@ export class LoginService {
     private http: HttpClient,
   ) { }
 
+  clearUser() {
+    this.user = null;
+  }
+
   authenticate(email: String, password: String): Promise<boolean> {
     return this.http.post<User>(environment.endpoint.auth, {
         email, password
@@ -38,9 +42,9 @@ export class LoginService {
     // );
   }
 
-  logout(): Observable<boolean> {
-    this.user = null;
-    return of(this.isLoggedIn);
+  logout(): Promise<any> {
+    return this.http.post(environment.endpoint.logout, {})
+      .toPromise();
   }
 }
 export interface User {

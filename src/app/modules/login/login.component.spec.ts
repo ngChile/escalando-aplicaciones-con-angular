@@ -3,10 +3,20 @@ import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
+import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
+import { MatCardModule } from '@angular/material/card';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { LoginService } from './login.service';
 import { LoginComponent } from './login.component';
+import { CoreModule } from '../core';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
@@ -18,12 +28,22 @@ describe('LoginComponent', () => {
     authenticate = authenticateSpy;
   }
 
-  beforeEach(async(() => {
+  beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
         FormsModule,
         RouterTestingModule,
         HttpClientTestingModule,
+        NoopAnimationsModule,
+
+        MatFormFieldModule,
+        MatIconModule,
+        MatSelectModule,
+        MatCardModule,
+        CoreModule,
+        MatCheckboxModule,
+        MatButtonModule,
+        MatInputModule,
         MatSnackBarModule
       ],
       declarations: [ LoginComponent ],
@@ -35,7 +55,7 @@ describe('LoginComponent', () => {
       ],
       schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
     }).compileComponents();
-  }));
+  });
 
   beforeEach(() => {
     authenticateSpy.calls.reset();
@@ -50,8 +70,6 @@ describe('LoginComponent', () => {
   });
 
   // https://codecraft.tv/courses/angular/unit-testing/asynchronous/
-  // This async function executes the code inside it’s body in a special async test zone.
-  // This intercepts and keeps track of all promises created in it’s body.
 
   it('should submit and call authenticate method when the loginForm it is valid', async(() => {
     // "A"rrange
@@ -63,8 +81,9 @@ describe('LoginComponent', () => {
         component.loginForm.setValue({
           email: 'g.pincheira.a@gmail.com',
           password: 'superscret123765',
+          group: 'A',
+          rememberMe: true
         });
-
         // "A"ct -- Mostrar como esto produce en la terminal :
         // WARN LOG: 'Navigation triggered outside Angular zone, did you forget to call 'ngZone.run()'?'
         // WARN: 'Navigation triggered outside Angular zone, did you forget to call 'ngZone.run()'?'

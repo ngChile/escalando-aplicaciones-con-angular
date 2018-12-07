@@ -8,6 +8,7 @@ import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 import { CoreModule } from '../core';
 import { LoginComponent } from './login.component';
@@ -27,6 +28,7 @@ import { AuthGuard } from './auth.guard';
     HttpClientModule,
     CoreModule,
     MatSelectModule,
+    MatCheckboxModule,
     MatButtonModule,
     MatCardModule,
     MatFormFieldModule,

@@ -38,9 +38,11 @@
           <mat-error *ngIf="group.invalid">
               {{ group.errors | json }}
             </mat-error>
-        </mat-form-field>
-        {{ formModel | json }}
+      </mat-form-field>
 
+      <mat-checkbox class="example-margin" [(ngModel)]="formModel.rememberMe" name="rememberMe">Recuerdame</mat-checkbox>
+       
+      {{ formModel | json }}
     </mat-card-content>
     <mat-card-actions>
 

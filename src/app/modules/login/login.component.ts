@@ -5,60 +5,42 @@ import { Router, ActivatedRoute } from '@angular/router';
 // import { finalize } from 'rxjs/operators';
 
 import { LoginService } from './login.service';
-
 import { LoginFormModel } from './login-form.model';
+import { GroupService } from './group.service';
+
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss']
 })
-export interface Food {
-  value: string;
-  viewValue: string;
-}
-
-export interface Car {
-  value: string;
-  viewValue: string;
-}
-
 export class LoginComponent implements OnInit, OnChanges {
   name: string;
   // baseStyle = {border: '20px red solid'};
 
   selectedValue: string;
   selectedCar: string;
-  foods: Food[] = [
-    {value: 'steak-0', viewValue: 'Steak'},
-    {value: 'pizza-1', viewValue: 'Pizza'},
-    {value: 'tacos-2', viewValue: 'Tacos'}
-  ];
-
-  cars: Car[] = [
-    {value: 'volvo', viewValue: 'Volvo'},
-    {value: 'saab', viewValue: 'Saab'},
-    {value: 'mercedes', viewValue: 'Mercedes'}
-  ];
-
 
   @ViewChild('loginForm') loginForm: NgForm;
   formModel: LoginFormModel;
   isLoading: boolean;
-  groups = [{
-    id: 'A' ,
-    value: 'Group A'
-  }, {
-    id: 'B',
-    value: 'Group B'
-   }
-  ];
+  groups = [];
+  // groups = [{
+  //   id: 'A' ,
+  //   value: 'Group A'
+  // }, {
+  //   id: 'B',
+  //   value: 'Group B'
+  //  }
+  // ];
 
   constructor (
     private route: ActivatedRoute,
     private router: Router,
     private snackBar: MatSnackBar,
-    private loginService: LoginService
+    private loginService: LoginService,
+    private groupService:  GroupService,
+
   ) {
     this.formModel = new LoginFormModel({
       email: this.route.snapshot.queryParams.email,
@@ -67,14 +49,14 @@ export class LoginComponent implements OnInit, OnChanges {
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+    this.groupService.getGroups().then((response: any) => {
+      this.groups = response.list;
+    });
+  }
   ngOnChanges(changes: any): void {
     console.log(this.name);
 
-  }
-
-  change(fname){
-    console.log(fname);
   }
 
   submit() {

@@ -11,33 +11,35 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 import { RouterModule } from '@angular/router';
 import {MatSelectModule} from '@angular/material/select';
 import {MatCheckboxModule} from '@angular/material/checkbox';
-
 import { CoreModule } from '../core';
 import { LoginComponent } from './login.component';
-import { LoginService } from './login.service';
 import { AuthGuard } from './auth.guard';
+import { LoginService } from './login.service';
+import { GroupService } from './group.service';
+
 @NgModule({
   declarations: [
     LoginComponent
-  ],
-  providers: [
-    LoginService,
-    AuthGuard
   ],
   imports: [
     CommonModule,
     FormsModule,
     HttpClientModule,
+    RouterModule,
     CoreModule,
-    MatSelectModule,
     MatButtonModule,
     MatCardModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
     MatSnackBarModule,
-    RouterModule,
-    MatCheckboxModule
+    MatSelectModule,
+    MatCheckboxModule,
+  ],
+  providers: [
+    LoginService,
+    AuthGuard,
+    GroupService,
   ]
 })
 export class LoginModule { }

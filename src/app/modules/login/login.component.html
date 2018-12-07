@@ -3,30 +3,7 @@
   <mat-card>
     <div mat-card-image></div>
     <mat-card-content>
-<ol >
-  <li *ngFor="let item of [1,2,3,4,5]" [ngStyle]="{'background-color': 'red'}">
-Item - {{item}}
-
-  </li>
-</ol>
-
-<h4>Grupos</h4>
-<mat-form-field>
-  <mat-select placeholder="Seleccione su grupo"  [(ngModel)]="formModel.group" name="group" #grupos1="ngModel" required>
-      <mat-option>Seleccione su grupo</mat-option>
-    <mat-option *ngFor="let food of groups" [value]="food.id">
-      {{food.value}}
-    </mat-option>
-  </mat-select>
-  <mat-error *ngIf="grupos1.invalid">
-    {{grupos1.errors | json}}
-  </mat-error>
- 
-</mat-form-field>
-
-
-
-      <mat-form-field appearance="outline">
+    <mat-form-field appearance="outline">
         <mat-label>Email</mat-label>
         <input [(ngModel)]="formModel.email" #email="ngModel" matInput type="email" name="email" required minlength="3" maxlength="100" autocomplete="off">
         <mat-icon matSuffix>email</mat-icon>
@@ -46,6 +23,7 @@ Item - {{item}}
         </mat-error>
       </mat-form-field>
 
+      
     </mat-card-content>
     <mat-checkbox [(ngModel)] = "formModel.remember" name= "remember">Recuérdame</mat-checkbox>
     <br>

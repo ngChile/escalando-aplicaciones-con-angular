@@ -28,7 +28,6 @@
           {{ password.errors | json }}
         </mat-error>
       </mat-form-field>
-<<<<<<< HEAD
       <mat-form-field appearance="outline">
           <mat-select [(ngModel)]="formModel.grupo" #grupo="ngModel" placeholder="Seleccione su grupo" [ngStyle]="{'width': '100%'}" matInput name="grupo" required>
               <mat-option>Seleccione</mat-option>
@@ -41,30 +40,11 @@
       </mat-form-field>
       <mat-checkbox [(ngModel)]="formModel.rememberMe" name="rememberMe">Recuerdame</mat-checkbox>
       {{ formModel | json }}
-=======
-      
-      <mat-form-field appearance="outline">
-          <mat-select placeholder="Seleccione su grupo" [(ngModel)]="formModel.group" #group="ngModel" name="group"  required >
-            <mat-option>Seleccione su grupo</mat-option>
-            <mat-option *ngFor="let group of groups" [(value)]="group.id" >
-              {{group.value}}
-            </mat-option>
-          </mat-select>
-         <mat-error *ngIf="group.invalid">Por favor seleccione un grupo</mat-error>
-      </mat-form-field>
-
-        <mat-checkbox>Recuerdame</mat-checkbox>
-  
->>>>>>> 9351b9e07f77a82917bc71b03c91cca7d6d0ce2e
     </mat-card-content>
     
     <mat-card-actions>
 
-<<<<<<< HEAD
       <button mat-button color="primary" >
-=======
-      <button mat-button color="primary" disabled>
->>>>>>> 9351b9e07f77a82917bc71b03c91cca7d6d0ce2e
         <mat-icon>lock_open</mat-icon> Login
       </button>
 

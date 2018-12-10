@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
 
   formModel: LoginFormModel;
   isLoading: boolean;
-  grupo: Array<any>; 
+  grupo: Array<any>;
   rememberMe: boolean;
 
   constructor(

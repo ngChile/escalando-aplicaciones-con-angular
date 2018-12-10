@@ -14,6 +14,7 @@ import { AuthGuard } from './auth.guard';
 import { HttpClientModule } from '@angular/common/http';
 import { MatButtonModule } from '@angular/material/button';
 import { MatInputModule } from '@angular/material/input';
+import { GroupService } from './group.service';
 
 @NgModule({
   declarations: [LoginComponent],
@@ -30,6 +31,6 @@ import { MatInputModule } from '@angular/material/input';
   MatButtonModule,
   MatInputModule,
  ],
-  providers: [LoginService, AuthGuard]
+  providers: [LoginService, AuthGuard, GroupService]
 })
 export class LoginModule {}

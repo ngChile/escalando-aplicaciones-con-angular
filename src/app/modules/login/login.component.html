@@ -25,17 +25,16 @@
       </mat-form-field>
       <mat-form-field appearance="outline">
           <mat-select [(ngModel)]="formModel.grupo" #grupo="ngModel" placeholder="Seleccione su grupo" [ngStyle]="{'width': '100%'}" matInput name="grupo" required>
+              <mat-option>Seleccione</mat-option>
             <mat-option *ngFor="let grupo of grupos" [value]="grupo.id">
               {{grupo.value}}
             </mat-option>
           </mat-select>
           <mat-hint>Required field</mat-hint>
-        <mat-error *ngIf="grupo.invalid">
-          {{ grupo.errors | json }}
-        </mat-error>
+        <mat-error *ngIf="grupo.invalid">{{ grupo.errors | json }}</mat-error>
       </mat-form-field>
-      <mat-checkbox>Recuerdame</mat-checkbox>
-      
+      <mat-checkbox [(ngModel)]="formModel.rememberMe" name="rememberMe">Recuerdame</mat-checkbox>
+      {{ formModel | json }}
     </mat-card-content>
     
     <mat-card-actions>

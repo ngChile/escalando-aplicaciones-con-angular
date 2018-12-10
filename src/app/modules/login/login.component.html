@@ -3,26 +3,6 @@
   <mat-card>
     <div mat-card-image></div>
     <mat-card-content>
-
-      <mat-form-field appearance="outline">
-        <mat-label>Seleccione su grupo</mat-label>
-
-        <mat-select placeholder="Seleccione su grupo"  [(ngModel)]="formModel.grupo" name="grupo" #validateCmb="ngModel" required>
-          <mat-option *ngFor="let item of grupo" value="item.id" >
-            {{item.value}}
-          </mat-option>
-        </mat-select>
-
-        <mat-hint>Seleccione...</mat-hint>
-
-        <mat-error *ngIf="validateCmb.invalid">
-            <mat-error *ngIf="validateCmb.errors.required">
-            Este es un campo requerido
-            </mat-error>  
-      
-        </mat-error>       
-      </mat-form-field>
-
       <mat-form-field appearance="outline">
         <mat-label>Email</mat-label>
         <input [(ngModel)]="formModel.email" #email="ngModel" matInput type="email" name="email" required minlength="3"
@@ -45,7 +25,30 @@
         </mat-error>
       </mat-form-field>
 
+      <mat-form-field appearance="outline">
+        <mat-label>Seleccione su grupo</mat-label>
+
+        <mat-select placeholder="Seleccione su grupo"  [(ngModel)]="formModel.grupo" name="grupo" #validateCmb="ngModel" required>
+          <mat-option *ngFor="let item of grupo" [value]="item.id" >
+            {{item.value}}
+          </mat-option>
+        </mat-select>
+
+        <mat-hint>Seleccione...</mat-hint>
+
+        <mat-error *ngIf="validateCmb.invalid">
+            <mat-error *ngIf="validateCmb.errors.required">
+            Este es un campo requerido
+            </mat-error>  
+      
+        </mat-error>       
+      </mat-form-field>
+
+      <mat-checkbox appearance="outline" [(ngModel)]="formModel.rememberMe" name="rememberMe" #rememberMe="ngModel" >Recuerdame</mat-checkbox>
+      {{formModel | json}}
+
     </mat-card-content>
+
     <mat-card-actions>
 
       <button mat-button color="primary">

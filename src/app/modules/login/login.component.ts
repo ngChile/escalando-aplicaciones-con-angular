@@ -19,10 +19,8 @@ export class LoginComponent implements OnInit {
 
   formModel: LoginFormModel;
   isLoading: boolean;
-  grupo = [
-    {id: 'A', value: 'Grupo A'},
-     {id: 'B', value: 'Grupo B'},
-    ];
+  grupo: Array<any>; 
+  rememberMe: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -30,9 +28,10 @@ export class LoginComponent implements OnInit {
     private snackBar: MatSnackBar,
     private loginService: LoginService,
   ) {
+    this.grupo =  [{id: 'A', value: 'Grupo A'}, {id: 'B', value: 'Grupo B'}];
     this.formModel = new LoginFormModel({
-      email: this.route.snapshot.queryParams.email
-    });
+      email: this.route.snapshot.queryParams.email,
+      rememberMe: false});
   }
 
   ngOnInit() {
@@ -43,12 +42,11 @@ export class LoginComponent implements OnInit {
       this.isLoading = true;
       this.loginService
         .authenticate(this.formModel.email, this.formModel.password)
-        .pipe(
-          finalize(() => this.isLoading = false),
-        )
-        .subscribe(_ => {
-          this.router.navigateByUrl(this.loginService.fallbackUrl);
-        }, errorResponse => {
+        .then(isLoggedIn => {
+          if (isLoggedIn) {
+            this.router.navigateByUrl(this.loginService.fallbackUrl);
+          }
+        }).catch(errorResponse => {
           this.snackBar.open(errorResponse.error.message, null, { duration: 5000 });
         });
     }

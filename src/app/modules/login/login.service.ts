@@ -27,8 +27,7 @@ export class LoginService {
   authenticate(email: String, password: String): Promise<boolean> {
     return this.http.post<User>(environment.endpoint.auth, {
       email, password
-    }).pipe(
-      map(user => {
+    }).toPromise().then(user => {
         this.user = user;
         return this.isLoggedIn;
       });

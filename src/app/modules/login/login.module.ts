@@ -1,19 +1,19 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { FormsModule } from '@angular/forms';
-import { HttpClientModule } from '@angular/common/http';
-import { MatButtonModule } from '@angular/material/button';
-import { MatCardModule } from '@angular/material/card';
-import { MatFormFieldModule } from '@angular/material/form-field';
-import { MatSelectModule } from '@angular/material/select';
-import { MatIconModule } from '@angular/material/icon';
-import { MatInputModule } from '@angular/material/input';
-import { MatCheckboxModule } from '@angular/material/checkbox';
-
-import { CoreModule } from '../core';
 import { LoginComponent } from './login.component';
+import { FormsModule } from '@angular/forms';
+import { MatFormFieldModule } from '@angular/material/form-field';
+import { MatIconModule } from '@angular/material/icon';
+import { MatSelectModule } from '@angular/material/select';
+import { MatCheckboxModule } from '@angular/material/checkbox';
+import { MatCardModule } from '@angular/material/card';
+import { CoreModule } from '../core';
 import { LoginService } from './login.service';
 import { AuthGuard } from './auth.guard';
+import { HttpClientModule } from '@angular/common/http';
+import { MatButtonModule } from '@angular/material/button';
+import { MatInputModule } from '@angular/material/input';
+
 @NgModule({
   declarations: [
     LoginComponent
@@ -25,16 +25,15 @@ import { AuthGuard } from './auth.guard';
   imports: [
     CommonModule,
     FormsModule,
-    HttpClientModule,
-    CoreModule,
-    MatSelectModule,
-    MatButtonModule,
-    MatCardModule,
     MatFormFieldModule,
-    MatCheckboxModule,
-    MatSelectModule,
     MatIconModule,
-    MatInputModule,
+    MatSelectModule,
+    MatCheckboxModule,
+    MatCardModule,
+    CoreModule,
+    HttpClientModule,
+    MatButtonModule,
+    MatInputModule
   ]
 })
 export class LoginModule { }

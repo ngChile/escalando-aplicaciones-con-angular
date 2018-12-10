@@ -34,7 +34,8 @@ export class LoginComponent implements OnInit {
     private loginService: LoginService,
   ) {
     this.formModel = new LoginFormModel({
-      email: this.route.snapshot.queryParams.email
+      email: this.route.snapshot.queryParams.email,
+      rememberMe : true,
     });
   }
 

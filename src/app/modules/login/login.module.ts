@@ -14,10 +14,11 @@ import {CoreModule } from '../core';
 
 import { LoginService } from './login.service';
 import { AuthGuard } from './auth.guard';
+import { GroupService } from './group.service';
 
 @NgModule({
   declarations: [LoginComponent],
-  providers: [LoginService, AuthGuard ],
+  providers: [LoginService, AuthGuard, GroupService ],
   imports: [
     CommonModule, FormsModule, MatCardModule, MatFormFieldModule, MatIconModule, MatInputModule, MatSelectModule,
     HttpClientModule, MatButtonModule, MatCheckboxModule, CoreModule

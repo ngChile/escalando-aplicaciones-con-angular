@@ -47,12 +47,13 @@ export class LoginComponent implements OnInit {
       this.isLoading = true;
       this.loginService
         .authenticate(this.formModel.email, this.formModel.password)
-        .pipe(
-          finalize(() => this.isLoading = false),
-        )
-        .subscribe(_ => {
-          this.router.navigateByUrl(this.loginService.fallbackUrl);
-        }, errorResponse => {
+        .then(isLoggedIn => {
+          if (isLoggedIn) {
+            this.isLoading = false;
+            this.router.navigateByUrl(this.loginService.fallbackUrl);
+          }
+        })
+        .catch(errorResponse => {
           this.snackBar.open(errorResponse.error.message, null, { duration: 5000 });
         });
     }

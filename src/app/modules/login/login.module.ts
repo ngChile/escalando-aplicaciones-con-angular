@@ -7,13 +7,8 @@ import { MatCardModule } from '@angular/material/card';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
-<<<<<<< HEAD
-import { MatSnackBarModule } from '@angular/material/snack-bar';
-import { RouterModule } from '@angular/router';
-import {MatSelectModule} from '@angular/material/select';
-=======
 import { MatSelectModule } from '@angular/material/select';
->>>>>>> c2f21a7a8c520672a04f0717cabdaf86ffcb2bd8
+import {MatCheckboxModule} from '@angular/material/checkbox';
 
 import { CoreModule } from '../core';
 import { LoginComponent } from './login.component';
@@ -38,14 +33,7 @@ import { AuthGuard } from './auth.guard';
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
-<<<<<<< HEAD
-    MatSnackBarModule,
-    MatSelectModule,
-  ],
-  exports: [
-    LoginComponent
-=======
->>>>>>> c2f21a7a8c520672a04f0717cabdaf86ffcb2bd8
+    MatCheckboxModule,
   ]
 })
 export class LoginModule { }

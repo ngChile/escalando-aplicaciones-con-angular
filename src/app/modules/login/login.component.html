@@ -10,6 +10,10 @@ Item - {{item}}
   </li>
 </ol>
 
+
+<mat-checkbox [(ngModel)]="formModel.rememberMe" #rememberMe="ngModel" type="rememberMe" name="rememberMe">Recuéredame</mat-checkbox>
+{{formModel | json}}
+
 <h4>Grupos</h4>
 <mat-form-field>
   <mat-select placeholder="Seleccione su grupo"  [(ngModel)]="formModel.group" name="group" #grupos1="ngModel" required>
@@ -23,7 +27,6 @@ Item - {{item}}
   </mat-error>
  
 </mat-form-field>
-
 
 
       <mat-form-field appearance="outline">

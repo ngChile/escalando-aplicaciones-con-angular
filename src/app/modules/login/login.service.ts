@@ -20,25 +20,16 @@ export class LoginService {
     private http: HttpClient,
   ) { }
 
-<<<<<<< HEAD
-  authenticate(email: String, password: String): Observable<boolean> {
-=======
   clearUser() {
     this.user = null;
   }
 
   authenticate(email: String, password: String): Promise<boolean> {
->>>>>>> c2f21a7a8c520672a04f0717cabdaf86ffcb2bd8
-    return this.http.post<User>(environment.endpoint.auth, {
-      email, password
-    }).pipe(
-      map(user => {
+    return this.http.post<User>(environment.endpoint.auth,
+      {email, password}).toPromise()
+      .then(user => {
         this.user = user;
         return this.isLoggedIn;
-<<<<<<< HEAD
-      })
-    );
-=======
       });
     // return this.http.post<User>(environment.endpoint.auth, {
     //   email, password
@@ -53,7 +44,6 @@ export class LoginService {
   logout(): Promise<any> {
     return this.http.post(environment.endpoint.logout, {})
       .toPromise();
->>>>>>> c2f21a7a8c520672a04f0717cabdaf86ffcb2bd8
   }
 }
 

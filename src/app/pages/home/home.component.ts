@@ -1,6 +1,8 @@
 import { Component, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { LoginService } from 'src/app/modules';
+import { Router } from '@angular/router';
+import { MatSnackBar } from '@angular/material/snack-bar';
 
 @Component({
   selector: 'app-home',
@@ -18,7 +20,9 @@ export class HomeComponent implements OnDestroy {
   constructor(
     private loginService: LoginService,
     changeDetectorRef: ChangeDetectorRef,
-    media: MediaMatcher
+    media: MediaMatcher,
+    private router: Router,
+    private snackBar: MatSnackBar
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
     this._mobileQueryListener = () => changeDetectorRef.detectChanges();
@@ -29,8 +33,6 @@ export class HomeComponent implements OnDestroy {
     this.mobileQuery.removeListener(this._mobileQueryListener);
   }
 
-<<<<<<< HEAD
-=======
   logout(): void {
     this.loginService.logout()
       .then(() => {
@@ -50,5 +52,4 @@ export class HomeComponent implements OnDestroy {
     // });
   }
 
->>>>>>> c2f21a7a8c520672a04f0717cabdaf86ffcb2bd8
 }

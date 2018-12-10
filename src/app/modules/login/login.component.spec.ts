@@ -16,7 +16,6 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { LoginService } from './login.service';
 import { LoginComponent } from './login.component';
-import { GroupService } from './group.service';
 import { CoreModule } from '../core';
 
 describe('LoginComponent', () => {
@@ -55,7 +54,6 @@ describe('LoginComponent', () => {
       declarations: [ LoginComponent ],
       providers: [
         {
-          provide: GroupService,
           useClass: GroupServiceStub,
         },
         {

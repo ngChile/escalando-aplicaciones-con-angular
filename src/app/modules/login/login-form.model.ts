@@ -1,13 +1,15 @@
 export class LoginFormModel {
   email: string;
   password: string;
-  grupo: string;
+  group: string;
+  rememberMe: boolean;
 
   constructor(values: {
-    [key: string]: string
+    [key: string]: any
   } = {}) {
     this.email = values.email;
     this.password = values.password;
-    this.grupo = values.grupo;
+    this.group = values.group;
+    this.rememberMe = values.rememberMe;
   }
 }

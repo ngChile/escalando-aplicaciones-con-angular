@@ -14,6 +14,7 @@ import { AuthGuard } from './auth.guard';
 import { MatSelectModule } from '@angular/material/select';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatCardModule } from '@angular/material/card';
+import { GroupService } from 'src/app/group.service';
 
 @NgModule({
     declarations: [
@@ -21,7 +22,8 @@ import { MatCardModule } from '@angular/material/card';
     ],
     providers: [
         AuthGuard,
-        LoginService
+        LoginService,
+        GroupService
     ],
     imports: [
         CoreModule,

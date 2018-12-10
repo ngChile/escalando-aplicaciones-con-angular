@@ -3,14 +3,6 @@
   <mat-card>
     <div mat-card-image></div>
     <mat-card-content>
-<ol >
-  <li *ngFor="let item of [1,2,3,4,5]" [ngStyle]="{'background-color': 'red'}">
-Item - {{item}}
-
-  </li>
-</ol>
-
-
 <mat-checkbox [(ngModel)]="formModel.rememberMe" #rememberMe="ngModel" type="rememberMe" name="rememberMe">Recuéredame</mat-checkbox>
 {{formModel | json}}
 

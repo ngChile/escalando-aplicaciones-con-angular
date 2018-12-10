@@ -16,26 +16,22 @@ import { LoginService } from './login.service';
 import { AuthGuard } from './auth.guard';
 
 import {MatCheckboxModule} from '@angular/material/checkbox';
-@NgModule({
-  declarations: [
-    LoginComponent
-  ],
-  providers: [
-    LoginService,
-    AuthGuard
-  ],
+@NgModule ({
+
+  declarations: [LoginComponent],
+  providers: [LoginService, AuthGuard],
   imports: [
     CommonModule,
     FormsModule,
-    HttpClientModule,
-    CoreModule,
-    MatSelectModule,
-    MatButtonModule,
-    MatCardModule,
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
+    MatSelectModule,
+    MatCardModule,
     MatCheckboxModule,
-  ]
+    CoreModule,
+    HttpClientModule,
+    MatButtonModule]
 })
-export class LoginModule { }
+
+export class LoginModule{}

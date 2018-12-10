@@ -8,6 +8,7 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { LoginService } from './login.service';
 
 import { LoginFormModel } from './login-form.model';
+import { GroupService } from './group.service';
 
 @Component({
   selector: 'app-login',
@@ -20,20 +21,28 @@ export class LoginComponent implements OnInit {
 
   formModel: LoginFormModel;
   isLoading: boolean;
-  grupos = [{id : 'A' , value: 'Grupo A'}, { id : 'B' , value: 'Grupo B'}];
+  groups = [];
+  // grupos = [{id : 'A' , value: 'Grupo A'}, { id : 'B' , value: 'Grupo B'}];
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private snackBar: MatSnackBar,
     private loginService: LoginService,
+    private groupService: GroupService,
+
   ) {
     this.formModel = new LoginFormModel({
       email: this.route.snapshot.queryParams.email
     });
   }
 
-  ngOnInit() {}
+  ngOnInit() {
+      this.groupService.GetGroups().then((groupsObject: any) => {this.grupos = groupsObject.list;
+      console.log(groupsObject.list);
+      });
+
+  }
 
   submit() {
     if (this.loginForm.valid) {

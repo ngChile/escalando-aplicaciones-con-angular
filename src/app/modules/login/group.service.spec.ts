@@ -1,20 +1,20 @@
-import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { TestBed } from '@angular/core/testing';
+import { HttpClientTestingModule } from '@angular/common/http/testing';
 
-import { LoginService } from './login.service';
+import { GroupService } from './group.service';
 
-describe('LoginService', () => {
+describe('GroupService', () => {
   beforeEach(() => TestBed.configureTestingModule({
     imports: [
       HttpClientTestingModule
     ],
     providers: [
-      LoginService
+      GroupService
     ]
   }));
 
   it('should be created', () => {
-    const service: LoginService = TestBed.get(LoginService);
+    const service: GroupService = TestBed.get(GroupService);
     expect(service).toBeTruthy();
   });
 });

@@ -14,10 +14,10 @@
         </mat-error>
       </mat-form-field>
 
-      <mat-form-field>
+      <!--<mat-form-field>
         <mat-label>MyLabel</mat-label>
         <input matInput placeholder="Input">
-      </mat-form-field>
+      </mat-form-field>-->
 
       <mat-form-field appearance="outline">
         <mat-label>Password</mat-label>
@@ -38,7 +38,6 @@
             {{item.value}}
           </mat-option>
         </mat-select>
-        <mat-icon style="color: brown;" matSuffix>face</mat-icon>
         <mat-hint>Selecciona una opción</mat-hint>
         <mat-error *ngIf="group.invalid">
           requerido

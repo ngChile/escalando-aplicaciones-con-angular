@@ -10,6 +10,16 @@
     file: ./user.json
 
 - request:
+    url: ^/auth-service/v1/logout$
+    method: POST
+    post: ''
+  response:
+    status: 200
+    latency: 1000
+    headers:
+      content-type: application/json
+
+- request:
     url: ^/auth-service/v1/login$
     method: POST
   response:
@@ -36,3 +46,13 @@
     headers:
       content-type: application/json
     file: ./user.json
+
+- request:
+    url: ^/auth-service/v1/groups$
+    method: GET
+  response:
+    status: 200
+    latency: 1000
+    headers:
+      content-type: application/json
+    file: ./groups.json

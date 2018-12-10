@@ -41,7 +41,10 @@
           </mat-error>
       </mat-form-field>
 
-      <mat-checkbox>Check me!</mat-checkbox>
+      <mat-checkbox name="rememberMe" [(ngModel)]="formModel.rememberMe" #rememberMe="ngModel"
+        >Recuerdame</mat-checkbox>
+
+        {{formModel | json}}
 
     </mat-card-content>
     <mat-card-actions>

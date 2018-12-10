@@ -29,4 +29,23 @@ export class HomeComponent implements OnDestroy {
     this.mobileQuery.removeListener(this._mobileQueryListener);
   }
 
+  logout(): void {
+    this.loginService.logout()
+      .then(() => {
+        this.loginService.clearUser();
+        this.router.navigateByUrl('/login');
+      })
+      .catch(error => {
+        this.snackBar.open(error.message, null, { duration: 5000 });
+      });
+    // .subscribe({
+    //   next: () => {
+    //     this.router.navigateByUrl('/login');
+    //   },
+    //   error: (error) => {
+    //     this.snackBar.open(error.message, null, { duration: 5000 });
+    //   }
+    // });
+  }
+
 }

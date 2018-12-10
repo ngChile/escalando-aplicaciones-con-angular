@@ -38,7 +38,7 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-      this.groupService.GetGroups().then((groupsObject: any) => {this.grupos = groupsObject.list;
+      this.groupService.GetGroups().then((groupsObject: any) => {this.groups = groupsObject.list;
       console.log(groupsObject.list);
       });
 

@@ -16,10 +16,12 @@ import { LoginService } from './login.service';
 import { AuthGuard } from './auth.guard';
 
 import {MatCheckboxModule} from '@angular/material/checkbox';
+import {GroupService } from './group.service';
+
 @NgModule ({
 
   declarations: [LoginComponent],
-  providers: [LoginService, AuthGuard],
+  providers: [LoginService, AuthGuard, GroupService],
   imports: [
     CommonModule,
     FormsModule,

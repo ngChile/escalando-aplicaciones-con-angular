@@ -35,7 +35,7 @@ export class LoginComponent implements OnInit {
   ) {
     this.formModel = new LoginFormModel({
       email: this.route.snapshot.queryParams.email,
-      rememberMe : true,
+      chk_Remember : true,
     });
   }
 

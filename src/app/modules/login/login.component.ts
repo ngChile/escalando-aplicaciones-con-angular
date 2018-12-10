@@ -19,6 +19,8 @@ export class LoginComponent implements OnInit {
 
   formModel: LoginFormModel;
   isLoading: boolean;
+  grupo: Array<any>;
+  rememberMe: boolean;
 
   constructor(
     private route: ActivatedRoute,
@@ -27,11 +29,19 @@ export class LoginComponent implements OnInit {
     private loginService: LoginService,
   ) {
     this.formModel = new LoginFormModel({
-      email: this.route.snapshot.queryParams.email
+      email: this.route.snapshot.queryParams.email,
+      rememberMe: true
     });
+    this.grupo = [{
+      id: 'A',
+      value: 'Grupo A'
+    }, {
+      id: 'B',
+      value: 'Grupo B'
+    }];
   }
 
-  ngOnInit() {}
+  ngOnInit() { }
 
   submit() {
     if (this.loginForm.valid) {
@@ -42,28 +52,28 @@ export class LoginComponent implements OnInit {
         // la idea es que en la 4ta clase ya contaremos porque usar Observable
         // y explicar la teoría de estos y como ejercicio cambiar este código
         // a la versión con observables
-          .then(isLoggedIn => {
-            this.isLoading = false;
-            if (isLoggedIn) {
-              this.router.navigateByUrl(this.loginService.fallbackUrl);
-            }
-          })
-          .catch(errorResponse => {
-            // La idea es que acá exista un bug
-            // el loader no se está cerrando.
-            // en la version con observables
-            // resolveremos este bug usando finalize
-            this.snackBar.open(errorResponse.error.message, null, { duration: 5000 });
-          });
-        // observables
-        // .pipe(
-        //   finalize(() => this.isLoading = false),
-        // )
-        // .subscribe(_ => {
-        //   this.router.navigateByUrl(this.loginService.fallbackUrl);
-        // }, errorResponse => {
-        //   this.snackBar.open(errorResponse.error.message, null, { duration: 5000 });
-        // });
+        .then(isLoggedIn => {
+          this.isLoading = false;
+          if (isLoggedIn) {
+            this.router.navigateByUrl(this.loginService.fallbackUrl);
+          }
+        })
+        .catch(errorResponse => {
+          // La idea es que acá exista un bug
+          // el loader no se está cerrando.
+          // en la version con observables
+          // resolveremos este bug usando finalize
+          this.snackBar.open(errorResponse.error.message, null, { duration: 5000 });
+        });
+      // observables
+      // .pipe(
+      //   finalize(() => this.isLoading = false),
+      // )
+      // .subscribe(_ => {
+      //   this.router.navigateByUrl(this.loginService.fallbackUrl);
+      // }, errorResponse => {
+      //   this.snackBar.open(errorResponse.error.message, null, { duration: 5000 });
+      // });
     }
   }
 

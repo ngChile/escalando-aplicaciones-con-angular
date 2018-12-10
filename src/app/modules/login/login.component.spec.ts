@@ -16,23 +16,23 @@ import { MatSnackBarModule } from '@angular/material/snack-bar';
 
 import { LoginService } from './login.service';
 import { LoginComponent } from './login.component';
-import { GroupService } from './group.service';
+//import { GroupService } from './group.service';
 import { CoreModule } from '../core';
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
   const authenticateSpy = jasmine.createSpy('loginService.authenticate');
-  const getGroupsSpy = jasmine.createSpy('groupService.getGroups');
+  //const getGroupsSpy = jasmine.createSpy('groupService.getGroups');
 
   class LoginServiceStub {
     // se maneja de esta forma porque loginService es privado
     authenticate = authenticateSpy;
   }
 
-  class GroupServiceStub {
+ /* class GroupServiceStub {
     getGroups = getGroupsSpy;
-  }
+  }*/
 
   beforeEach(() => {
     TestBed.configureTestingModule({

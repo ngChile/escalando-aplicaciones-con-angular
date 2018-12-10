@@ -46,12 +46,12 @@
       </a>
 
       <section class="example-section">
-        <mat-checkbox class="example-margin" [(ngModel)]="Recuerdame">Recuerdame</mat-checkbox>
+        <mat-checkbox class="example-margin" [(ngModel)]="formModel.RememberMe"  name="RememberMe" >RememberME</mat-checkbox>
       </section>
 
     </mat-card-actions>
 
-
+{{formModel | json}}
 
   </mat-card>
 

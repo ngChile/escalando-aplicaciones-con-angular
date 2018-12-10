@@ -26,9 +26,9 @@
    <mat-form-field appearance="outline">
         <mat-label>Seleccione su grupo</mat-label>
 
-        <mat-select placeholder="Seleccione su grupo"  [(ngModel)]="formModel.grupo" name="grupo" 
+        <mat-select placeholder="Seleccione su grupo"  [(ngModel)]="formModel.groups" name="groups" 
         #validateCmb="ngModel" required>
-          <mat-option *ngFor="let item of grupo" [value]="item.id" >
+          <mat-option *ngFor="let item of groups" [value]="item.id" >
             {{item.value}}
           </mat-option>
         </mat-select>

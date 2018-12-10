@@ -14,6 +14,7 @@ import { CoreModule } from '../core';
 import { HttpClientModule } from '@angular/common/http';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
+import { GroupService } from './group.service';
 
 @NgModule({
   declarations: [
@@ -21,7 +22,8 @@ import { MatButtonModule } from '@angular/material/button';
   ],
   providers: [
     LoginService,
-    AuthGuard
+    AuthGuard,
+    GroupService
   ],
   imports: [
     CommonModule,

@@ -9,10 +9,19 @@ interface Group {
 
 @Injectable()
 export class GroupService {
+  groups = [];
 
   constructor(
     private http: HttpClient
   ) { }
+
+  setGroups (list: Array<any>) {
+    this.groups = list;
+  }
+
+  getStoredGroups () {
+    return this.groups;
+  }
 
   getGroups(): Promise<Group[]> {
     return this.http.get<Group[]>(environment.endpoint.groups)

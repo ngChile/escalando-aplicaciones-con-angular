@@ -13,9 +13,9 @@ describe('workspace-project Login', () => {
     const expectedUrl = 'http://localhost:4200/';
 
     page.navigateToLogin();
-    page.setEmail();
-    page.setPassword();
-    page.selectGroupOptionByValue('A');
+    page.setEmail('admin');
+    page.setPassword('admin');
+    page.selectGroupOptionLastValue();
 
     page.logIn();
 

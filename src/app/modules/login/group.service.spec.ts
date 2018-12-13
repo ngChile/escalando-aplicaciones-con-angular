@@ -8,7 +8,7 @@ class HttpClientMock {
   get = jasmine.createSpy();
 }
 
-describe('Group Service', () => {
+fdescribe('Group Service', () => {
   let service: GroupService;
   let httpClientMock: HttpClientMock;
   beforeEach(()=>{
@@ -40,4 +40,8 @@ describe('Group Service', () => {
     service.getGroups();
     expect(httpClientMock.get).toHaveBeenCalledWith(environment.endpoint.groups)
   })
+  it('should set an array of groups and expose a getter',() => {
+    const list = [1, 2, 3, 4];
+    service.setGroups(list);
+  })    
 })

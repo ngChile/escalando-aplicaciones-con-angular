@@ -3,7 +3,7 @@
   justify-content: center;
   display: flex;
   flex-grow: 1;
-
+//:host significa que selecciono el tag padre, este caso es app-login
   form {
     width: 26.5em;
 

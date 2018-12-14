@@ -41,11 +41,19 @@
     url: ^/auth-service/v1/register$
     method: POST
   response:
-    status: 200
-    latency: 1000
-    headers:
-      content-type: application/json
-    file: ./user.json
+    - status: 500
+      latency: 500
+      headers:
+        content-type: application/json
+    - status: 500
+      latency: 500
+      headers:
+        content-type: application/json
+    - status: 200
+      latency: 500
+      headers:
+        content-type: application/json    
+  file: ./user.json
 
 - request:
     url: ^/auth-service/v1/groups$

@@ -1,63 +1,49 @@
-<form [formGroup]="form" (ngSubmit)="submit()">
-
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
   <mat-card>
     <div mat-card-image></div>
     <mat-card-content>
-
       <mat-form-field appearance="outline">
-        <mat-label>Full name</mat-label>
+        <mat-label>FullName</mat-label>
         <input matInput type="text" formControlName="fullName" required minlength="3" maxlength="100" autocomplete="off">
-        <mat-icon matSuffix>person_outline</mat-icon>
+        <mat-icon matSuffix>fullName</mat-icon>
         <mat-hint>Type your full name</mat-hint>
-        <mat-error *ngIf="form.get('fullName').errors">
+        <mat-error *ngIf="form.get('fullName').invalid">
           {{ form.get('fullName').errors | json }}
         </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>Email</mat-label>
-        <input matInput type="email" formControlName="email" required minlength="3" maxlength="100" autocomplete="off">
+        <input matInput type="email" formControlName="email" required minlength="3" autocomplete="off">
         <mat-icon matSuffix>email</mat-icon>
         <mat-hint>Type your email</mat-hint>
-        <mat-error *ngIf="form.get('email').errors">
+        <mat-error *ngIf="form.get('email').invalid">
           {{ form.get('email').errors | json }}
         </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
         <mat-label>Password</mat-label>
-        <input matInput type="password" formControlName="password" required minlength="3" maxlength="50" autocomplete="off">
+        <input matInput type="password" formControlName="password" required minlength="5" autocomplete="off">
         <mat-icon matSuffix>code</mat-icon>
         <mat-hint>Type your password</mat-hint>
-        <mat-error *ngIf="form.get('password').errors">
+        <mat-error *ngIf="form.get('password').invalid">
           {{ form.get('password').errors | json }}
-        </mat-error>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label>Re password</mat-label>
-        <input matInput type="password" formControlName="rePassword" required minlength="3" maxlength="50" autocomplete="off">
-        <mat-icon matSuffix>code</mat-icon>
-        <mat-hint>Type your password again</mat-hint>
-        <mat-error *ngIf="form.get('rePassword').errors">
-          {{ form.get('rePassword').errors | json }}
         </mat-error>
       </mat-form-field>
 
     </mat-card-content>
     <mat-card-actions>
-
-      <button mat-button color="primary">
-        <mat-icon>how_to_reg</mat-icon> Register
+      
+      <button mat-button color="primary" type="submit" [disabled]='isLoading'>
+        <mat-icon>lock_open</mat-icon> Register
       </button>
 
-      <a routerLink="/login" mat-button role="button">
-        <mat-icon>undo</mat-icon> I have an account
-      </a>
-
     </mat-card-actions>
-  </mat-card>
 
+  </mat-card>
 </form>
 
-<app-loading *ngIf="isLoading"></app-loading>
+<h2 *ngIf="isLoading">
+  Tu data esta siendo guardada
+</h2>

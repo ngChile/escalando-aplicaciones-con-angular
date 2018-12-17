@@ -12,7 +12,7 @@ const routes: Routes = [
   },
   {
     path: 'register',
-    loadChildren: './pages/register/register.module#RegisterModule'
+    loadChildren: './pages/register/register.module#RegisterModule',
   },
   {
     path: '',

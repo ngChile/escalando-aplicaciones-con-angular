@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
-import {environment} from 'src/environments/environment';
+import { environment } from 'src/environments/environment';
+
+interface Group {
+  id: string;
+  value: string;
+}
 
 @Injectable()
 export class GroupService {
@@ -9,7 +14,8 @@ export class GroupService {
     private http: HttpClient
   ) { }
 
-  getGroups() {
-    return this.http.get(environment.endpoint.groups).toPromise();
+  getGroups(): Promise<Group[]> {
+    return this.http.get<Group[]>(environment.endpoint.groups)
+      .toPromise();
   }
 }

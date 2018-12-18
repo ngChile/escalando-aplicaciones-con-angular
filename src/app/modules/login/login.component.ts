@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, ViewChild, OnChanges } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -8,7 +8,6 @@ import { LoginService } from './login.service';
 
 import { LoginFormModel } from './login-form.model';
 import { GroupService } from './group.service';
-import { group } from '@angular/animations';
 
 @Component({
   selector: 'app-login',
@@ -16,35 +15,33 @@ import { group } from '@angular/animations';
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-
   @ViewChild('loginForm') loginForm: NgForm;
 
   formModel: LoginFormModel;
   isLoading: boolean;
   groups: [];
-  rememberMe: boolean;
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private snackBar: MatSnackBar,
     private loginService: LoginService,
-    private groupService: GroupService,
+    private groupService: GroupService
   ) {
     this.formModel = new LoginFormModel({
       email: this.route.snapshot.queryParams.email,
-      rememberMe: true
+      group: '',
+      rememberMe: true,
     });
   }
 
   ngOnInit() {
-    this.groupService.getGroups().
-    then((groupsObjects: any) => {
-      this.groups = groupsObjects.list;
-      console.log(this.groups);
-    });
-   }
-
+    this.groupService
+        .getGroups()
+        .then((response: any) => {
+          this.groups = response.list;
+        });
+  }
   submit() {
     if (this.loginForm.valid) {
       this.isLoading = true;
@@ -54,28 +51,28 @@ export class LoginComponent implements OnInit {
         // la idea es que en la 4ta clase ya contaremos porque usar Observable
         // y explicar la teoría de estos y como ejercicio cambiar este código
         // a la versión con observables
-        .then(isLoggedIn => {
-          this.isLoading = false;
-          if (isLoggedIn) {
-            this.router.navigateByUrl(this.loginService.fallbackUrl);
-          }
-        })
-        .catch(errorResponse => {
-          // La idea es que acá exista un bug
-          // el loader no se está cerrando.
-          // en la version con observables
-          // resolveremos este bug usando finalize
-          this.snackBar.open(errorResponse.error.message, null, { duration: 5000 });
-        });
-      // observables
-      // .pipe(
-      //   finalize(() => this.isLoading = false),
-      // )
-      // .subscribe(_ => {
-      //   this.router.navigateByUrl(this.loginService.fallbackUrl);
-      // }, errorResponse => {
-      //   this.snackBar.open(errorResponse.error.message, null, { duration: 5000 });
-      // });
+          .then(isLoggedIn => {
+            this.isLoading = false;
+            if (isLoggedIn) {
+              this.router.navigateByUrl(this.loginService.fallbackUrl);
+            }
+          })
+          .catch(errorResponse => {
+            // La idea es que acá exista un bug
+            // el loader no se está cerrando.
+            // en la version con observables
+            // resolveremos este bug usando finalize
+            this.snackBar.open(errorResponse.error.message, null, { duration: 5000 });
+          });
+        // observables
+        // .pipe(
+        //   finalize(() => this.isLoading = false),
+        // )
+        // .subscribe(_ => {
+        //   this.router.navigateByUrl(this.loginService.fallbackUrl);
+        // }, errorResponse => {
+        //   this.snackBar.open(errorResponse.error.message, null, { duration: 5000 });
+        // });
     }
   }
 

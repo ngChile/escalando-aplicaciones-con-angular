@@ -4,6 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "npm run stubs | ng serve",
+    "start:prod": "npm run stubs | ng serve --prod",
     "build:prod": "ng build --prod",
     "build": "ng build",
     "test": "ng test --code-coverage",

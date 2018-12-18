@@ -27,7 +27,7 @@
         <mat-label>Grupo</mat-label>
         <mat-select [(ngModel)]="formModel.group" name="group" required #group="ngModel">
             <mat-option value="">Seleccione</mat-option>
-            <mat-option *ngFor="let group of groups" [value]="group.id">{{group.value}}</mat-option>
+            <mat-option *ngFor="let group of groups | filterActives" [value]="group.id">{{group.value}}</mat-option>
           <!--<mat-option value="A">Grupo A</mat-option>
           <mat-option value="B">Grupo B</mat-option>-->
         </mat-select>

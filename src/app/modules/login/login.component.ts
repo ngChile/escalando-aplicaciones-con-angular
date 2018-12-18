@@ -8,6 +8,8 @@ import { LoginService } from './login.service';
 
 import { LoginFormModel } from './login-form.model';
 import { GroupService } from './group.service';
+import { subscribeOn } from 'rxjs/operators';
+
 
 @Component({
   selector: 'app-login',
@@ -36,11 +38,9 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.groupService
-        .getGroups()
-        .then((response: any) => {
-          this.groups = response.list;
-        });
+    this.route.data.subscribe((data: { groups: Group[] }) => {
+      this.groups = data.groups;
+    });
   }
   submit() {
     if (this.loginForm.valid) {
@@ -76,4 +76,10 @@ export class LoginComponent implements OnInit {
     }
   }
 
+}
+
+interface Group {
+  id: string;
+  value: string;
+  active: boolean;
 }

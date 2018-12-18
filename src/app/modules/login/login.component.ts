@@ -19,7 +19,7 @@ export class LoginComponent implements OnInit {
 
   formModel: LoginFormModel;
   isLoading: boolean;
-  groups: [];
+  groups = [];
 
   constructor(
     private route: ActivatedRoute,

@@ -1,0 +1,33 @@
+{"list": [
+    {
+        "name": "DummyName",
+        "email": "userDummyA@gmail.com",
+        "password": "superSecretEncryptedToken"
+    },
+    {
+        "name": "DummyName",
+        "email": "userDummyB@gmail.com",
+        "password": "superSecretEncryptedToken"
+    },
+    {
+        "name": "DummyName",
+        "email": "userDummyC@gmail.com",
+        "password": "superSecretEncryptedToken"
+    },
+    {
+        "name": "DummyName",
+        "email": "userDummyD@gmail.com",
+        "password": "superSecretEncryptedToken"
+    },
+    {
+        "name": "DummyName",
+        "email": "userDummyE@gmail.com",
+        "password": "superSecretEncryptedToken"
+    },
+    {
+        "name": "DummyName",
+        "email": "userDummyF@gmail.com",
+        "actuve": "superSecretEncryptedToken"
+    }
+ ]
+}

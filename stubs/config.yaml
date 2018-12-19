@@ -63,7 +63,17 @@
       latency: 500
       headers: 
         content-type: application/json
-    
+
+- request:
+    url: ^/admin/v1/users$
+    method: GET
+  response:
+    - status: 200
+      latency: 500
+      headers: 
+        content-type: application/json
+      file: ./users.json
+
 - request:
     url: ^/auth-service/v1/groups$
     method: GET

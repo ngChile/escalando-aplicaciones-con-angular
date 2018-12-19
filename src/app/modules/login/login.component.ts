@@ -8,6 +8,7 @@ import { LoginService } from './login.service';
 
 import { LoginFormModel } from './login-form.model';
 import { GroupService } from './group.service';
+import { FilterActivesPipe } from '../core/filter-actives.pipe';
 
 @Component({
   selector: 'app-login',
@@ -19,14 +20,14 @@ export class LoginComponent implements OnInit {
 
   formModel: LoginFormModel;
   isLoading: boolean;
-  groups: [];
+  groups = [];
 
   constructor(
     private route: ActivatedRoute,
     private router: Router,
     private snackBar: MatSnackBar,
     private loginService: LoginService,
-    private groupService: GroupService
+    private filterActives: FilterActivesPipe
   ) {
     this.formModel = new LoginFormModel({
       email: this.route.snapshot.queryParams.email,
@@ -36,11 +37,10 @@ export class LoginComponent implements OnInit {
   }
 
   ngOnInit() {
-    this.groupService
-        .getGroups()
-        .then((response: any) => {
-          this.groups = response.list;
-        });
+    this.route.data
+      .subscribe((data:{ groups: []}) => {
+        this.groups = this.filterActives.transform(data.groups);
+    })
   }
   submit() {
     if (this.loginForm.valid) {

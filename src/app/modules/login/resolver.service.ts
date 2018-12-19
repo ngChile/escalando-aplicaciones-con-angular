@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router'
 import { Observable } from 'rxjs';
 import { GroupService } from './group.service'
+import { Group } from '../core/models/group-interface'
 
 @Injectable({
   providedIn: 'root'
@@ -19,8 +20,3 @@ export class ResolverService implements Resolve<Group[]> {
   }
 }
 
-interface Group {
-  id: string,
-  value: string,
-  active: boolean
-}

@@ -3,4 +3,3 @@ export interface Group {
     value: string,
     active: boolean
 }
-

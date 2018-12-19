@@ -20,6 +20,7 @@ groups = []
   setGroups(list){
 
   }
+  
   getStoredGroups(){
     return this.groups
   }

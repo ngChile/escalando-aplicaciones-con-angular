@@ -3,6 +3,7 @@ import { HttpClientTestingModule } from '@angular/common/http/testing'
 import { GroupService } from './group.service'
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment'
+import { of } from 'rxjs'
 
 class HttpClientMock {  
   get = jasmine.createSpy();
@@ -33,15 +34,8 @@ fdescribe('Group Service', () => {
   })
   
   it('should call http get service', () => {
-    httpClientMock.get.and.returnValue({
-      toPromise(){
-      }
-    })
+    httpClientMock.get.and.returnValue(of({ list:[]}))
     service.getGroups();
     expect(httpClientMock.get).toHaveBeenCalledWith(environment.endpoint.groups)
   })
-  it('should set an array of groups and expose a getter',() => {
-    const list = [1, 2, 3, 4];
-    service.setGroups(list);
-  })    
 })

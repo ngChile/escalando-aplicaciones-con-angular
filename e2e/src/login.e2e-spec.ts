@@ -12,12 +12,10 @@ describe('workspace-project Login', () => {
     const EC = protractor.ExpectedConditions;
     const expectedUrl = 'http://localhost:4200/';
 
-    page.navigateToLogin();
-    page.setEmail('admin');
-    page.setPassword('admin');
-    page.selectGroupOptionLastValue();
-
-    page.logIn();
+    page.makeLogIn({
+      email: 'admin',
+      password: 'admin'
+    });
 
     // http://www.protractortest.org/#/api?view=ProtractorExpectedConditions.prototype.urlContains
     browser.wait(EC.urlIs(expectedUrl))

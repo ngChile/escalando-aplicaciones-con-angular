@@ -25,7 +25,12 @@ export class LoginPage {
         .then(() => element.all(by.css('mat-option')).last().click());
     }
 
-    logIn() {
+    makeLogIn({ email, password }) {
+        this.navigateToLogin();
+        this.setEmail(email);
+        this.setPassword(password);
+        this.selectGroupOptionLastValue();
+
         element(by.css(this.selectors['form'])).submit();
     }
 }

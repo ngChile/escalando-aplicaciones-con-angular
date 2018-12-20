@@ -5,17 +5,17 @@ services:
 sudo: false
 node_js: 
   - "node"
+addons:
+  apt:
+    sources:
+      - google-chrome
+    packages:
+      - google-chrome-stable
 cache:
   directories:
-    - ~/.npm
-    - ~/.cache
-addons:
-  chrome: stable
-  apt:
-    packages:
-      - chromium-chromedriver
-before_script:
-  - ln -s /usr/lib/chromium-browser/chromedriver ~/bin/chromedriver
+    - ./node_modules
+install:
+  - npm install
 stages:
   - name: linter
   - name: unit-tests
@@ -29,6 +29,6 @@ jobs:
     - stage: unit-tests
       script: bash ./ci/unit-tests
     - stage: e2e
-      script: npm run e2e
+      script: npm run e2e -- --protractor-config=e2e/protractor-ci.conf.js
     - stage: deploy
       script: bash ./ci/deploy && bash ./ci/release

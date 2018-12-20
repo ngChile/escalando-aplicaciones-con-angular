@@ -5,6 +5,6 @@
         { "id": "D", "value": "Grupo D", "active": true },
         { "id": "F", "value": "Grupo F", "active": true },
         { "id": "E", "value": "Grupo E", "active": true },
-        { "id": "C", "value": "Grupo C", "actuve": false }
+        { "id": "C", "value": "Grupo C", "active": false }
     ]
 }

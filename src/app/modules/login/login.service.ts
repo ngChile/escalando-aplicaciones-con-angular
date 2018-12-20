@@ -7,9 +7,7 @@ import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class LoginService {
-
   user: User;
-
   fallbackUrl = '';
 
   get isLoggedIn(): boolean {

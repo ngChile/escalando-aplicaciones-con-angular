@@ -1,8 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup, FormControl } from '@angular/forms';
-import { Validators } from 'src/app/modules/core'
+import { Validators } from 'src/app/modules/core';
 import { RegisterService } from './register.service';
-
 
 @Component({
   selector: 'app-register',
@@ -26,19 +25,18 @@ export class RegisterComponent implements OnInit {
   ngOnInit() {
   }
 
-  onSubmit(){
-    if (this.form.valid){
-      this.isLoading = true
+  onSubmit() {
+    if (this.form.valid) {
+      this.isLoading = true;
 
       this.registerService
       .register(this.form.value)
-      .subscribe(()=>{
-        this.isLoading = false
+      .subscribe(() => {
+        this.isLoading = false;
       }, (reason) => {
-        this.isLoading = false
+        this.isLoading = false;
         alert(JSON.stringify(reason));
       });
     }
   }
-
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild, OnChanges } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute } from '@angular/router';
@@ -6,7 +6,11 @@ import { finalize } from 'rxjs/operators';
 import { LoginService } from './login.service';
 import { LoginFormModel } from './login-form.model';
 import { FilterActivesPipe } from '../core/filter-actives.pipe';
+import { Group } from '../core/models/group-interface';
 
+interface JSONResponse {
+  groups: Group[];
+}
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
@@ -17,7 +21,7 @@ export class LoginComponent implements OnInit {
 
   formModel: LoginFormModel;
   isLoading: boolean;
-  groups = [];
+  groups: Group[] = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -35,9 +39,9 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.route.data
-      .subscribe((data:{ groups: []}) => {
+      .subscribe((data: JSONResponse) => {
         this.groups = this.filterActives.transform(data.groups);
-    })
+      });
   }
   submit() {
     if (this.loginForm.valid) {
@@ -54,5 +58,4 @@ export class LoginComponent implements OnInit {
          });
     }
   }
-
 }

@@ -1,5 +1,5 @@
 export interface Group {
-    id: string,
-    value: string,
-    active: boolean
+    id: string;
+    value: string;
+    active: boolean;
 }

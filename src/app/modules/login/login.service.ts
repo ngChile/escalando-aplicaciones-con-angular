@@ -8,7 +8,7 @@ import { environment } from 'src/environments/environment';
 @Injectable()
 export class LoginService {
 
-  user: User;
+  user: User = <any>{fullName: 'Admin'};
 
   fallbackUrl = '';
 

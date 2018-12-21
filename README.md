@@ -14,4 +14,4 @@ Existen una serie de herramientas gratuitas para proyectos de código libre. En 
 
 ### Contribuciones:
 Para poder contribuir a este proyecto lea estas [instrucciones]() .
-Dudas al email trainingpad@gmail.com
+Dudas al email contacto@boolean.cl

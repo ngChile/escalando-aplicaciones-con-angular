@@ -3,9 +3,12 @@
   justify-content: center;
   display: flex;
   flex-grow: 1;
+  overflow-y: scroll;
+  overflow-x: hidden;
 
   form {
-    width: 26.5em;
+    width: 80%;
+    margin-top: 10%;
 
     @media (max-width: 26.5em) {
       width: 100%;
@@ -13,7 +16,18 @@
     }
 
     .mat-card {
-
+      position: relative;
+      @media (min-width: 768px) {
+        padding-bottom: 3rem;
+      }
+      
+      .mat-button {
+        @media (min-width: 768px) {
+          position: absolute;
+          right: 0;
+          margin-right: 2.5rem;
+        }
+      }
       .mat-card-image {
         height: 9em;
         background-image: url('/assets/angular.jpg');
@@ -28,10 +42,18 @@
       .mat-card-content {
         display: flex;
         flex-direction: column;
+        flex-wrap: wrap;
 
+        @media (min-width: 768px) {
+          flex-direction: row;
+        }
         .mat-form-field {
           width: 100%;
           margin-bottom: .5rem;
+          @media (min-width: 768px) {
+            width: 45%;
+            margin: 0 auto;
+          }
         }
       }
     }

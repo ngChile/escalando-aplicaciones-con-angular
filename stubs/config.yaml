@@ -52,7 +52,7 @@
     method: GET
   response:
     status: 200
-    latency: 5000
+    latency: 1000
     headers:
       content-type: application/json
     file: ./groups.json

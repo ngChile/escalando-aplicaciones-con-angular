@@ -1,0 +1,56 @@
+<form [formGroup]="form" (ngSubmit)="onSubmit()">
+  <mat-card>
+      <div mat-card-image></div>
+      <mat-card-content>
+        <mat-form-field appearance="outline">
+          <mat-label>Full Name</mat-label>
+          <input matInput type="text" formControlName="fullName"/>
+          <mat-icon matSuffix>full name</mat-icon>
+          <mat-hint>Enter your full name</mat-hint>
+          <mat-error *ngIf="form.get('fullName').invalid">
+            {{ form.get('fullName').errors | json }}
+          </mat-error>
+        </mat-form-field>
+        
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input matInput type="email" formControlName="email"/>
+          <mat-icon matSuffix>email</mat-icon>
+          <mat-hint>Type your email</mat-hint>          
+          <mat-error *ngIf="form.get('email').invalid">
+              {{ form.get('email').errors | json }}
+            </mat-error>
+        </mat-form-field>
+        
+        <mat-form-field appearance="outline">
+          <mat-label>Password</mat-label>
+          <input matInput type="password" formControlName="password"/>
+          <mat-icon matSuffix>password</mat-icon>
+          <mat-hint>Type your password</mat-hint>          
+          <mat-error *ngIf="form.get('password').invalid">
+              {{ form.get('password').errors | json }}
+            </mat-error>
+        </mat-form-field>          
+        <mat-form-field appearance="outline">
+          <mat-label>Grupo</mat-label>
+          <mat-select formControlName="group">
+              <mat-option value="">Seleccione</mat-option>
+              <mat-option *ngFor="let group of groups" [value]="group.id">{{group.value}}</mat-option>
+            <!--<mat-option value="A">Grupo A</mat-option>
+            <mat-option value="B">Grupo B</mat-option>-->
+          </mat-select>
+          <mat-hint>Seleccione su grupo</mat-hint>
+          <mat-error *ngIf="form.get('group').invalid">
+              {{ form.get('group').errors | json }}
+            </mat-error>
+        </mat-form-field>
+      </mat-card-content>  
+      <button [disabled]="isLoading" mat-button color="primary" type="submit">
+        <mat-icon>how_to_reg</mat-icon> Register
+      </button>    
+  </mat-card>  
+  <p>{{ form.status }}</p>
+  <p>{{ form.value | json }}</p>
+</form>
+
+<app-loading *ngIf="isLoading"></app-loading>

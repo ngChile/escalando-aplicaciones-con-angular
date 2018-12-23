@@ -1,5 +1,8 @@
+import { HttpClient } from '@angular/common/http';
 import { User } from './../../modules/login/login.service';
 import { Injectable } from '@angular/core';
+import { Observable } from 'rxjs';
+import { environment } from 'src/environments/environment';
 
 @Injectable()
 export class AdminService {
@@ -8,13 +11,16 @@ export class AdminService {
     { fullName: 'Administrador', email: 'admin@app.com', password: 'admin' }
   ];
 
-  constructor() {}
+  constructor(
+    private http: HttpClient
+  ) {}
 
   createUser(user: User) {
     this.users.push(user);
   }
 
-  listUsers(): User[] {
-    return this.users;
+  listUsers(): Observable<User[]> {
+    return this.http
+      .get<User[]>(environment.endpoint.user);
   }
 }

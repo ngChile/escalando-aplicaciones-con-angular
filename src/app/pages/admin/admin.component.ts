@@ -33,7 +33,9 @@ export class AdminComponent implements OnInit {
       .subscribe((data: { groups: [] }) => {
         this.groups = this.filterActives.transform(data.groups);
       });
-    this.users = this.adminService.listUsers();
+    this.adminService
+      .listUsers()
+      .subscribe(users => this.users = users);
   }
 
   onSubmit() {

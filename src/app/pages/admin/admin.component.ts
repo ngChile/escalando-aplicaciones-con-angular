@@ -40,7 +40,6 @@ export class AdminComponent implements OnInit {
         ),
         'group': new FormControl(this.groups,
           [
-            Validators.email,
             Validators.required
           ]
         ),
@@ -53,7 +52,6 @@ export class AdminComponent implements OnInit {
     .getGroups()
     .then((response: any) => {
       this.groups = response.list;
-      console.log(this.groups);
     });
   }
   submitForm() {

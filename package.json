@@ -4,7 +4,7 @@
   "scripts": {
     "ng": "ng",
     "start": "npm-run-all -p stubs serve json-server",
-    "serve": "ng serve",
+    "serve": "ng serve --port 8080",
     "json-server": "json-server --watch ./stubs/users.json",
     "build:prod": "ng build --prod",
     "build": "ng build",

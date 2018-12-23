@@ -1,3 +1,4 @@
+import { MatTableDataSource } from '@angular/material/table';
 import { AdminService } from './admin.service';
 import { User } from './../../modules/login/login.service';
 import { FilterActivesPipe } from './../../modules/core/filter-actives.pipe';
@@ -20,6 +21,7 @@ export class AdminComponent implements OnInit {
   });
   groups = [];
   users: User[];
+  usersSource = new MatTableDataSource();
   headers = [ 'name', 'email', 'group' ];
 
   constructor(
@@ -35,13 +37,19 @@ export class AdminComponent implements OnInit {
       });
     this.adminService
       .listUsers()
-      .subscribe(users => this.users = users);
+      .subscribe(users => this.usersSource.data = users);
   }
 
   onSubmit() {
     // get user
-    let user: User;
-    user = this.form.value as User;
-    this.adminService.createUser(user);
+    if (this.form.valid) {
+      let user: User;
+      user = this.form.value as User;
+      this.adminService
+        .createUser(user)
+        .subscribe(userResponse => {
+          this.usersSource.data.push(userResponse);
+        });
+    }
   }
 }

@@ -43,6 +43,7 @@
   response:
     - status: 500
       latency: 500
+
       headers:
         content-type: application/json
     - status: 500

@@ -11,12 +11,13 @@ const routes: Routes = [
     path: 'login',
     component: LoginComponent,
     resolve: {
+
       groups: GroupsResolverService
     }
   },
   {
     path: 'register',
-    loadChildren: './pages/register/register.module#RegisterModule'
+    loadChildren: './pages/register/register.module#RegisterModule',
   },
   {
     path: '',

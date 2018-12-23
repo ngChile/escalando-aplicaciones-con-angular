@@ -15,9 +15,11 @@ export class GroupService {
 
   groups = [];
 
+
   constructor(
     private http: HttpClient
   ) { }
+
 
   setGroups(list) { this.groups = list; }
   getStoredGroups() { return this.groups; }

@@ -7,6 +7,7 @@ export class FilterActivesPipe implements PipeTransform {
 
   transform(groups: Group[]): Group[] {
     return groups
+
     .filter(group => group.active)
     .sort((groupA, groupB) => {
         if (groupA.id === groupB.id) {

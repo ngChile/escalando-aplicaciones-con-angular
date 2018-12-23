@@ -1,6 +1,7 @@
 import { browser, by, element } from 'protractor';
 
 export class LoginPage {
+
   selectors = {
     'form': 'form',
     'email': 'input[name="email"]',

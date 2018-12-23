@@ -1,14 +1,41 @@
-[
+
+{"list": [
     {
-        "fullName": "Administrator",
-        "email": "admin@app.com",
-        "password": "admin",
+        "name": "DummyName",
+        "email": "userDummyA@gmail.com",
+        "password": "superSecretEncryptedToken",
         "group": "A"
     },
     {
-        "fullName": "Administrator 2",
-        "email": "admin@app.com",
-        "password": "admin2",
+        "name": "DummyName",
+        "email": "userDummyB@gmail.com",
+        "password": "superSecretEncryptedToken",
+        "group": "A"
+    },
+    {
+        "name": "DummyName",
+        "email": "userDummyC@gmail.com",
+        "password": "superSecretEncryptedToken",
         "group": "B"
+    },
+    {
+        "name": "DummyName",
+        "email": "userDummyD@gmail.com",
+        "password": "superSecretEncryptedToken",
+        "group": "B"
+    },
+    {
+        "name": "DummyName",
+        "email": "userDummyE@gmail.com",
+        "password": "superSecretEncryptedToken",
+        "group": "B"
+    },
+    {
+        "name": "DummyName",
+        "email": "userDummyF@gmail.com",
+        "password": "superSecretEncryptedToken",
+        "group": "D"
     }
-]
+ ]
+}
+

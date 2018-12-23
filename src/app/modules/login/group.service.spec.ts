@@ -18,6 +18,7 @@ fdescribe('Group Service', () => {
         HttpClientTestingModule
       ],
       providers: [
+
         {
           provide: HttpClient,
           useClass: HttpClientMock
@@ -25,10 +26,10 @@ fdescribe('Group Service', () => {
         GroupService
       ]
     });
-
     service = TestBed.get(GroupService);
     httpClientMock = TestBed.get(HttpClient);
   });
+
 
   it('should be created an instance', () => {
     expect(service).toBeDefined();

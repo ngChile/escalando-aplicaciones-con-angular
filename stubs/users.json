@@ -1,13 +1,15 @@
-[
-  {
-    "id": 1,
-    "fullName": "Administrator",
-    "email": "admin@app.com"
-  },
-  {
-    "id": 2,
-    "fullName": "Juan",
-    "email": "juan@app.com",
-    "group": "A"
-  }
-]
+{
+  "users": [
+    {
+      "id": 1,
+      "fullName": "Administrator",
+      "email": "admin@app.com"
+    },
+    {
+      "id": 2,
+      "fullName": "Juan",
+      "email": "juan@app.com",
+      "group": "A"
+    }
+  ]
+}

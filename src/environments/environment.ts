@@ -9,7 +9,7 @@ export const environment = {
     logout: 'http://localhost:8882/auth-service/v1/logout',
     register: 'http://localhost:8882/auth-service/v1/register',
     groups: 'http://localhost:8882/auth-service/v1/groups',
-    user: 'http://localhost:8882/auth-service/v1/user',
+    user: 'http://localhost:3000/users',
   }
 };
 

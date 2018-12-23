@@ -42,6 +42,7 @@ export class LoginComponent implements OnInit {
       this.groups = data.groups;
     });
   }
+
   submit() {
     if (this.loginForm.valid) {
       this.isLoading = true;

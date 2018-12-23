@@ -1,0 +1,14 @@
+[
+    {
+        "fullName": "Administrator",
+        "email": "admin@app.com",
+        "password": "admin",
+        "group": "A"
+    },
+    {
+        "fullName": "Administrator 2",
+        "email": "admin@app.com",
+        "password": "admin2",
+        "group": "B"
+    }
+]

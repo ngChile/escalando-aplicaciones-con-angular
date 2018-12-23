@@ -6,9 +6,18 @@
   overflow-y: scroll;
   overflow-x: hidden;
 
+  table {
+    width: 100%;
+    margin-top: 1rem;
+    @media (min-width: 768px) {
+      margin-top: 4rem;
+    }
+  }
+
   form {
     width: 80%;
     margin-top: 10%;
+    margin-bottom: 10%;
 
     @media (max-width: 26.5em) {
       width: 100%;
@@ -17,10 +26,8 @@
 
     .mat-card {
       position: relative;
-      @media (min-width: 768px) {
-        padding-bottom: 3rem;
-      }
       
+
       .mat-button {
         @media (min-width: 768px) {
           position: absolute;

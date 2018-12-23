@@ -1,3 +1,5 @@
+import { AdminService } from './admin.service';
+import { User } from './../../modules/login/login.service';
 import { FilterActivesPipe } from './../../modules/core/filter-actives.pipe';
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
@@ -17,9 +19,13 @@ export class AdminComponent implements OnInit {
     group : new FormControl('', [Validators.required])
   });
   groups = [];
+  users: User[];
+  headers = [ 'name', 'email', 'group' ];
+
   constructor(
     private route: ActivatedRoute,
-    private filterActives: FilterActivesPipe
+    private filterActives: FilterActivesPipe,
+    private adminService: AdminService
   ) { }
 
   ngOnInit() {
@@ -27,6 +33,13 @@ export class AdminComponent implements OnInit {
       .subscribe((data: { groups: [] }) => {
         this.groups = this.filterActives.transform(data.groups);
       });
+    this.users = this.adminService.listUsers();
   }
 
+  onSubmit() {
+    // get user
+    let user: User;
+    user = this.form.value as User;
+    this.adminService.createUser(user);
+  }
 }

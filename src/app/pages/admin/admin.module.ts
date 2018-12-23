@@ -11,9 +11,14 @@ import { MatInputModule } from '@angular/material/input';
 import { MatSelectModule } from '@angular/material/select';
 import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
+import { MatTableModule } from '@angular/material/table';
+import { AdminService } from './admin.service';
 
 @NgModule({
   declarations: [AdminComponent],
+  providers: [
+    AdminService
+  ],
   imports: [
     CommonModule,
     AdminRoutingModule,
@@ -24,6 +29,7 @@ import { MatButtonModule } from '@angular/material/button';
     MatSelectModule,
     MatIconModule,
     MatButtonModule,
+    MatTableModule,
     CoreModule
   ]
 })

@@ -2,41 +2,35 @@ import { browser, by, element } from 'protractor';
 
 export class LoginPage {
   selectors = {
-    'form' : 'form',
-    'email' : 'input[name="email"]',
-    'password' : 'input[name="password"]',
-    'checkbox' : 'input[name="rememberMe"]',
-    'select' : '[name="group"]',
-    'loginButton' : '[name="botonLogin"]'
+      'email': 'input[name="email"]',
+      'password': 'input[name="password"]',
+      'selectGroup': 'mat-select[name="group"]',
+      'form' : 'form'
   };
-
-  navigateTo() {
-    return browser.get('/');
-  }
-
-  getTitleText() {
-    return element(by.css(this.selectors['title'])).getText();
-  }
-
 
   navigateToLogin() {
       return browser.get('/login');
   }
-  setEmail(userEmail) {
-      element(by.css(this.selectors.email)).sendKeys(userEmail);
+
+  setEmail(text) {
+      element(by.css(this.selectors.email)).sendKeys(text);
   }
 
-  setPassword(userPassword) {
-    element(by.css(this.selectors.password)).sendKeys(userPassword);
-   }
-
-   selectGroupOptionLastValue(selectGroupValue) {
-    element(by.css(this.selectors.select)).click()
-        .then(() =>  element.all(by.css('mat-option')).last().click());
+  setPassword(text) {
+      element(by.css(this.selectors.password)).sendKeys(text);
   }
 
-  logIn() {
-    element(by.css(this.selectors.loginButton)).click();
+  selectGroupOptionLastValue() {
+      element(by.css(this.selectors.selectGroup)).click()
+      .then(() => element.all(by.css('mat-option')).last().click());
+  }
 
+  makeLogIn({ email, password }) {
+      this.navigateToLogin();
+      this.setEmail(email);
+      this.setPassword(password);
+      this.selectGroupOptionLastValue();
+
+      element(by.css(this.selectors['form'])).submit();
   }
 }

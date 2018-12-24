@@ -28,6 +28,9 @@ import { FilterActivesPipe } from './filter-actives.pipe';
     HighlightDirective,
     UnlessDirective,
     FilterActivesPipe
+  ],
+  providers: [
+    FilterActivesPipe
   ]
 })
 export class CoreModule { }

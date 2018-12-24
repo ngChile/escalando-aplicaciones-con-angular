@@ -6,15 +6,19 @@ import { PageNotFoundComponent } from './modules/core';
 import { LoginComponent, AuthGuard } from './modules/login';
 import { AdminComponent } from './pages/admin/admin.component';
 import { AdminModule } from './pages/admin/admin.module';
+import { ResolverService } from './modules/login/resolver.service';
 
 const routes: Routes = [
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
+    resolve: {
+      groups: ResolverService
+    }
   },
   {
     path: 'register',
-    loadChildren: './pages/register/register.module#RegisterModule'
+    loadChildren: './pages/register/register.module#RegisterModule',
   },
   {
     path: '',

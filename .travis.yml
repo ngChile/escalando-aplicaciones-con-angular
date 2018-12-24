@@ -1,23 +1,34 @@
+dist: trusty
 language: node_js
 services:
   - docker
 sudo: false
 node_js: 
   - "node"
+addons:
+  apt:
+    sources:
+      - google-chrome
+    packages:
+      - google-chrome-stable
 cache:
   directories:
-    - ~/.npm
-    - ~/.cache
+    - ./node_modules
+install:
+  - npm install
 stages:
-  - name: unit-tests
   - name: linter
+  - name: unit-tests
+  # - name: e2e
   - name: deploy
     if: branch = master
 jobs:
   include:
-    - stage: unit-tests
-      script: bash ./ci/unit-tests
     - stage: linter
       script: npm run lint
+    - stage: unit-tests
+      script: bash ./ci/unit-tests
+    # - stage: e2e
+    #   script: npm run e2e -- --protractor-config=e2e/protractor-ci.conf.js
     - stage: deploy
       script: bash ./ci/deploy && bash ./ci/release

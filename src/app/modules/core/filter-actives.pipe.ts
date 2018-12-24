@@ -1,4 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
+import { Group } from './models/group-interface';
 
 @Pipe({
   name: 'filterActives'
@@ -14,10 +15,4 @@ export class FilterActivesPipe implements PipeTransform {
         return -1;
       });
   }
-}
-
-interface Group {
-  id: string;
-  value: string;
-  active: boolean;
 }

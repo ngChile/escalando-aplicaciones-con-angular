@@ -1,15 +1,15 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { environment } from 'src/environments/environment';
-
 import { GroupService } from './group.service';
 import { HttpClient } from '@angular/common/http';
+import { environment } from 'src/environments/environment';
+import { of } from 'rxjs';
 
 class HttpClientMock {
   get = jasmine.createSpy();
 }
 
-fdescribe('Group service', () => {
+fdescribe('Group Service', () => {
   let service: GroupService;
   let httpClientMock: HttpClientMock;
 
@@ -19,14 +19,13 @@ fdescribe('Group service', () => {
         HttpClientTestingModule
       ],
       providers: [
+        GroupService,
         {
           provide: HttpClient,
           useClass: HttpClientMock
-        },
-        GroupService
+        }
       ]
     });
-
     service = TestBed.get(GroupService);
     httpClientMock = TestBed.get(HttpClient);
   });
@@ -35,14 +34,9 @@ fdescribe('Group service', () => {
     expect(service).toBeDefined();
   });
 
-  it('should return groups', () => {
-    httpClientMock.get.and.returnValue({
-      toPromise: () => null
-    });
-
-    const result = service.getGroups();
-
-    expect(result).toBe(null);
+  it('should call http get service', () => {
+    httpClientMock.get.and.returnValue(of({ list: [] }));
+    service.getGroups();
     expect(httpClientMock.get).toHaveBeenCalledWith(environment.endpoint.groups);
   });
 

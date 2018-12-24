@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import { FormGroup, FormControl } from '@angular/forms';
+import { Validators } from 'src/app/modules/core';
 import { RegisterService } from './register.service';
 
 @Component({
@@ -8,13 +9,13 @@ import { RegisterService } from './register.service';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
+  isLoading = false;
 
   form = new FormGroup({
     fullName: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    email: new FormControl('', [Validators.required, Validators.email]),
-    password: new FormControl('', [Validators.required])
+    email: new FormControl('', [Validators.required, Validators.minLength(3)]),
+    password: new FormControl('', [Validators.required, Validators.minLength(3)]),
   });
-  isLoading = false;
 
   constructor(
     private registerService: RegisterService
@@ -28,12 +29,11 @@ export class RegisterComponent implements OnInit {
       this.isLoading = true;
       this.registerService
         .register(this.form.value)
-        .subscribe(response => {
+        .subscribe(() => {
           this.isLoading = false;
-          alert(response);
-        }, reason => {
+        }, (reason) => {
           this.isLoading = false;
-          alert(JSON.stringify(reason, null, 2));
+          alert(JSON.stringify(reason));
         });
     }
   }

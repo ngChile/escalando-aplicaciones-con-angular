@@ -1,5 +1,8 @@
 const express = require('express');
 const { version } = require('./package.json');
+const groups = require('./groups.json');
+const user = require('./user.json');
+const users = require('./users.json');
 
 const app = express();
 
@@ -14,6 +17,22 @@ app.get('/health', (req, res) => {
     res.send(JSON.stringify({ version, status: 'up', uptime: process.uptime() }));
 });
 
+app.get('/auth-service/v1/groups', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(groups);
+});
+app.get('/auth-service/v1/login', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(user);
+});
+app.get('/admin/v1/users', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(users);
+});
+app.post('/admin/v1/users', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(req.body);
+});
 // redirect all routes to index.html for SPA behaviour
 app.get('*', (req, res) => {
     console.log('+++++++++++++++++++++++++++++++');

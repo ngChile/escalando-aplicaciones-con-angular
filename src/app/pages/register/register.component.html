@@ -2,46 +2,45 @@
   <mat-card>
     <div mat-card-image></div>
   
-  <mat-card-content>
-     <mat-form-field appearance="outline">
-      <mat-label>FullName</mat-label>
-      <input matInput type="text" formControlName="fullName" required minlength="3" maxlength="100"/>
-      <mat-icon matSuffix>perm_identity</mat-icon>
-      <mat-hint>Type your full Name</mat-hint>
-      <mat-error *ngIf="form.get('fullName').errors">
-        {{ form.get('fullName').errors | json }}
-      </mat-error>
-    </mat-form-field>
+    <mat-card-content>
+      <mat-form-field appearance="outline">
+        <mat-label>FullName</mat-label>
+        <input matInput type="text" formControlName="fullName" required minlength="3" maxlength="100"/>
+        <mat-icon matSuffix>perm_identity</mat-icon>
+        <mat-hint>Type your full Name</mat-hint>
+        <mat-error *ngIf="form.get('fullName').errors">
+          {{ form.get('fullName').errors | json }}
+        </mat-error>
+      </mat-form-field>
 
 
-  <mat-form-field appearance="outline">
-    <mat-label>Email</mat-label>
-    <input matInput type="email" formControlName="email" required minlength="3" />
-    <mat-icon matSuffix>email</mat-icon>
-    <mat-hint>Type your email</mat-hint>
-    <mat-error *ngIf="form.get('email').errors">
-      {{ form.get('email').errors | json }}
-    </mat-error>
-  </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Email</mat-label>
+        <input matInput type="email" formControlName="email" required minlength="3" />
+        <mat-icon matSuffix>email</mat-icon>
+        <mat-hint>Type your email</mat-hint>
+        <mat-error *ngIf="form.get('email').errors">
+          {{ form.get('email').errors | json }}
+        </mat-error>
+      </mat-form-field>
 
-   <mat-form-field appearance="outline">
-  <mat-label>Password</mat-label>
-  <input matInput type="password" formControlName="password" required minlength="5"/>
-  <mat-icon matSuffix>lock_open</mat-icon>
-  <mat-hint>Type your password</mat-hint>
-  <mat-error *ngIf="form.get('password').errors">
-  {{ form.get('password').errors | json }}
-  </mat-error>
-  </mat-form-field>
+      <mat-form-field appearance="outline">
+        <mat-label>Password</mat-label>
+        <input matInput type="password" formControlName="password" required minlength="5"/>
+        <mat-icon matSuffix>lock_open</mat-icon>
+        <mat-hint>Type your password</mat-hint>
+        <mat-error *ngIf="form.get('password').errors">
+          {{ form.get('password').errors | json }}
+        </mat-error>
+      </mat-form-field>
+    </mat-card-content>
 
-  </mat-card-content>
-
-  <mat-card-actions>
-    <button mat-button color="primary" [disabled]="isLoading">
-      <mat-icon>lock_open</mat-icon> Login
-    </button>
-  </mat-card-actions>
-    </mat-card>
+    <mat-card-actions>
+      <button mat-button color="primary" [disabled]="isLoading">
+        <mat-icon>lock_open</mat-icon> Login
+      </button>
+    </mat-card-actions>
+  </mat-card>
 </form>
 
 <h2 *ngIf="isLoading">

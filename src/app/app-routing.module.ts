@@ -19,6 +19,13 @@ const routes: Routes = [
     loadChildren: './pages/register/register.module#RegisterModule',
   },
   {
+    path: 'admin',
+    loadChildren: './pages/admin/admin.module#AdminModule',
+    resolve: {
+      groups: ResolverService
+    }
+  },
+  {
     path: '',
     loadChildren: './pages/home/home.module#HomeModule',
     canLoad: [AuthGuard]

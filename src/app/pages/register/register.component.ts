@@ -9,7 +9,6 @@ import { RegisterService } from './register.service';
   styleUrls: ['./register.component.scss']
 })
 export class RegisterComponent implements OnInit {
-
   isLoading = false;
 
   form = new FormGroup({
@@ -28,15 +27,14 @@ export class RegisterComponent implements OnInit {
   onSubmit() {
     if (this.form.valid) {
       this.isLoading = true;
-
       this.registerService
-      .register(this.form.value)
-      .subscribe(() => {
-        this.isLoading = false;
-      }, (reason) => {
-        this.isLoading = false;
-        alert(JSON.stringify(reason));
-      });
+        .register(this.form.value)
+        .subscribe(() => {
+          this.isLoading = false;
+        }, (reason) => {
+          this.isLoading = false;
+          alert(JSON.stringify(reason));
+        });
     }
   }
 }

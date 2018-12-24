@@ -1,0 +1,68 @@
+:host {
+  align-items: center;
+  justify-content: center;
+  display: flex;
+  flex-grow: 1;
+  overflow-y: scroll;
+  overflow-x: hidden;
+
+  table {
+    width: 100%;
+    margin-top: 1rem;
+    @media (min-width: 768px) {
+      margin-top: 4rem;
+    }
+  }
+
+  form {
+    width: 80%;
+    margin-top: 10%;
+    margin-bottom: 10%;
+
+    @media (max-width: 26.5em) {
+      width: 100%;
+      padding: 1em;
+    }
+
+    .mat-card {
+      position: relative;
+      
+
+      .mat-button {
+        @media (min-width: 768px) {
+          position: absolute;
+          right: 0;
+          margin-right: 2.5rem;
+        }
+      }
+      .mat-card-image {
+        height: 9em;
+        background-image: url('/assets/angular.jpg');
+        background-size: 100%;
+        background-position: center;
+
+        @media (max-width: 26.5em) {
+          background-size: 150%;
+        }
+      }
+
+      .mat-card-content {
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+
+        @media (min-width: 768px) {
+          flex-direction: row;
+        }
+        .mat-form-field {
+          width: 100%;
+          margin-bottom: .5rem;
+          @media (min-width: 768px) {
+            width: 45%;
+            margin: 0 auto;
+          }
+        }
+      }
+    }
+  }
+}

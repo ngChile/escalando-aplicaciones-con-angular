@@ -21,7 +21,7 @@ export class LoginComponent implements OnInit {
 
   formModel: LoginFormModel;
   isLoading: boolean;
-  groups: Group[] = [];
+  groups = [];
 
   constructor(
     private route: ActivatedRoute,
@@ -39,7 +39,7 @@ export class LoginComponent implements OnInit {
 
   ngOnInit() {
     this.route.data
-      .subscribe((data: JSONResponse) => {
+      .subscribe((data: { groups: [] }) => {
         this.groups = this.filterActives.transform(data.groups);
       });
   }

@@ -10,6 +10,8 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatInputModule } from '@angular/material/input';
 import { MatButtonModule } from '@angular/material/button';
 
+import { CoreModule } from 'src/app/modules';
+
 @NgModule({
   declarations: [RegisterComponent],
   imports: [
@@ -20,7 +22,8 @@ import { MatButtonModule } from '@angular/material/button';
     MatFormFieldModule,
     MatIconModule,
     MatInputModule,
-    MatButtonModule
+    MatButtonModule,
+    CoreModule
   ]
 })
 export class RegisterModule { }

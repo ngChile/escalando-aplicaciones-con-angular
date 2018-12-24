@@ -4,15 +4,19 @@ import { LoginModule } from './modules/login';
 
 import { PageNotFoundComponent } from './modules/core';
 import { LoginComponent, AuthGuard } from './modules/login';
+import { ResolverService } from './modules/login/resolver.service';
 
 const routes: Routes = [
   {
     path: 'login',
-    component: LoginComponent
+    component: LoginComponent,
+    resolve: {
+      groups: ResolverService
+    }
   },
   {
     path: 'register',
-    loadChildren: './pages/register/register.module#RegisterModule'
+    loadChildren: './pages/register/register.module#RegisterModule',
   },
   {
     path: '',

@@ -3,6 +3,7 @@ import { User } from './../../modules/login/login.service';
 import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
+import { map } from 'rxjs/operators';
 
 @Injectable()
 export class AdminService {
@@ -20,11 +21,14 @@ export class AdminService {
       })
     };
     return this.http
-      .post(environment.endpoint.user, user, httpOptions);
+      .post(environment.endpoint.users, user, httpOptions);
   }
 
   listUsers(): Observable<User[]> {
     return this.http
-      .get<User[]>(environment.endpoint.user);
+      .get<any>(environment.endpoint.users)
+      .pipe(
+        map(users => users.list as User[])
+      );
   }
 }

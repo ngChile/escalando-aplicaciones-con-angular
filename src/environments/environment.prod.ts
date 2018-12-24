@@ -4,6 +4,7 @@ export const environment = {
     auth: '/auth-service/v1/login',
     logout: '/auth-service/v1/logout',
     register: '/auth-service/v1/register',
-    groups: '/auth-service/v1/groups'
+    groups: '/auth-service/v1/groups',
+    users: '/admin/v1/users',
   }
 };

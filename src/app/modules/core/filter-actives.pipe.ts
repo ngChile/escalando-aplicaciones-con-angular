@@ -10,8 +10,12 @@ export class FilterActivesPipe implements PipeTransform {
     return groups
       .filter(group => group.active)
       .sort((groupA, groupB) => {
-        if (groupA.id === groupB.id) return 0;
-        if (groupA.id > groupB.id) return 1;
+        if (groupA.id === groupB.id) {
+          return 0;
+        }
+        if (groupA.id > groupB.id) {
+          return 1;
+        }
         return -1;
       });
   }

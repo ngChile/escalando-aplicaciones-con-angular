@@ -4,6 +4,7 @@ import { GroupService } from './group.service';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { of } from 'rxjs';
+import { Group } from '../core/models/group-interface';
 
 class HttpClientMock {
   get = jasmine.createSpy();
@@ -41,7 +42,10 @@ fdescribe('Group Service', () => {
   });
 
   it('should set and get', () => {
-    const list = [1, 2, 3];
+    const list: Group[] = [
+      { id: 'A', value: 'Grupo A', active: true },
+      { id: 'B', value: 'Grupo B', active: true },
+    ];
 
     service.setGroups(list);
 

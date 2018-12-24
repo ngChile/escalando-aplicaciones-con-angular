@@ -9,7 +9,7 @@ import { Group } from '../core/models/group-interface';
 @Injectable()
 export class GroupService {
   groups: Group[] = [];
- 
+
   constructor(
     private http: HttpClient
   ) { }

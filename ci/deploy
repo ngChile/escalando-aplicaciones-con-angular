@@ -1,14 +1,11 @@
 #!/bin/bash
+set -e
+set -o pipefail
 
 echo "============================================================="
 echo "          CONSTRUYENDO APLICACIÓN                            "
 echo "============================================================="
 npm run build:prod
-
-echo "============================================================="
-echo "          ESTRUCTURA DIRECTORIO                              "
-echo "============================================================="
-ls -lha
 
 echo "============================================================="
 echo "      CREANDO IMAGEN DOCKER                                  "
@@ -19,6 +16,11 @@ IMAGE_NAME="registry.heroku.com/${HEROKU_APP_NAME}/web"
 mkdir -p ./docker/public
 cp -R dist/web-app/. ./docker/public
 cp server/server.js docker/
+
+echo "============================================================="
+echo "          ESTRUCTURA DIRECTORIO                              "
+echo "============================================================="
+ls -lha docker
 
 cd docker
 

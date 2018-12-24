@@ -21,7 +21,7 @@ app.get('/auth-service/v1/groups', (req, res) => {
     res.setHeader('Content-Type', 'application/json');
     res.send(groups);
 });
-app.get('/auth-service/v1/login', (req, res) => {
+app.post('/auth-service/v1/login', (req, res) => {
     res.setHeader('Content-Type', 'application/json');
     res.send(user);
 });

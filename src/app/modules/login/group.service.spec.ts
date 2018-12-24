@@ -12,6 +12,7 @@ class HttpClientMock {
 fdescribe('Group Service', () => {
   let service: GroupService;
   let httpClientMock: HttpClientMock;
+
   beforeEach(() => {
     TestBed.configureTestingModule({
       imports: [
@@ -29,7 +30,7 @@ fdescribe('Group Service', () => {
     httpClientMock = TestBed.get(HttpClient);
   });
 
-  it('should be created', () => {
+  it('Should create an instance', () => {
     expect(service).toBeDefined();
   });
 
@@ -37,5 +38,13 @@ fdescribe('Group Service', () => {
     httpClientMock.get.and.returnValue(of({ list: [] }));
     service.getGroups();
     expect(httpClientMock.get).toHaveBeenCalledWith(environment.endpoint.groups);
+  });
+
+  it('should set and get', () => {
+    const list = [1, 2, 3];
+
+    service.setGroups(list);
+
+    expect(service.getStoredGroups()).toEqual(list);
   });
 });

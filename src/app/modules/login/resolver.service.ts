@@ -12,10 +12,7 @@ export class ResolverService implements Resolve<Group[]> {
     private groupService: GroupService
   ) { }
 
-  resolve(
-    route: ActivatedRouteSnapshot,
-    state: RouterStateSnapshot
-  ): Observable<Group[]> {
+  resolve(route: ActivatedRouteSnapshot, state: RouterStateSnapshot): Observable<Group[]> {
     return this.groupService.getGroups();
   }
 }

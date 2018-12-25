@@ -58,11 +58,21 @@
 - request:
     url: ^/admin/v1/users$
     method: POST
+    post: >
+      {"fullName":"(.+)","email":"(.+)","password":"(.+)","group":"(.+)"}
+
   response:
     - status: 201
       latency: 500
       headers: 
         content-type: application/json
+      body: >
+        {
+          "fullName": "<% post[1] %>",
+          "email": "<% post[2] %>",
+          "password": "<% post[3] %>",
+          "group": "<% post[4] %>"
+        }
 
 - request:
     url: ^/admin/v1/users$

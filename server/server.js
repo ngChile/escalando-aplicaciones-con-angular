@@ -35,7 +35,7 @@ app.get('/admin/v1/users', (req, res) => {
 });
 app.post('/admin/v1/users', (req, res) => {
     res.setHeader('Content-Type', 'application/json');
-    users.push(req.body);
+    users.list.push(req.body);
     res.send(req.body);
 });
 // redirect all routes to index.html for SPA behaviour

@@ -4,8 +4,5 @@
     "author": {
         "name": "Gonzalo Pincheira",
         "email": "g.pincheira.a@gmail.com"
-    },
-    "dependencies":{
-        "express": "^4.16.4"
-    }  
+    }
 }

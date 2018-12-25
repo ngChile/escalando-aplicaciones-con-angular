@@ -1,10 +1,14 @@
 const express = require('express');
+const bodyParser = require('body-parser');
 const { version } = require('./package.json');
 const groups = require('./groups.json');
 const user = require('./user.json');
 const users = require('./users.json');
 
 const app = express();
+
+app.use(bodyParser.json()); // support json encoded bodies
+app.use(bodyParser.urlencoded({ extended: true })); // support encoded bodies
 
 const port = process.env.PORT || 8080;
 
@@ -35,9 +39,6 @@ app.post('/admin/v1/users', (req, res) => {
 });
 // redirect all routes to index.html for SPA behaviour
 app.get('*', (req, res) => {
-    console.log('+++++++++++++++++++++++++++++++');
-    console.log(req.params);
-    console.log('+++++++++++++++++++++++++++++++');
     res.sendFile(`${__dirname}/public/index.html`);
 });
 

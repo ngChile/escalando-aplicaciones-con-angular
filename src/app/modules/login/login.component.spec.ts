@@ -18,21 +18,30 @@ import { LoginService } from './login.service';
 import { LoginComponent } from './login.component';
 import { GroupService } from './group.service';
 import { CoreModule } from '../core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { of } from 'rxjs';
+import { FilterActivesPipe } from '../core/filter-actives.pipe';
+
+class LoginServiceMock {
+  authenticate = jasmine.createSpy('loginService.authenticate');
+}
+class GroupServiceMock {
+  getGroups = jasmine.createSpy('groupService.getGroups');
+}
+class ActivatedRouteMock {
+  data = null;
+  snapshot = { queryParams: {} };
+}
+class FilterActivesPipeMock {
+  transform = jasmine.createSpy('filterActives.transform');
+}
 
 describe('LoginComponent', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
-  const authenticateSpy = jasmine.createSpy('loginService.authenticate');
-  const getGroupsSpy = jasmine.createSpy('groupService.getGroups');
-
-  class LoginServiceStub {
-    // se maneja de esta forma porque loginService es privado
-    authenticate = authenticateSpy;
-  }
-
-  class GroupServiceStub {
-    getGroups = getGroupsSpy;
-  }
+  let loginServiceMock: LoginServiceMock;
+  let groupServiceMock: GroupServiceMock;
+  let activateRouteMock: ActivatedRouteMock;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -56,24 +65,35 @@ describe('LoginComponent', () => {
       providers: [
         {
           provide: GroupService,
-          useClass: GroupServiceStub,
+          useClass: GroupServiceMock,
         },
         {
           provide: LoginService,
-          useClass: LoginServiceStub,
+          useClass: LoginServiceMock,
+        },
+        {
+          provide: ActivatedRoute,
+          useClass: ActivatedRouteMock
+        },
+        {
+          provide: FilterActivesPipe,
+          useClass: FilterActivesPipeMock
         }
       ],
       schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
     }).compileComponents();
-  });
 
-  beforeEach(() => {
-    authenticateSpy.calls.reset();
-    getGroupsSpy.calls.reset();
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
+    loginServiceMock = TestBed.get(LoginService);
+    groupServiceMock = TestBed.get(GroupService);
+    activateRouteMock = TestBed.get(ActivatedRoute);
 
-    getGroupsSpy.and.returnValue(Promise.resolve({}));
+    loginServiceMock.authenticate.and.returnValue(of({}));
+    activateRouteMock.data = of({
+      groups: []
+    });
+
     fixture.detectChanges();
   });
 
@@ -85,7 +105,7 @@ describe('LoginComponent', () => {
 
   it('should submit and call authenticate method when the loginForm it is valid', async(() => {
     // "A"rrange
-    authenticateSpy.and.returnValue(Promise.resolve(true));
+    loginServiceMock.authenticate.and.returnValue(of(true));
 
     fixture.whenStable()
       .then(() => {
@@ -104,7 +124,7 @@ describe('LoginComponent', () => {
         component.submit();
 
         // "A"ssert
-        expect(authenticateSpy).toHaveBeenCalled();
+        expect(loginServiceMock.authenticate).toHaveBeenCalled();
         // mostrar como se puede dar más cobertura y fidelidad a la prueba
         // pero que esto no sera reflejado en las métricas.
         // Agregar cobertura para variable loading

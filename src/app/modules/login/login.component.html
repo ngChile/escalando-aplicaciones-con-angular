@@ -8,9 +8,6 @@
         <input [(ngModel)]="formModel.email" #email="ngModel" matInput type="email" name="email" required minlength="3" maxlength="100" autocomplete="off">
         <mat-icon matSuffix>email</mat-icon>
         <mat-hint>Type your email</mat-hint>
-        <mat-error *ngIf="email.invalid">
-          {{ email.errors | json }}
-        </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
@@ -18,9 +15,6 @@
         <input [(ngModel)]="formModel.password" #password="ngModel" matInput type="password" name="password" required minlength="3" maxlength="50" autocomplete="off">
         <mat-icon matSuffix>code</mat-icon>
         <mat-hint>Type your password</mat-hint>
-        <mat-error *ngIf="password.invalid">
-          {{ password.errors | json }}
-        </mat-error>
       </mat-form-field>
 
       <mat-form-field appearance="outline">
@@ -30,14 +24,10 @@
             <mat-option *ngFor="let group of groups" [value]="group.id">{{group.value}}</mat-option>
         </mat-select>
         <mat-hint>Seleccione su grupo</mat-hint>
-        <mat-error *ngIf="group.invalid">
-            {{ group.errors | json }}
-          </mat-error>
       </mat-form-field>
     </mat-card-content>
     <mat-card-actions>
     <mat-checkbox [(ngModel)]="formModel.rememberMe" name="rememberMe">Recuérdame</mat-checkbox>
-    {{formModel | json}}
 
       <button mat-button color="primary">
         <mat-icon>lock_open</mat-icon> Login

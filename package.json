@@ -1,6 +1,6 @@
 {
   "name": "escalando-aplicaciones-con-angular",
-  "version": "0.5.5",
+  "version": "0.5.6",
   "scripts": {
     "ng": "ng",
     "start": "npm-run-all -p stubs serve",
@@ -15,14 +15,14 @@
   },
   "private": true,
   "dependencies": {
-    "@angular/animations": "~7.0.4",
-    "@angular/cdk": "~7.0.4",
+    "@angular/animations": "github:angular/animations-builds",
+    "@angular/cdk": "github:angular/cdk-builds",
     "@angular/common": "~7.0.4",
     "@angular/compiler": "~7.0.4",
     "@angular/core": "~7.0.4",
     "@angular/forms": "~7.0.4",
     "@angular/http": "~7.0.4",
-    "@angular/material": "^7.0.4",
+    "@angular/material": "github:angular/material2-builds",
     "@angular/platform-browser": "~7.0.4",
     "@angular/platform-browser-dynamic": "~7.0.4",
     "@angular/router": "~7.0.4",
@@ -33,9 +33,9 @@
     "zone.js": "~0.8.26"
   },
   "devDependencies": {
-    "@angular-devkit/build-angular": "~0.10.0",
-    "@angular/cli": "~7.0.6",
-    "@angular/compiler-cli": "~7.0.4",
+    "@angular-devkit/build-angular": "^0.13.6",
+    "@angular/cli": "^7.3.6",
+    "@angular/compiler-cli": "^7.2.9",
     "@angular/language-service": "~7.0.4",
     "@types/jasmine": "~3.0.0",
     "@types/jasminewd2": "~2.0.3",
@@ -44,7 +44,7 @@
     "http-server": "^0.11.1",
     "jasmine-core": "~3.3.0",
     "jasmine-spec-reporter": "~4.2.1",
-    "karma": "~3.1.1",
+    "karma": "^4.0.1",
     "karma-chrome-launcher": "~2.2.0",
     "karma-coverage-istanbul-reporter": "~2.0.1",
     "karma-jasmine": "~2.0.1",

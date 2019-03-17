@@ -1,4 +1,3 @@
 #!/bin/bash
 
-npm run test -- --watch=false
-
+ng test --code-coverage --watch=false

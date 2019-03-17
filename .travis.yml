@@ -14,12 +14,17 @@ addons:
 cache:
   directories:
     - ./node_modules
+before_script:
+  - npm install -g @angular/cli
 install:
   - npm install
 stages:
   - name: linter
+    if: branch = master
   - name: unit-tests
-  # - name: e2e
+    if: branch = master
+  - name: e2e
+    if: branch = master
   - name: deploy
     if: branch = master
 jobs:
@@ -28,7 +33,7 @@ jobs:
       script: npm run lint
     - stage: unit-tests
       script: bash ./ci/unit-tests
-    # - stage: e2e
-    #   script: npm run e2e -- --protractor-config=e2e/protractor-ci.conf.js
+    - stage: e2e
+      script: bash ./ci/e2e
     - stage: deploy
       script: bash ./ci/deploy && bash ./ci/release

@@ -1,0 +1,122 @@
+[
+	{
+		"request": {
+			"url": "^/auth-service/v1/login$",
+			"method": "POST",
+			"post": "{\"email\":\"admin\",\"password\":\"admin\"}"
+		},
+		"response": {
+			"status": 200,
+			"latency": 1000,
+			"headers": {
+				"content-type": "application/json"
+			},
+			"file": "./user.json"
+		}
+	},
+	{
+		"request": {
+			"url": "^/auth-service/v1/logout$",
+			"method": "POST",
+			"post": ""
+		},
+		"response": {
+			"status": 200,
+			"latency": 1000,
+			"headers": {
+				"content-type": "application/json"
+			}
+		}
+	},
+	{
+		"request": {
+			"url": "^/auth-service/v1/login$",
+			"method": "POST"
+		},
+		"response": {
+			"status": 400,
+			"latency": 1000,
+			"headers": {
+				"content-type": "application/json"
+			},
+			"body": "{  \"timestamp\": 1500597044204,\n  \"status\": 400,\n  \"error\": \"Bad Request\",\n  \"exception\": \"AuthenticationException\",\n  \"message\": \"Invalid credentials\",\n  \"path\": \"/login\"\n}\n"
+		}
+	},
+	{
+		"request": {
+			"url": "^/auth-service/v1/register$",
+			"method": "POST"
+		},
+		"response": [
+			{
+				"status": 500,
+				"latency": 500,
+				"headers": {
+					"content-type": "application/json"
+				}
+			},
+			{
+				"status": 500,
+				"latency": 1000,
+				"headers": {
+					"content-type": "application/json"
+				}
+			},
+			{
+				"status": 200,
+				"latency": 3000,
+				"headers": {
+					"content-type": "application/json"
+				},
+				"file": "./user.json"
+			}
+		]
+	},
+	{
+		"request": {
+			"url": "^/admin/v1/users$",
+			"method": "POST",
+			"post": "{\"fullName\":\"(.+)\",\"email\":\"(.+)\",\"password\":\"(.+)\",\"group\":\"(.+)\"}\n"
+		},
+		"response": [
+			{
+				"status": 201,
+				"latency": 500,
+				"headers": {
+					"content-type": "application/json"
+				},
+				"body": "{  \"fullName\": \"<% post[1] %>\",\n  \"email\": \"<% post[2] %>\",\n  \"password\": \"<% post[3] %>\",\n  \"group\": \"<% post[4] %>\"\n}\n"
+			}
+		]
+	},
+	{
+		"request": {
+			"url": "^/admin/v1/users$",
+			"method": "GET"
+		},
+		"response": [
+			{
+				"status": 200,
+				"latency": 500,
+				"headers": {
+					"content-type": "application/json"
+				},
+				"file": "./users.json"
+			}
+		]
+	},
+	{
+		"request": {
+			"url": "^/auth-service/v1/groups$",
+			"method": "GET"
+		},
+		"response": {
+			"status": 200,
+			"latency": 1000,
+			"headers": {
+				"content-type": "application/json"
+			},
+			"file": "./groups.json"
+		}
+	}
+]

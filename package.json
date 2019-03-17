@@ -3,17 +3,17 @@
   "version": "0.6.0",
   "scripts": {
     "ng": "ng",
-    "start": "npm-run-all -p stubs serve",
-    "serve": "ng serve --port 8080",
-    "build:prod": "ng build --prod",
-    "build": "ng build",
+    "start": "npm-run-all -p stubs 'ng serve'",
+    "stubs": "stubby -d ./stubs/config.json -w",
     "test": "ng test --code-coverage",
-    "lint": "ng lint",
+    "inspect-coverage": "npm run test -- --watch=false && http-server coverage",
     "e2e": "ng e2e",
-    "stubs": "npx stubby -d ./stubs/config.yaml -w",
-    "inspect-coverage": "npm run test -- --watch=false && http-server coverage"
+    "lint": "ng lint",
+    "build": "ng build"
   },
-  "private": true,
+  "cypress-cucumber-preprocessor": {
+    "step_definitions": "./e2e/support/step_definitions"
+  },
   "dependencies": {
     "@angular/animations": "github:angular/animations-builds",
     "@angular/cdk": "github:angular/cdk-builds",
@@ -41,7 +41,10 @@
     "@types/jasminewd2": "~2.0.3",
     "@types/node": "~10.12.9",
     "codelyzer": "~4.5.0",
+    "cypress": "^3.2.0",
+    "cypress-cucumber-preprocessor": "^1.11.0",
     "http-server": "^0.11.1",
+    "husky": "^1.3.1",
     "jasmine-core": "~3.3.0",
     "jasmine-spec-reporter": "~4.2.1",
     "karma": "^4.0.1",
@@ -50,6 +53,7 @@
     "karma-jasmine": "~2.0.1",
     "karma-jasmine-html-reporter": "^1.4.0",
     "karma-spec-reporter": "0.0.32",
+    "ngx-cypress-builder": "^1.0.2",
     "npm-run-all": "^4.1.5",
     "protractor": "~5.4.0",
     "puppeteer": "^1.10.0",

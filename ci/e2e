@@ -1,0 +1,3 @@
+#!/bin/bash
+
+ng e2e -- --mode console

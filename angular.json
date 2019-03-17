@@ -95,18 +95,6 @@
             ]
           }
         },
-        "e2e": {
-          "builder": "@angular-devkit/build-angular:protractor",
-          "options": {
-            "protractorConfig": "e2e/protractor.conf.js",
-            "devServerTarget": "web-app:serve"
-          },
-          "configurations": {
-            "production": {
-              "devServerTarget": "web-app:serve:production"
-            }
-          }
-        },
         "lint": {
           "builder": "@angular-devkit/build-angular:tslint",
           "options": {
@@ -117,6 +105,18 @@
             "exclude": [
               "**/node_modules/**"
             ]
+          }
+        },
+        "e2e": {
+          "builder": "ngx-cypress-builder:cypress",
+          "options": {
+            "devServerTarget": "web-app:serve",
+            "mode": "browser"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "web-app:serve:production"
+            }
           }
         }
       }

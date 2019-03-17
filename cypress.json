@@ -6,5 +6,6 @@
     "supportFile": "./e2e/support/index.js",
     "videosFolder": "./e2e/videos",
     "baseUrl": "http://localhost:4200",
-    "reporter": "reporters/custom.js"
+    "reporter": "reporters/custom.js",
+    "video": false
 }

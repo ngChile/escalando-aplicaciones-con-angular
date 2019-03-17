@@ -1,23 +1,17 @@
 dist: trusty
 language: node_js
+node_js:
+  - 10
 services:
   - docker
-sudo: false
-node_js: 
-  - "node"
-addons:
-  apt:
-    sources:
-      - google-chrome
-    packages:
-      - google-chrome-stable
 cache:
+  npm: true
   directories:
-    - ./node_modules
+    - ~/.cache
 before_script:
   - npm install -g @angular/cli
 install:
-  - npm install
+  - npm ci
 stages:
   - name: linter
     if: branch = master

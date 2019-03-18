@@ -5,4 +5,4 @@ Feature: Autenticación
   o si se dejan sin llenar los campos obligatorios.
 
   Scenario: Ingresar a la página de autenticación
-    Given ingreso a la pagina de autenticación
+    Given ingreso a la página de autenticación

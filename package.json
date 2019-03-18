@@ -9,7 +9,8 @@
     "inspect-coverage": "npm run test -- --watch=false && http-server coverage",
     "e2e": "ng e2e",
     "lint": "ng lint",
-    "build": "ng build"
+    "build": "ng build",
+    "cypress": "cypress open"
   },
   "cypress-cucumber-preprocessor": {
     "step_definitions": "./e2e/support/step_definitions"

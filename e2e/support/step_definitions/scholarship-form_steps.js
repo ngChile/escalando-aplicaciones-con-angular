@@ -9,11 +9,11 @@ When('escribo un nombre en el input de nombre', () => {
     cy.get('.scholarship-form-page__name').type('Mi nombre')
 })
 
-When('escribo un nombre en el input de email', () => {
+When('escribo un email en el input de email', () => {
     cy.get('.scholarship-form-page__email').type('MiNombre@test.org')
 })
 
-When('escribo una razon en el text area de motivo', () => {
+When('escribo una razón en el text area de motivo', () => {
     cy.get('.scholarship-form-page__reason').type('Me gusta mucho el curso')
 })
 

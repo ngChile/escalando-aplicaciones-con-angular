@@ -4,5 +4,15 @@ Feature: Autenticación
   que los campos de ingreso de la validación marquen los errores sin se les provee valores inválidos
   o si se dejan sin llenar los campos obligatorios.
 
+  Quiero ingresar a la página de Autenticación y quiero ver el link que invite a los usuarios a postular a la beca del curso.
+  Una vez hecho clic redirigir a una nueva página donde se mostrará el formulario de la beca.
+
   Scenario: Ingresar a la página de autenticación
     Given ingreso a la página de autenticación
+  @focus
+  Scenario: Redirección a la página de postulación de beca
+    Given ingreso a la página de autenticación
+    When hago clic en el enlace de postulación a la beca
+    Then soy redirigido a la página de postulación
+
+  

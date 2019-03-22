@@ -3,7 +3,7 @@ import { Routes, RouterModule } from '@angular/router';
 import { LoginModule } from './modules/login';
 
 import { PageNotFoundComponent } from './modules/core';
-import { ScholarshipFormComponent } from './scholarship-form/scholarship-form.component'
+import { ScholarshipFormComponent } from './scholarship-form/scholarship-form.component';
 import { LoginComponent, AuthGuard } from './modules/login';
 import { ResolverService } from './modules/login/resolver.service';
 

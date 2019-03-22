@@ -16,3 +16,7 @@ Feature: Autenticación
     Then soy redirigido a la página de postulación
 
   
+  Scenario: Login con email, password y grupos
+    Given ingreso a la página de autenticación
+    When escribo en el input de email
+    

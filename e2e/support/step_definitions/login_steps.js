@@ -20,3 +20,12 @@ Then('soy redirigido a la página de postulación', () => {
     cy.url().should('contains','/scholarship-form');    
 })
 
+
+
+Given('ingreso a la página de autenticación', () => {
+    cy.visit('/');
+});
+
+When('escribo en el input de email', () => {
+    cy.get('input[name="email"]').type('MiNombre@test.org')
+})

@@ -9,7 +9,11 @@ Feature: Autenticación
 
   Scenario: Ingresar a la página de autenticación
     Given ingreso a la página de autenticación
+<<<<<<< HEAD
   
+=======
+    
+>>>>>>> f33765dba44df1ef8bb16a9f21b3637e1363ea42
   Scenario: Redirección a la página de postulación de beca
     Given ingreso a la página de autenticación
     When hago clic en el enlace de postulación a la beca

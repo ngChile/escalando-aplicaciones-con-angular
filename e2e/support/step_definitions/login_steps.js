@@ -29,3 +29,7 @@ Given('ingreso a la página de autenticación', () => {
 When('escribo en el input de email', () => {
     cy.get('input[name="email"]').type('MiNombre@test.org')
 })
+When('escribo en el input password', () => {
+    cy.get('input[name="password"]').type('1234567890');
+})
+

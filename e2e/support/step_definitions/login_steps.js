@@ -12,6 +12,11 @@ Given('ingreso a la página de autenticación', () => {
     cy.visit('/');
 });
 
+When('selecciono un grupo del menú grupos', () => {
+    cy.get('.mat-select-value').click();
+    cy.get('.mat-option:nth-child(2)').click();
+});
+
 When('hago clic en el enlace de postulación a la beca', () => {
     cy.get('.login-page__scholarship-link').click()
 })

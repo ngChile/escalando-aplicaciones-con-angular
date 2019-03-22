@@ -6,4 +6,5 @@ Feature: Página de postulación a la beca
    "Postulación enviada con éxito"
 
     Scenario: Ingreso de los datos y postulación a la beca
-        Given ingreso a la página de postulación a la beca 
+        Given ingreso a la página de postulación
+        When escribo un nombre en el input de nombre

@@ -9,7 +9,7 @@ Feature: Autenticación
 
   Scenario: Ingresar a la página de autenticación
     Given ingreso a la página de autenticación
-  @focus
+  
   Scenario: Redirección a la página de postulación de beca
     Given ingreso a la página de autenticación
     When hago clic en el enlace de postulación a la beca

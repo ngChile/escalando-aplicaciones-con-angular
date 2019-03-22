@@ -6,4 +6,5 @@ Feature: Página de postulación a la beca
    "Postulación enviada con éxito"
 
     Scenario: Ingreso de los datos y postulación a la beca
-        Given ingreso a la página de postulación a la beca 
+        Given ingreso a la página de postulación
+        Then debería ver el mensaje de postulación enviado

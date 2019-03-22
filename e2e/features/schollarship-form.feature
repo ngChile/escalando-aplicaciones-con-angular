@@ -7,4 +7,5 @@ Feature: Página de postulación a la beca
 
     Scenario: Ingreso de los datos y postulación a la beca
         Given ingreso a la página de postulación
+        When escribo un nombre en el input de nombre
         Then debería ver el mensaje de postulación enviado

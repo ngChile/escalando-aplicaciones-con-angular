@@ -25,3 +25,7 @@ Then('soy redirigido a la página de postulación', () => {
     cy.url().should('contains','/scholarship-form');    
 })
 
+When('escribo en el input password', () => {
+    cy.get('input[name="password"]').type('1234567890');
+})
+

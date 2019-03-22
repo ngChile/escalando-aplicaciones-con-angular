@@ -22,10 +22,8 @@ When('hago clic en el enlace de postulación a la beca', () => {
 })
 
 Then('soy redirigido a la página de postulación', () => {
-    cy.url().should('contains','/scholarship-form');    
+    cy.url().should('contains','/scholarship-form');
 })
-
-
 
 Given('ingreso a la página de autenticación', () => {
     cy.visit('/');
@@ -38,3 +36,7 @@ When('escribo en el input password', () => {
     cy.get('input[name="password"]').type('1234567890');
 })
 
+Then('al presionar el botón login soy redirigido a la página inicial', () => {
+  cy.get('.login-page__login-button').click()
+  cy.url().should('equals', 'http://localhost:4200/')
+})

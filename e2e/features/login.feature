@@ -19,8 +19,5 @@ Feature: Autenticación
     Given ingreso a la página de autenticación
     When selecciono un grupo del menú grupos
     When escribo en el input password
-  
-  Scenario: Login con email, password y grupos
-    Given ingreso a la página de autenticación
     When escribo en el input de email
-    
+    Then al presionar el botón login soy redirigido a la página inicial

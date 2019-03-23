@@ -24,6 +24,5 @@ module.exports = function(runner) {
         console.log('----------------------------------------------');
         console.log(`|          Your score is ${score}            |`);
         console.log('----------------------------------------------')
-        process.exit();
     });
 }

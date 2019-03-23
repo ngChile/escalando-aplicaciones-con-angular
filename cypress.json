@@ -7,5 +7,6 @@
     "videosFolder": "./e2e/videos",
     "baseUrl": "http://localhost:4200",
     "reporter": "reporters/custom.js",
-    "video": false
+    "video": false,
+    "chromeWebSecurity": false
 }

@@ -30,4 +30,5 @@ jobs:
     - stage: e2e
       script: bash ./ci/e2e
     - stage: deploy
-      script: bash ./ci/deploy && bash ./ci/release
+      script: 
+        - 'if [ "$TRAVIS_PULL_REQUEST" = "false" ]; then bash ./ci/deploy && bash ./ci/release; fi'

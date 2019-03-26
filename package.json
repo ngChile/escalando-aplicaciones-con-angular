@@ -3,14 +3,12 @@
   "version": "0.7.2",
   "scripts": {
     "ng": "ng",
-    "start": "npm-run-all -p stubs 'ng serve'",
-    "stubs": "stubby -d ./stubs/config.json -w",
+    "start": "ng run web-app:serve-with-stubs",
     "test": "ng test --code-coverage",
     "inspect-coverage": "npm run test -- --watch=false && http-server coverage",
     "e2e": "ng e2e",
     "lint": "ng lint",
-    "build": "ng build",
-    "cypress": "cypress open"
+    "build": "ng build"
   },
   "cypress-cucumber-preprocessor": {
     "step_definitions": "./e2e/support/step_definitions"
@@ -55,7 +53,7 @@
     "karma-jasmine-html-reporter": "^1.4.0",
     "karma-spec-reporter": "0.0.32",
     "ngx-cypress-builder": "github:gpincheiraa/ngx-cypress-builder#release",
-    "npm-run-all": "^4.1.5",
+    "ngx-devkit-stubby-builder": "^1.0.0",
     "protractor": "~5.4.0",
     "puppeteer": "^1.10.0",
     "stubby": "^4.0.0",

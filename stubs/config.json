@@ -11,7 +11,7 @@
 			"headers": {
 				"content-type": "application/json"
 			},
-			"file": "./user.json"
+			"file": "./stubs/user.json"
 		}
 	},
 	{
@@ -68,7 +68,7 @@
 				"headers": {
 					"content-type": "application/json"
 				},
-				"file": "./user.json"
+				"file": "./stubs/user.json"
 			}
 		]
 	},
@@ -101,7 +101,7 @@
 				"headers": {
 					"content-type": "application/json"
 				},
-				"file": "./users.json"
+				"file": "./stubs/users.json"
 			}
 		]
 	},
@@ -116,7 +116,7 @@
 			"headers": {
 				"content-type": "application/json"
 			},
-			"file": "./groups.json"
+			"file": "./stubs/groups.json"
 		}
 	}
 ]

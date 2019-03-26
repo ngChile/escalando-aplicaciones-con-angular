@@ -71,6 +71,18 @@
             }
           }
         },
+        "serve-with-stubs": {
+          "builder": "ngx-devkit-stubby-builder:serve",
+          "options": {
+            "devServerTarget": "web-app:serve",
+            "stubsConfigFile": "./stubs/config.json"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "web-app:serve:production"
+            }
+          }
+        },
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {

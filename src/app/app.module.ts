@@ -8,11 +8,13 @@ import { CoreModule } from './modules/core/core.module';
 
 import { AppComponent } from './app.component';
 import { ScholarshipFormComponent } from './scholarship-form/scholarship-form.component';
+import { ScholarshipPostulationsComponent } from './scholarship-postulations/scholarship-postulations.component';
 
 @NgModule({
   declarations: [
     AppComponent,
-    ScholarshipFormComponent
+    ScholarshipFormComponent,
+    ScholarshipPostulationsComponent
   ],
   imports: [
     BrowserModule,

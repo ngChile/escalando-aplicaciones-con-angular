@@ -132,5 +132,17 @@
 			},
 			"file": "./stubs/roles.json"
 		}
+	},
+	{
+		"request": {
+			"url": "^/auth-service/v1/roles$",
+			"method": "POST"
+		},
+		"response": {
+			"status": 200,
+			"headers": {
+				"content-type": "application/json"
+			}
+		}
 	}
 ]

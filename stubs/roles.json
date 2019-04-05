@@ -1,0 +1,5 @@
+[
+    { "id": "R1", "name": "Supervisor", "active": true },
+    { "id": "R2", "name": "Ejecutivo", "active": true },
+    { "id": "R3", "name": "Administrador", "active": true }
+]

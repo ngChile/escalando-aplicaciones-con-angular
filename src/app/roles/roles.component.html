@@ -1,0 +1,17 @@
+<div class="form-container">
+  <form (ngSubmit)="submit()">
+    <div>
+      <mat-form-field class="example-full-width">
+          <input matInput name="name" placeholder="Nombre rol" [(ngModel)]="role.name">
+      </mat-form-field>
+    </div>
+      
+    <div>
+        <mat-checkbox [(ngModel)]="role.active" name="active">Activo</mat-checkbox>
+    </div>
+  
+    <div>
+        <button mat-raised-button color="primary" type="submit">Agregar</button>
+    </div>
+  </form>
+</div>

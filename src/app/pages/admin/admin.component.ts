@@ -17,9 +17,21 @@ export class AdminComponent implements OnInit {
     fullName: new FormControl('', [Validators.required, Validators.minLength(3)]),
     email: new FormControl('', [Validators.required, Validators.email]),
     password: new FormControl('', [Validators.required]),
-    group : new FormControl('', [Validators.required])
+    group : new FormControl('', [Validators.required]),
+    roles : new FormControl('', [Validators.required])
   });
   groups = [];
+  roles = [
+    {
+      id: 1, value: 'director',
+    },
+    {
+      id: 2, value: 'secretaria',
+    },
+    {
+      id: 3, value: 'profesor'
+    }
+  ];
   users: User[];
   usersSource = new MatTableDataSource();
   headers = [ 'name', 'email', 'group' ];

@@ -10,6 +10,7 @@ export const environment = {
     register: 'http://localhost:8882/auth-service/v1/register',
     groups: 'http://localhost:8882/auth-service/v1/groups',
     users: 'http://localhost:8882/admin/v1/users',
+    roles: 'http://localhost:8882/auth-service/v1/roles',
   }
 };
 

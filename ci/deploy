@@ -19,6 +19,7 @@ cp server/server.js docker/
 cp stubs/groups.json docker/
 cp stubs/user.json docker/
 cp stubs/users.json docker/
+cp stubs/roles.json docker/
 
 echo "============================================================="
 echo "          ESTRUCTURA DIRECTORIO                              "

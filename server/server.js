@@ -4,6 +4,7 @@ const { version } = require('./package.json');
 const groups = require('./groups.json');
 const user = require('./user.json');
 const users = require('./users.json');
+const users = require('./roles.json');
 
 const app = express();
 
@@ -25,19 +26,34 @@ app.get('/auth-service/v1/groups', (req, res) => {
     res.setHeader('Content-Type', 'application/json');
     res.send(groups);
 });
+
 app.post('/auth-service/v1/login', (req, res) => {
     res.setHeader('Content-Type', 'application/json');
     res.send(user);
 });
+
 app.get('/admin/v1/users', (req, res) => {
     res.setHeader('Content-Type', 'application/json');
     res.send(users);
 });
+
 app.post('/admin/v1/users', (req, res) => {
     res.setHeader('Content-Type', 'application/json');
     users.list.push(req.body);
     res.send(req.body);
 });
+
+app.get('/auth-service/v1/roles', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(roles);
+});
+
+app.post('/auth-service/v1/roles', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    roles.push(req.body)
+    res.send(req.body);
+});
+
 // redirect all routes to index.html for SPA behaviour
 app.get('*', (req, res) => {
     res.sendFile(`${__dirname}/public/index.html`);

@@ -6,5 +6,6 @@ export const environment = {
     register: '/auth-service/v1/register',
     groups: '/auth-service/v1/groups',
     users: '/admin/v1/users',
+    roles: '/auth-service/v1/roles',
   }
 };

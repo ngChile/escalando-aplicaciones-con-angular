@@ -4,6 +4,7 @@ import { LoginModule } from './modules/login';
 
 import { PageNotFoundComponent } from './modules/core';
 import { ScholarshipFormComponent } from './scholarship-form/scholarship-form.component';
+import { RolesComponent } from './roles/roles.component';
 import { ScholarshipPostulationsComponent } from './scholarship-postulations/scholarship-postulations.component';
 import { LoginComponent, AuthGuard } from './modules/login';
 import { ResolverService } from './modules/login/resolver.service';
@@ -30,6 +31,10 @@ const routes: Routes = [
   {
     path: 'scholarship-form',
     component: ScholarshipFormComponent,
+  },
+  {
+    path: 'roles',
+    component: RolesComponent,
   },
   {
     path: 'scholarship-postulations',

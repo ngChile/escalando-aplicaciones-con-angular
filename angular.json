@@ -75,7 +75,7 @@
           "builder": "ngx-devkit-stubby-builder:serve",
           "options": {
             "devServerTarget": "web-app:serve",
-            "stubsConfigFile": "./stubs/config.json"
+            "stubsConfigFile": "stubs/config.json"
           },
           "configurations": {
             "production": {

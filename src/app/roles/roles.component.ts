@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { RolesService } from './../roles.service'
+import { RolesService } from './../roles.service';
 
 @Component({
   selector: 'app-roles',
@@ -7,17 +7,16 @@ import { RolesService } from './../roles.service'
   styleUrls: ['./roles.component.scss']
 })
 export class RolesComponent implements OnInit {
+  role = { name: '', active: true };
 
-  role = { name: '', active: true}
   constructor(
-    private roleSer: RolesService
+    private rolesService: RolesService
   ) { }
 
   ngOnInit() {
   }
   submit() {
-    console.log(this.roleSer)
-    this.roleSer.createRole(this.role)
-    console.log(this.role)
+    this.rolesService.createRole(this.role)
+      .subscribe();
   }
 }

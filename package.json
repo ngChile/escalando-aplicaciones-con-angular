@@ -54,8 +54,6 @@
     "karma-spec-reporter": "0.0.32",
     "ngx-cypress-builder": "github:gpincheiraa/ngx-cypress-builder#release",
     "ngx-devkit-stubby-builder": "^1.0.2",
-    "protractor": "~5.4.0",
-    "puppeteer": "^1.10.0",
     "stubby": "^4.0.0",
     "ts-node": "~7.0.1",
     "tslint": "~5.11.0",

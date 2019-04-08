@@ -12,4 +12,4 @@ Feature: Registro
     When ingresar email
     When ingresar password
     When ingresar grupo
-    # When ingresar rol
+    When ingresar rol

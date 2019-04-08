@@ -27,6 +27,11 @@ When('ingresar password', () => {
 });
 
 When('ingresar grupo', () => {
-    cy.get('.mat-select-value').click();
-    cy.get('.mat-option:nth-child(2)').click();
+    cy.get('mat-select[formcontrolname="group"] .mat-select-value').click();
+    cy.get('.mat-option.mat-active~.mat-option:nth-of-type(3)').click();
+});
+
+When('ingresar rol', () => {
+    cy.get('mat-select[formcontrolname="roles"] .mat-select-value').click();
+    cy.get('.mat-option.mat-active~.mat-option:nth-of-type(2)').click();
 });

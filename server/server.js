@@ -4,7 +4,7 @@ const { version } = require('./package.json');
 const groups = require('./groups.json');
 const user = require('./user.json');
 const users = require('./users.json');
-const users = require('./roles.json');
+const roles = require('./roles.json');
 
 const app = express();
 

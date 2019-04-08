@@ -12,13 +12,13 @@ export class RolesService {
     private http: HttpClient
   ) { }
 
-  createRole(role) {  
+  createRole(role) {
     return this.http
       .post(environment.endpoint.roles, role);
   }
 
   getRoles(): Observable<any[]> {
     return this.http
-      .get<any>(environment.endpoint.roles)
+      .get<any>(environment.endpoint.roles);
   }
 }

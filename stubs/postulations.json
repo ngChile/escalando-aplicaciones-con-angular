@@ -1,0 +1,50 @@
+[
+    {
+      "name": "Gonzalo",
+      "email": "gonzalo@boolean.cl",
+      "reason": "Quiero aprender",
+      "status": "rejected"
+    },
+    {
+      "name": "Seba",
+      "email": "seba@boolean.cl",
+      "reason": "Quiero aprender",
+      "status": "rejected"
+    },
+    {
+        "name": "Tamara Acevedo",
+        "email": "tamara@boolean.cl",
+        "reason": "Quiero mejorar mis conocimientos de Front End.",
+        "status": "accepted"
+    },
+    {
+        "name": "Eduardo Bustos",
+        "email": "eduardo@boolean.cl",
+        "reason": "Quiero mejorar mis conocimientos de Proyectos de Software.",
+        "status": "accepted"
+    },
+    {
+        "name": "Mariano Bustos",
+        "email": "mariano@boolean.cl",
+        "reason": "Quiero mejorar mis conocimientos de Proyectos de Software.",
+        "status": "accepted"
+    },
+    {
+        "name": "Maria Paz Marin",
+        "email": "mariapaz@boolean.cl",
+        "reason": "Quiero mejorar mis conocimientos de HTML y CSS.",
+        "status": "accepted"
+    },
+    {
+        "name": "Samuel Medina",
+        "email": "samuel@boolean.cl",
+        "reason": "Quiero mejorar mis conocimientos de Proyectos de Software.",
+        "status": "awaiting"
+    },
+    {
+        "name": "Sebastián Caro",
+        "email": "sebac@boolean.cl",
+        "reason": "Quiero mejorar mis conocimientos de Pruebas de Software.",
+        "status": "awaiting"
+    }
+]

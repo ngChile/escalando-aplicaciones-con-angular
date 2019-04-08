@@ -16,10 +16,8 @@ IMAGE_NAME="registry.heroku.com/${HEROKU_APP_NAME}/web"
 mkdir -p ./docker/public
 cp -R dist/web-app/. ./docker/public
 cp server/server.js docker/
-cp stubs/groups.json docker/
-cp stubs/user.json docker/
-cp stubs/users.json docker/
-cp stubs/roles.json docker/
+cp stubs/* docker/
+rm docker/config.json
 
 echo "============================================================="
 echo "          ESTRUCTURA DIRECTORIO                              "

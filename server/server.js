@@ -5,6 +5,7 @@ const groups = require('./groups.json');
 const user = require('./user.json');
 const users = require('./users.json');
 const roles = require('./roles.json');
+const postulations = require('./postulations.json');
 
 const app = express();
 
@@ -52,6 +53,11 @@ app.post('/auth-service/v1/roles', (req, res) => {
     res.setHeader('Content-Type', 'application/json');
     roles.push(req.body)
     res.send(req.body);
+});
+
+app.get('/scholarship/v1/postulations', (req, res) => {
+    res.setHeader('Content-Type', 'application/json');
+    res.send(postulations);
 });
 
 // redirect all routes to index.html for SPA behaviour

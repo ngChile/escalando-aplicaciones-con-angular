@@ -11,6 +11,7 @@ export const environment = {
     groups: 'http://localhost:8882/auth-service/v1/groups',
     users: 'http://localhost:8882/admin/v1/users',
     roles: 'http://localhost:8882/auth-service/v1/roles',
+    postulations: 'http://localhost:8882/scholarship/v1/postulations',
   }
 };
 

@@ -1,6 +1,7 @@
 $color-yellow: #ffd740;
 $color-purple: #d1c4e9;
 $color-red: #c1123d;
+$color-green: #49c112;
 
 $page-padding: 1.5rem;
 $size-border: 3px;
@@ -48,9 +49,13 @@ $list-status-padding: .75rem;
             margin-bottom: 0;
         }
 
-        &--awaiting, &--rejected {
+        &--awaiting, &--rejected, &--accepted {
             color: white;
             padding: $list-status-padding;
+        }
+
+        &--accepted {
+            background-color: $color-green;
         }
 
         &--awaiting {
@@ -59,8 +64,6 @@ $list-status-padding: .75rem;
 
         &--rejected {
             background-color: $color-red;
-            color: white;
-            padding: $list-status-padding;
         }
     }
 }

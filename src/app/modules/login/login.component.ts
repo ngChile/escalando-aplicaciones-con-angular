@@ -17,7 +17,7 @@ interface JSONResponse {
   styleUrls: ['./login.component.scss']
 })
 export class LoginComponent implements OnInit {
-  @ViewChild('loginForm') loginForm: NgForm;
+  @ViewChild('loginForm', { static: true }) loginForm: NgForm;
 
   formModel: LoginFormModel;
   isLoading: boolean;

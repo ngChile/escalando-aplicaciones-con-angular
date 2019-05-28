@@ -120,7 +120,7 @@
           }
         },
         "e2e": {
-          "builder": "ngx-cypress-builder:cypress",
+          "builder": "ngx-devkit-cypress-builder:cypress",
           "options": {
             "devServerTarget": "web-app:serve",
             "mode": "browser"

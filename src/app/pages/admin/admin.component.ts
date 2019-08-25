@@ -14,7 +14,6 @@ import { FilterActivesPipe } from '@app/modules/core/filter-actives.pipe';
   styleUrls: ['./admin.component.scss']
 })
 export class AdminComponent implements OnInit {
-
   form = new FormGroup({
     fullName: new FormControl('', [Validators.required, Validators.minLength(3)]),
     email: new FormControl('', [Validators.required, Validators.email]),
@@ -58,8 +57,7 @@ export class AdminComponent implements OnInit {
   onSubmit() {
     // get user
     if (this.form.valid) {
-      let user: User;
-      user = this.form.value as User;
+      const user = this.form.value;
       this.adminService
         .createUser(user)
         .subscribe(userResponse => {

@@ -5,8 +5,8 @@ import { Router, ActivatedRoute } from '@angular/router';
 import { finalize } from 'rxjs/operators';
 import { LoginService } from './login.service';
 import { LoginFormModel } from './login-form.model';
-import { FilterActivesPipe } from '../core/filter-actives.pipe';
-import { Group } from '../core/models/group-interface';
+import { FilterActivesPipe } from '@app/modules/core/filter-actives.pipe';
+import { Group } from '@app/models/group';
 
 interface JSONResponse {
   groups: Group[];

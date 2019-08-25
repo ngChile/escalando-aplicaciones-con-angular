@@ -1,10 +1,12 @@
-import { MatTableDataSource } from '@angular/material/table';
-import { AdminService } from './admin.service';
-import { User } from './../../modules/login/login.service';
-import { FilterActivesPipe } from './../../modules/core/filter-actives.pipe';
+import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Component, OnInit } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
+import { switchMap, tap } from 'rxjs/operators';
+
+import { AdminService } from './admin.service';
+import { User } from '@app/models/user';
+import { FilterActivesPipe } from '@app/modules/core/filter-actives.pipe';
 
 @Component({
   selector: 'app-admin',
@@ -44,11 +46,12 @@ export class AdminComponent implements OnInit {
 
   ngOnInit() {
     this.route.data
-      .subscribe((data: { groups: [] }) => {
-        this.groups = this.filterActives.transform(data.groups);
-      });
-    this.adminService
-      .listUsers()
+      .pipe(
+        tap((data: { groups: [] }) => {
+          this.groups = this.filterActives.transform(data.groups);
+        }),
+        switchMap(() => this.adminService.listUsers())
+      )
       .subscribe(users => this.usersSource.data = users);
   }
 

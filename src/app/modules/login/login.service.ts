@@ -4,6 +4,7 @@ import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment';
+import { User } from '@app/models/user';
 
 @Injectable()
 export class LoginService {
@@ -37,10 +38,4 @@ export class LoginService {
     return this.http.post(environment.endpoint.logout, {})
       .toPromise();
   }
-}
-export interface User {
-  fullName: string;
-  email: string;
-  password: string;
-  group?: string;
 }

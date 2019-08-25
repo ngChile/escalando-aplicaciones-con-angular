@@ -1,10 +1,10 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
-import { GroupService } from './group.service';
 import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { of } from 'rxjs';
-import { Group } from '../core/models/group-interface';
+import { GroupService } from './group.service';
+import { Group } from '@app/models/group';
 
 class HttpClientMock {
   get = jasmine.createSpy();

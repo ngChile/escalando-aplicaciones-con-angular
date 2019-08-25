@@ -1,5 +1,6 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Group } from './models/group-interface';
+import { Group } from '@app/models/group';
+
 
 @Pipe({
   name: 'filterActives'

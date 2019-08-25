@@ -28,7 +28,7 @@
     "hammerjs": "^2.0.8",
     "http-server": "^0.11.1",
     "rxjs": "~6.5.2",
-    "zone.js": "~0.9.1"
+    "zone.js": "^0.10.2"
   },
   "devDependencies": {
     "@angular-builders/jest": "^8.2.0",

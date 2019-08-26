@@ -18,7 +18,7 @@ import { LoginService } from './login.service';
 import { LoginComponent } from './login.component';
 import { GroupService } from './group.service';
 import { CoreModule } from '../core';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
 import { of } from 'rxjs';
 import { FilterActivesPipe } from '../core/filter-actives.pipe';
 
@@ -50,12 +50,12 @@ describe('LoginComponent', () => {
         RouterTestingModule,
         HttpClientTestingModule,
         NoopAnimationsModule,
+        CoreModule,
 
         MatFormFieldModule,
         MatIconModule,
         MatSelectModule,
         MatCardModule,
-        CoreModule,
         MatCheckboxModule,
         MatButtonModule,
         MatInputModule,

@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { Resolve, ActivatedRouteSnapshot, RouterStateSnapshot } from '@angular/router';
 import { Observable } from 'rxjs';
 import { GroupService } from './group.service';
-import { Group } from '@app/models/group';
+import { Group } from '@app/models/domain/group';
 
 
 @Injectable({

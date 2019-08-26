@@ -14,84 +14,90 @@ import { MatInputModule } from '@angular/material/input';
 import { of } from 'rxjs';
 
 import { AdminComponent } from './admin.component';
+import { AdminService } from './admin.service';
 import { FilterActivesPipe } from '@app/modules/core/filter-actives.pipe';
 import { User } from '@app/models/domain/user';
 import { Group } from '@app/models/domain/group';
 
 class ActivatedRouteMock {
-  data = null;
+    data = null;
 }
 class FilterActivesPipeMock {
-  transform = jasmine.createSpy('filterActives.transform');
+    transform = jasmine.createSpy('filterActives.transform');
 }
 
+class AdminServiceMock { }
+
 describe('AdminComponent', () => {
-  let component: AdminComponent;
-  let fixture: ComponentFixture<AdminComponent>;
-  let activateRouteMock: ActivatedRouteMock;
-  let filterActivesPipeMock: FilterActivesPipeMock;
-  let users: User[];
-  let groups: Group[];
+    let component: AdminComponent;
+    let fixture: ComponentFixture<AdminComponent>;
+    let activateRouteMock: ActivatedRouteMock;
+    let filterActivesPipeMock: FilterActivesPipeMock;
+    let users: User[];
+    let groups: Group[];
 
-  beforeEach(async(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        ReactiveFormsModule,
-        RouterTestingModule,
-        HttpClientTestingModule,
-        NoopAnimationsModule,
+    beforeEach(async(() => {
+        TestBed.configureTestingModule({
+            imports: [
+                ReactiveFormsModule,
+                RouterTestingModule,
+                HttpClientTestingModule,
+                NoopAnimationsModule,
 
-        MatFormFieldModule,
-        MatSnackBarModule,
-        MatTableModule,
-        MatSelectModule,
-        MatInputModule
-      ],
-      declarations: [ AdminComponent ],
-      providers: [
-        {
-          provide: ActivatedRoute,
-          useClass: ActivatedRouteMock
-        },
-        {
-          provide: FilterActivesPipe,
-          useClass: FilterActivesPipeMock
-        }
-      ],
-      schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
-    }).compileComponents();
+                MatFormFieldModule,
+                MatSnackBarModule,
+                MatTableModule,
+                MatSelectModule,
+                MatInputModule
+            ],
+            declarations: [AdminComponent],
+            providers: [
+                {
+                    provide: ActivatedRoute,
+                    useClass: ActivatedRouteMock
+                },
+                {
+                    provide: FilterActivesPipe,
+                    useClass: FilterActivesPipeMock
+                },
+                {
+                    provide: AdminService,
+                    useClass: AdminServiceMock
+                }
+            ],
+            schemas: [CUSTOM_ELEMENTS_SCHEMA]
+        }).compileComponents();
 
-    fixture = TestBed.createComponent(AdminComponent);
-    component = fixture.componentInstance;
+        fixture = TestBed.createComponent(AdminComponent);
+        component = fixture.componentInstance;
 
-    activateRouteMock = TestBed.get(ActivatedRoute);
-    filterActivesPipeMock = TestBed.get(FilterActivesPipe);
-  }));
+        activateRouteMock = TestBed.get(ActivatedRoute);
+        filterActivesPipeMock = TestBed.get(FilterActivesPipe);
+    }));
 
-  beforeEach(() => {
-    users = [
-      { fullName: 'Jaco', email: 'jaco@bass.org', password: 'xxx', group: 'A' },
-      { fullName: 'Herbie', email: 'herbie@piano.org', password: 'zzz', group: 'B' },
-    ];
-    groups = [
-      { id: 'A', value: 'Grupo A', active: true },
-      { id: 'B', value: 'Grupo B', active: true },
-    ];
-    activateRouteMock.data = of({
-      groups,
-      users,
+    beforeEach(() => {
+        users = [
+            { fullName: 'Jaco', email: 'jaco@bass.org', password: 'xxx', group: 'A' },
+            { fullName: 'Herbie', email: 'herbie@piano.org', password: 'zzz', group: 'B' },
+        ];
+        groups = [
+            { id: 'A', value: 'Grupo A', active: true },
+            { id: 'B', value: 'Grupo B', active: true },
+        ];
+        activateRouteMock.data = of({
+            userModelData: { groups, users },
+        });
+        filterActivesPipeMock.transform.and.callFake(data => data);
+
+        fixture.detectChanges();
     });
-    filterActivesPipeMock.transform.and.callFake(data => data);
 
-    fixture.detectChanges();
-  });
-
-  it('should create', async(() => {
-    fixture.whenStable()
-      .then(() => {
-        expect(component.groups).toEqual(groups);
-        expect(component.users).toEqual(users);
-        expect(component.usersSource.data).toEqual(users);
-      });
-  }));
+    it('should create', async(() => {
+        fixture.whenStable()
+            .then(() => {
+                expect(component.groups).toEqual(groups);
+                expect(component.users).toEqual(users);
+                expect(component.usersSource.data).toEqual(users);
+            });
+    }));
 });

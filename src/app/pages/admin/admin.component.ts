@@ -66,7 +66,7 @@ export class AdminComponent implements OnInit {
                 .createUser(this.form.value)
                 .subscribe((userResponse: User) => {
                     this.usersSource.data = [
-                        ...this.usersSource.data,
+                        ...this.users,
                         userResponse
                     ];
                 });

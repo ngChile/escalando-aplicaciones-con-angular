@@ -14,14 +14,10 @@ import { MatInputModule } from '@angular/material/input';
 import { of } from 'rxjs';
 
 import { AdminComponent } from './admin.component';
-import { AdminService } from './admin.service';
 import { FilterActivesPipe } from '@app/modules/core/filter-actives.pipe';
 import { User } from '@app/models/domain/user';
 import { Group } from '@app/models/domain/group';
 
-class AdminServiceMock {
-  listUsers = jasmine.createSpy('adminService.listUsers');
-}
 class ActivatedRouteMock {
   data = null;
 }
@@ -33,7 +29,6 @@ describe('AdminComponent', () => {
   let component: AdminComponent;
   let fixture: ComponentFixture<AdminComponent>;
   let activateRouteMock: ActivatedRouteMock;
-  let adminServiceMock: AdminServiceMock;
   let filterActivesPipeMock: FilterActivesPipeMock;
   let users: User[];
   let groups: Group[];
@@ -61,10 +56,6 @@ describe('AdminComponent', () => {
         {
           provide: FilterActivesPipe,
           useClass: FilterActivesPipeMock
-        },
-        {
-          provide: AdminService,
-          useClass: AdminServiceMock
         }
       ],
       schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
@@ -74,7 +65,6 @@ describe('AdminComponent', () => {
     component = fixture.componentInstance;
 
     activateRouteMock = TestBed.get(ActivatedRoute);
-    adminServiceMock = TestBed.get(AdminService);
     filterActivesPipeMock = TestBed.get(FilterActivesPipe);
   }));
 
@@ -88,9 +78,9 @@ describe('AdminComponent', () => {
       { id: 'B', value: 'Grupo B', active: true },
     ];
     activateRouteMock.data = of({
-      groups
+      groups,
+      users,
     });
-    adminServiceMock.listUsers.and.returnValue(of(users));
     filterActivesPipeMock.transform.and.callFake(data => data);
 
     fixture.detectChanges();
@@ -100,6 +90,7 @@ describe('AdminComponent', () => {
     fixture.whenStable()
       .then(() => {
         expect(component.groups).toEqual(groups);
+        expect(component.users).toEqual(users);
         expect(component.usersSource.data).toEqual(users);
       });
   }));

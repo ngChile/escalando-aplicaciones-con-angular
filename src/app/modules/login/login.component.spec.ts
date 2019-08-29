@@ -1,10 +1,14 @@
+//  Librerias Core de Angular y Utilidades para Testing
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
+import { ActivatedRoute } from '@angular/router';
+import { of } from 'rxjs';
 
+//  Modulo Material Design de Angular
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatIconModule } from '@angular/material/icon';
 import { MatSelectModule } from '@angular/material/select';
@@ -14,14 +18,17 @@ import { MatInputModule } from '@angular/material/input';
 import { MatCheckboxModule } from '@angular/material/checkbox';
 import { MatSnackBarModule } from '@angular/material/snack-bar';
 
+//  Librería para Pruebas de Integración
+import { render } from '@testing-library/angular';
+
+//  Código del proyecto
 import { LoginService } from './login.service';
 import { LoginComponent } from './login.component';
 import { GroupService } from './group.service';
-import { CoreModule } from '../core';
-import { ActivatedRoute, Router } from '@angular/router';
-import { of } from 'rxjs';
-import { FilterActivesPipe } from '../core/filter-actives.pipe';
+import { CoreModule } from '@app/modules/core';
+import { FilterActivesPipe } from '@app/modules/core/filter-actives.pipe';
 
+//  Mocks
 class LoginServiceMock {
   authenticate = jasmine.createSpy('loginService.authenticate');
 }
@@ -36,7 +43,8 @@ class FilterActivesPipeMock {
   transform = jasmine.createSpy('filterActives.transform');
 }
 
-describe('LoginComponent', () => {
+//  Pruebas Unitarias
+describe('LoginComponent Unit Testing', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
   let loginServiceMock: LoginServiceMock;
@@ -157,4 +165,53 @@ describe('LoginComponent', () => {
   //     expect(authenticateSpy).not.toHaveBeenCalled();
   //   });
   // }));
+});
+
+////////// Pruebas de Integración ////////
+
+fdescribe('LoginComponent Integrations test Form Interaction', () => {
+  const componentDependencies = {
+    imports: [
+      FormsModule,
+      RouterTestingModule,
+      HttpClientTestingModule,
+      NoopAnimationsModule,
+
+      MatFormFieldModule,
+      MatIconModule,
+      MatSelectModule,
+      MatCardModule,
+      CoreModule,
+      MatCheckboxModule,
+      MatButtonModule,
+      MatInputModule,
+      MatSnackBarModule
+    ],
+    declarations: [ LoginComponent ],
+    providers: [
+      {
+        provide: GroupService,
+        useClass: GroupServiceMock,
+      },
+      {
+        provide: LoginService,
+        useClass: LoginServiceMock,
+      },
+      {
+        provide: ActivatedRoute,
+        useClass: ActivatedRouteMock
+      },
+      {
+        provide: FilterActivesPipe,
+        useClass: FilterActivesPipeMock
+      }
+    ],
+    schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
+  };
+
+  test('should render counter', async () => {
+    const { container } = await render(LoginComponent, componentDependencies);
+
+    expect(container.querySelectorAll('mat-form-field.ng-invalid').length).toBe(3);
+  });
 });

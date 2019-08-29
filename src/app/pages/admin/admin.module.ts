@@ -13,11 +13,13 @@ import { MatIconModule } from '@angular/material/icon';
 import { MatButtonModule } from '@angular/material/button';
 import { MatTableModule } from '@angular/material/table';
 import { AdminService } from './admin.service';
+import { AdminResolverService } from './admin-resolver.service';
 
 @NgModule({
   declarations: [AdminComponent],
   providers: [
-    AdminService
+    AdminService,
+    AdminResolverService
   ],
   imports: [
     CommonModule,

@@ -24,9 +24,6 @@ const routes: Routes = [
   {
     path: 'admin',
     loadChildren: './pages/admin/admin.module#AdminModule',
-    resolve: {
-      groups: ResolverService
-    }
   },
   {
     path: 'scholarship-form',

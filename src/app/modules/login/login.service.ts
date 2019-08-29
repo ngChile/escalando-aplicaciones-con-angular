@@ -4,7 +4,7 @@ import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment';
-import { User } from '@app/models/user';
+import { User } from '@app/models/domain/user';
 
 @Injectable()
 export class LoginService {

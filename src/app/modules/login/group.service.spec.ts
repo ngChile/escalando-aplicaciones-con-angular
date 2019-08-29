@@ -4,7 +4,7 @@ import { HttpClient } from '@angular/common/http';
 import { environment } from 'src/environments/environment';
 import { of } from 'rxjs';
 import { GroupService } from './group.service';
-import { Group } from '@app/models/group';
+import { Group } from '@app/models/domain/group';
 
 class HttpClientMock {
   get = jasmine.createSpy();

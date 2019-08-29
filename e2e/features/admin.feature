@@ -13,3 +13,6 @@ Feature: Registro
     When ingresar password
     When ingresar grupo
     When ingresar rol
+    # falta algo acá
+
+  # Hay funcionalidades que no estan siendo probadas. cada grupo aportará con una

@@ -43,13 +43,15 @@ class FilterActivesPipeMock {
   transform = jasmine.createSpy('filterActives.transform');
 }
 
+// mock instances
+let loginServiceMock: LoginServiceMock;
+let groupServiceMock: GroupServiceMock;
+let activateRouteMock: ActivatedRouteMock;
+
 //  Pruebas Unitarias
 describe('LoginComponent Unit Testing', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
-  let loginServiceMock: LoginServiceMock;
-  let groupServiceMock: GroupServiceMock;
-  let activateRouteMock: ActivatedRouteMock;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -58,12 +60,12 @@ describe('LoginComponent Unit Testing', () => {
         RouterTestingModule,
         HttpClientTestingModule,
         NoopAnimationsModule,
+        CoreModule,
 
         MatFormFieldModule,
         MatIconModule,
         MatSelectModule,
         MatCardModule,
-        CoreModule,
         MatCheckboxModule,
         MatButtonModule,
         MatInputModule,
@@ -169,7 +171,7 @@ describe('LoginComponent Unit Testing', () => {
 
 ////////// Pruebas de Integración ////////
 
-fdescribe('LoginComponent Integrations test Form Interaction', () => {
+describe('LoginComponent Integrations test Form Interaction', () => {
   const componentDependencies = {
     imports: [
       FormsModule,
@@ -209,8 +211,27 @@ fdescribe('LoginComponent Integrations test Form Interaction', () => {
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
   };
 
-  test('should render counter', async () => {
-    const { container } = await render(LoginComponent, componentDependencies);
+  it('should render counter', async () => {
+    loginServiceMock = new LoginServiceMock();
+    loginServiceMock.authenticate.and.returnValue(of({}));
+    activateRouteMock = new ActivatedRouteMock();
+    activateRouteMock.data = of({
+      groups: []
+    });
+
+    const { container } = await render(LoginComponent, {
+      ...componentDependencies,
+      componentProviders: [
+        {
+          provide: LoginService,
+          useValue: loginServiceMock,
+        },
+        {
+          provide: ActivatedRoute,
+          useValue: activateRouteMock,
+        },
+      ],
+    });
 
     expect(container.querySelectorAll('mat-form-field.ng-invalid').length).toBe(3);
   });

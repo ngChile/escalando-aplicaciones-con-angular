@@ -1,5 +1,5 @@
 import { Pipe, PipeTransform } from '@angular/core';
-import { Group } from '@app/models/group';
+import { Group } from '@app/models/domain/group';
 
 
 @Pipe({

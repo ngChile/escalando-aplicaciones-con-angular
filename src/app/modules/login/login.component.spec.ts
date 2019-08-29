@@ -218,8 +218,7 @@ describe('LoginComponent Integrations test Form Interaction', () => {
     activateRouteMock.data = of({
       groups: []
     });
-
-    const { container } = await render(LoginComponent, {
+    const { container, getByText, fixture } = await render(LoginComponent, {
       ...componentDependencies,
       componentProviders: [
         {
@@ -232,6 +231,11 @@ describe('LoginComponent Integrations test Form Interaction', () => {
         },
       ],
     });
+
+    // Mejorar Accesibilidad
+
+    getByText('Register').click();
+    fixture.detectChanges();
 
     expect(container.querySelectorAll('mat-form-field.ng-invalid').length).toBe(3);
   });

@@ -3,32 +3,32 @@ import { Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { environment } from 'src/environments/environment';
 import { map } from 'rxjs/operators';
-import { User } from '@app/models/user';
+import { User } from '@app/models/domain/user';
+import { UserResponse } from '@app/models/rest/user';
 
 @Injectable()
 export class AdminService {
-
-  users = [];
+  users: User[] = [];
 
   constructor(
     private http: HttpClient
   ) {}
 
-  createUser(user: User) {
+  createUser(user: User): Observable<User> {
     const httpOptions = {
       headers: new HttpHeaders({
         'Content-Type':  'application/json'
       })
     };
     return this.http
-      .post(environment.endpoint.users, user, httpOptions);
+      .post<User>(environment.endpoint.users, user, httpOptions);
   }
 
   listUsers(): Observable<User[]> {
     return this.http
-      .get<any>(environment.endpoint.users)
+      .get<UserResponse>(environment.endpoint.users)
       .pipe(
-        map(users => users.list as User[])
+        map((users: UserResponse) => users.list)
       );
   }
 }

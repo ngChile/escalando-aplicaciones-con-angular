@@ -6,7 +6,7 @@ import { finalize } from 'rxjs/operators';
 import { LoginService } from './login.service';
 import { LoginFormModel } from './login-form.model';
 import { FilterActivesPipe } from '@app/modules/core/filter-actives.pipe';
-import { Group } from '@app/models/group';
+import { Group } from '@app/models/domain/group';
 
 interface JSONResponse {
   groups: Group[];

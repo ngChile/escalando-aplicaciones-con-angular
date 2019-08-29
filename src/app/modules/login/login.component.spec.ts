@@ -5,7 +5,7 @@ import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { NoopAnimationsModule } from '@angular/platform-browser/animations';
-import { ActivatedRoute } from '@angular/router';
+import { ActivatedRoute, Router } from '@angular/router';
 import { of } from 'rxjs';
 
 //  Modulo Material Design de Angular
@@ -36,7 +36,9 @@ class GroupServiceMock {
   getGroups = jasmine.createSpy('groupService.getGroups');
 }
 class ActivatedRouteMock {
-  data = null;
+  data = of({
+    groups: []
+  });
   snapshot = { queryParams: {} };
 }
 class FilterActivesPipeMock {
@@ -52,6 +54,7 @@ let activateRouteMock: ActivatedRouteMock;
 describe('LoginComponent Unit Testing', () => {
   let component: LoginComponent;
   let fixture: ComponentFixture<LoginComponent>;
+  let router: Router;
 
   beforeEach(() => {
     TestBed.configureTestingModule({
@@ -88,21 +91,19 @@ describe('LoginComponent Unit Testing', () => {
         {
           provide: FilterActivesPipe,
           useClass: FilterActivesPipeMock
-        }
+        },
       ],
       schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
     }).compileComponents();
 
     fixture = TestBed.createComponent(LoginComponent);
     component = fixture.componentInstance;
+    router = TestBed.get(Router);
     loginServiceMock = TestBed.get(LoginService);
     groupServiceMock = TestBed.get(GroupService);
     activateRouteMock = TestBed.get(ActivatedRoute);
 
     loginServiceMock.authenticate.and.returnValue(of({}));
-    activateRouteMock.data = of({
-      groups: []
-    });
 
     fixture.detectChanges();
   });
@@ -129,15 +130,16 @@ describe('LoginComponent Unit Testing', () => {
         // "A"ct -- Mostrar como esto produce en la terminal :
         // WARN LOG: 'Navigation triggered outside Angular zone, did you forget to call 'ngZone.run()'?'
         // WARN: 'Navigation triggered outside Angular zone, did you forget to call 'ngZone.run()'?'
-        // Explicar que quiere decir haciendo switch en karma conf de version headless a chrome
 
-        component.submit();
+        fixture.ngZone.run(() => {
+          component.submit();
 
-        // "A"ssert
-        expect(loginServiceMock.authenticate).toHaveBeenCalled();
-        // mostrar como se puede dar más cobertura y fidelidad a la prueba
-        // pero que esto no sera reflejado en las métricas.
-        // Agregar cobertura para variable loading
+          // "A"ssert
+          expect(loginServiceMock.authenticate).toHaveBeenCalled();
+          // mostrar como se puede dar más cobertura y fidelidad a la prueba
+          // pero que esto no sera reflejado en las métricas.
+          // Agregar cobertura para variable loading
+        });
       });
   }));
 
@@ -211,7 +213,7 @@ describe('LoginComponent Integrations test Form Interaction', () => {
     schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
   };
 
-  it('should render counter', async () => {
+  it('should set invalid fields', async () => {
     loginServiceMock = new LoginServiceMock();
     loginServiceMock.authenticate.and.returnValue(of({}));
     activateRouteMock = new ActivatedRouteMock();
@@ -232,11 +234,12 @@ describe('LoginComponent Integrations test Form Interaction', () => {
       ],
     });
 
-    // Mejorar Accesibilidad
-
-    getByText('Register').click();
+    getByText('Login').click();
     fixture.detectChanges();
 
-    expect(container.querySelectorAll('mat-form-field.ng-invalid').length).toBe(3);
+    const requiredFieldsWithErrors = container.querySelectorAll(
+      'mat-form-field.ng-invalid *[aria-invalid="true"][required]'
+    );
+    expect(requiredFieldsWithErrors.length).toBe(3);
   });
 });

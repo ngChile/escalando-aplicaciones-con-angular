@@ -2,47 +2,68 @@
   <mat-card>
     <div mat-card-image></div>
     <mat-card-content>
-      <mat-form-field appearance="outline">
-        <mat-label>Email</mat-label>
-        <input [(ngModel)]="formModel.email" #email="ngModel" matInput type="email" name="email" required minlength="3" maxlength="100" autocomplete="off">
-        <mat-icon matSuffix>email</mat-icon>
-        <mat-hint>Type your email</mat-hint>
-      </mat-form-field>
+      <fieldset>
+        <legend>Formulario de Ingreso</legend>
+        <mat-form-field appearance="outline">
+          <mat-label>Email</mat-label>
+          <input
+            [(ngModel)]="formModel.email"
+            #email="ngModel"
+            matInput
+            type="email"
+            name="email"
+            required
+            minlength="3"
+            maxlength="100"
+            autocomplete="off">
+          <mat-icon matSuffix>email</mat-icon>
+          <mat-hint>Type your email</mat-hint>
+        </mat-form-field>
+   
+        <mat-form-field appearance="outline">
+          <mat-label>Password</mat-label>
+          <input
+            [(ngModel)]="formModel.password"
+            #password="ngModel"
+            matInput
+            type="password"
+            name="password"
+            required
+            minlength="3"
+            maxlength="50"
+            autocomplete="off">
+          <mat-icon matSuffix>code</mat-icon>
+          <mat-hint>Type your password</mat-hint>
+        </mat-form-field>
 
-      <mat-form-field appearance="outline">
-        <mat-label>Password</mat-label>
-        <input [(ngModel)]="formModel.password" #password="ngModel" matInput type="password" name="password" required minlength="3" maxlength="50" autocomplete="off">
-        <mat-icon matSuffix>code</mat-icon>
-        <mat-hint>Type your password</mat-hint>
-      </mat-form-field>
-
-      <mat-form-field appearance="outline">
-        <mat-label>Grupo</mat-label>
-        <mat-select [(ngModel)]="formModel.group" name="group" required #group="ngModel">
-            <mat-option value="">Seleccione</mat-option>
-            <mat-option *ngFor="let group of groups" [value]="group.id">{{group.value}}</mat-option>
-        </mat-select>
-        <mat-hint>Seleccione su grupo</mat-hint>
-      </mat-form-field>
-      <a href="/scholarship-form" class="login-page__scholarship-link">
-        ¿Quieres postular a la beca del 90%?
-      </a>
-
+        <mat-form-field appearance="outline">
+          <mat-label>Grupo</mat-label>
+          <mat-select
+            [(ngModel)]="formModel.group" name="group" required #group="ngModel">
+              <mat-option value="">Seleccione</mat-option>
+              <mat-option *ngFor="let group of groups" [value]="group.id">
+                {{group.value}}
+              </mat-option>
+          </mat-select>
+          <mat-hint>Seleccione su grupo</mat-hint>
+        </mat-form-field>
+        <a href="/scholarship-form" class="login-page__scholarship-link">
+          ¿Quieres postular a la beca del 90%?
+        </a>
+      </fieldset>
     </mat-card-content>
     <mat-card-actions>
-    <mat-checkbox [(ngModel)]="formModel.rememberMe" name="rememberMe">Recuérdame</mat-checkbox>
+      <mat-checkbox [(ngModel)]="formModel.rememberMe" name="rememberMe">Recuérdame</mat-checkbox>
 
-      <button class="login-page__login-button" mat-button color="primary">
+      <button      
+        class="login-page__login-button"
+        color="primary"
+        type="submit"
+        mat-button>
         <mat-icon>lock_open</mat-icon> Login
       </button>
-
-      <a routerLink="/register" mat-button role="button">
-        <mat-icon>how_to_reg</mat-icon> Register
-      </a>
-
     </mat-card-actions>
   </mat-card>
-
 </form>
 
 <app-loading *ngIf="isLoading"></app-loading>

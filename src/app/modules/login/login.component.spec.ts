@@ -1,5 +1,4 @@
 //  Librerias Core de Angular y Utilidades para Testing
-import { async, ComponentFixture, TestBed } from '@angular/core/testing';
 import { CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { FormsModule } from '@angular/forms';
 import { RouterTestingModule } from '@angular/router/testing';
@@ -24,124 +23,105 @@ import { render } from '@testing-library/angular';
 //  Código del proyecto
 import { LoginService } from './login.service';
 import { LoginComponent } from './login.component';
-import { GroupService } from './group.service';
 import { CoreModule } from '@app/modules/core';
 import { FilterActivesPipe } from '@app/modules/core/filter-actives.pipe';
 
 //  Mocks
-class LoginServiceMock {
-  authenticate = jasmine.createSpy('loginService.authenticate');
-}
-class GroupServiceMock {
-  getGroups = jasmine.createSpy('groupService.getGroups');
-}
-class ActivatedRouteMock {
-  data = of({
+const activateRouteMock = {
+  data: of({
     groups: []
-  });
-  snapshot = { queryParams: {} };
-}
-class FilterActivesPipeMock {
-  transform = jasmine.createSpy('filterActives.transform');
-}
+  }),
+  snapshot: { queryParams: {} }
+};
+const componentDependenciesBase = {
+  imports: [
+    FormsModule,
+    RouterTestingModule,
+    HttpClientTestingModule,
+    NoopAnimationsModule,
 
-// mock instances
-let loginServiceMock: LoginServiceMock;
-let groupServiceMock: GroupServiceMock;
-let activateRouteMock: ActivatedRouteMock;
+    MatFormFieldModule,
+    MatIconModule,
+    MatSelectModule,
+    MatCardModule,
+    CoreModule,
+    MatCheckboxModule,
+    MatButtonModule,
+    MatInputModule,
+    MatSnackBarModule
+  ],
+  declarations: [ LoginComponent ],
+  providers: [
+    LoginService,
+    FilterActivesPipe,
+    {
+      provide: ActivatedRoute,
+      useValue: activateRouteMock
+    },
+  ],
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
+};
 
 //  Pruebas Unitarias
 describe('LoginComponent Unit Testing', () => {
-  let component: LoginComponent;
-  let fixture: ComponentFixture<LoginComponent>;
-  let router: Router;
-
-  beforeEach(() => {
-    TestBed.configureTestingModule({
-      imports: [
-        FormsModule,
-        RouterTestingModule,
-        HttpClientTestingModule,
-        NoopAnimationsModule,
-        CoreModule,
-
-        MatFormFieldModule,
-        MatIconModule,
-        MatSelectModule,
-        MatCardModule,
-        MatCheckboxModule,
-        MatButtonModule,
-        MatInputModule,
-        MatSnackBarModule
-      ],
-      declarations: [ LoginComponent ],
-      providers: [
-        {
-          provide: GroupService,
-          useClass: GroupServiceMock,
-        },
-        {
-          provide: LoginService,
-          useClass: LoginServiceMock,
-        },
-        {
-          provide: ActivatedRoute,
-          useClass: ActivatedRouteMock
-        },
-        {
-          provide: FilterActivesPipe,
-          useClass: FilterActivesPipeMock
-        },
-      ],
-      schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
-    }).compileComponents();
-
-    fixture = TestBed.createComponent(LoginComponent);
-    component = fixture.componentInstance;
-    router = TestBed.get(Router);
-    loginServiceMock = TestBed.get(LoginService);
-    groupServiceMock = TestBed.get(GroupService);
-    activateRouteMock = TestBed.get(ActivatedRoute);
-
-    loginServiceMock.authenticate.and.returnValue(of({}));
-
-    fixture.detectChanges();
+  it('should create', async () => {
+    const { fixture } = await render(LoginComponent, componentDependenciesBase);
+    expect(fixture.componentInstance).toBeTruthy();
   });
 
-  it('should create', () => {
-    expect(component).toBeTruthy();
-  });
+// https://codecraft.tv/courses/angular/unit-testing/asynchronous/
 
-  // https://codecraft.tv/courses/angular/unit-testing/asynchronous/
-
-  it('should submit and call authenticate method when the loginForm it is valid', async(() => {
+  it('should submit and call authenticate method when the loginForm it is valid', async () => {
     // "A"rrange
-    loginServiceMock.authenticate.and.returnValue(of(true));
+    const loginServiceMock = {
+      authenticate: jasmine.createSpy('LoginService.authenticate')
+        .and.returnValue(of(true))
+    };
+    const { fixture } = await render(LoginComponent, {
+      ...componentDependenciesBase,
+      componentProviders: [
+        { provide: LoginService, useValue: loginServiceMock },
+      ],
+    });
 
-    fixture.whenStable()
-      .then(() => {
-        // "A"rrange
-        component.loginForm.setValue({
-          email: 'g.pincheira.a@gmail.com',
-          password: 'superscret123765',
-          group: 'A',
-          rememberMe: true
-        });
-        // "A"ct -- Mostrar como esto produce en la terminal :
-        // WARN LOG: 'Navigation triggered outside Angular zone, did you forget to call 'ngZone.run()'?'
-        // WARN: 'Navigation triggered outside Angular zone, did you forget to call 'ngZone.run()'?'
+    // "A"ct -- Mostrar como esto produce en la terminal :
+    // WARN LOG: 'Navigation triggered outside Angular zone, did you forget to call 'ngZone.run()'?'
+    // WARN: 'Navigation triggered outside Angular zone, did you forget to call 'ngZone.run()'?'
+    // Solucion: con fixture.ngZone.run(() => {});
+    const component = fixture.componentInstance;
+    component.loginForm.setValue({
+      email: 'g.pincheira.a@gmail.com',
+      password: 'superscret123765',
+      group: 'A',
+      rememberMe: true
+    });
 
-        fixture.ngZone.run(() => {
-          component.submit();
+    // Acá utilizamos submit porque nos interesa lo que hace .submit a nivel de diseño de código, su firma y comportamiento
+    component.submit();
 
-          // "A"ssert
-          expect(loginServiceMock.authenticate).toHaveBeenCalled();
-          // mostrar como se puede dar más cobertura y fidelidad a la prueba
-          // pero que esto no sera reflejado en las métricas.
-          // Agregar cobertura para variable loading
-        });
-      });
-  }));
+    // "A"ssert
+    expect(loginServiceMock.authenticate).toHaveBeenCalled();
+    // Forzar a no romper la firma con esto
+    // expect(loginServiceMock.authenticate).toHaveBeenCalledWith(component.formModel.email, component.formModel.password);
+
+    // Mostrar como se puede dar más cobertura y fidelidad a la prueba
+    // pero que esto no sera reflejado en las métricas.
+    // Agregar cobertura para variable loading
+  });
+
+  it('should set invalid fields', async () => {
+    const { container, getByText, fixture } = await render(LoginComponent, componentDependenciesBase);
+
+    // Acá utilizamos hacemos submit desde el template ya que nos interesa analizar la interacción con el template
+    // que esta escondida de la implementación a través de Angular Material
+    getByText('Login').click();
+    fixture.detectChanges();
+
+    const requiredFieldsWithErrors = container.querySelectorAll(
+      'mat-form-field.ng-invalid *[aria-invalid="true"][required]'
+    );
+    expect(requiredFieldsWithErrors.length).toBe(3);
+  });
 
   // EJERCICIO PARA AUMENTAR BRANCHES COVERAGE
   // Mostrar como mejorar la calidad del test corroborando
@@ -169,77 +149,4 @@ describe('LoginComponent Unit Testing', () => {
   //     expect(authenticateSpy).not.toHaveBeenCalled();
   //   });
   // }));
-});
-
-////////// Pruebas de Integración ////////
-
-describe('LoginComponent Integrations test Form Interaction', () => {
-  const componentDependencies = {
-    imports: [
-      FormsModule,
-      RouterTestingModule,
-      HttpClientTestingModule,
-      NoopAnimationsModule,
-
-      MatFormFieldModule,
-      MatIconModule,
-      MatSelectModule,
-      MatCardModule,
-      CoreModule,
-      MatCheckboxModule,
-      MatButtonModule,
-      MatInputModule,
-      MatSnackBarModule
-    ],
-    declarations: [ LoginComponent ],
-    providers: [
-      {
-        provide: GroupService,
-        useClass: GroupServiceMock,
-      },
-      {
-        provide: LoginService,
-        useClass: LoginServiceMock,
-      },
-      {
-        provide: ActivatedRoute,
-        useClass: ActivatedRouteMock
-      },
-      {
-        provide: FilterActivesPipe,
-        useClass: FilterActivesPipeMock
-      }
-    ],
-    schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
-  };
-
-  it('should set invalid fields', async () => {
-    loginServiceMock = new LoginServiceMock();
-    loginServiceMock.authenticate.and.returnValue(of({}));
-    activateRouteMock = new ActivatedRouteMock();
-    activateRouteMock.data = of({
-      groups: []
-    });
-    const { container, getByText, fixture } = await render(LoginComponent, {
-      ...componentDependencies,
-      componentProviders: [
-        {
-          provide: LoginService,
-          useValue: loginServiceMock,
-        },
-        {
-          provide: ActivatedRoute,
-          useValue: activateRouteMock,
-        },
-      ],
-    });
-
-    getByText('Login').click();
-    fixture.detectChanges();
-
-    const requiredFieldsWithErrors = container.querySelectorAll(
-      'mat-form-field.ng-invalid *[aria-invalid="true"][required]'
-    );
-    expect(requiredFieldsWithErrors.length).toBe(3);
-  });
 });

@@ -60,7 +60,10 @@ jobs:
   
   e2e:
     docker:
-      - image: circleci/node:10
+      - image: cypress/base:10
+        environment:
+          ## this enables colors in the output
+          TERM: xterm
 
     working_directory: ~/repo
 

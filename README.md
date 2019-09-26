@@ -1,5 +1,4 @@
-
-[![Build Status](https://travis-ci.com/booleancl/escalando-aplicaciones-con-angular.svg?branch=master)](https://travis-ci.org/booleancl/escalando-aplicaciones-con-angular)
+[![CircleCI](https://circleci.com/gh/booleancl/escalando-aplicaciones-con-angular.svg?style=svg)](https://circleci.com/gh/booleancl/escalando-aplicaciones-con-angular)
 
 # Escalando Aplicaciones con Angular
 

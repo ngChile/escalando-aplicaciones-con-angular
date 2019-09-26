@@ -121,7 +121,9 @@ workflows:
       - e2e
       - deploy:
           requires:
-            - build
+            - linter
+            - unit-tests
+            - e2e
           filters:
             branches:
               only:

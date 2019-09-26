@@ -15,27 +15,40 @@ jobs:
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "package.json" }}
-            - v1-dependencies-
-
       - run:
           name: Install local dependencies
           command: npm install
 
       # Cache local dependencies if they don't exist
       - save_cache:
-          key: v1-dependencies-{{ checksum "package.json" }}
-          paths:
-            - node_modules
-
-      - save_cache:
           paths:
             - node_modules
           key: v1-dependencies-{{ checksum "package.json" }}
 
       - run:
-          name: Building
+          name: Linting
           command: npm run lint
      
+  unit-tests:
+    docker:
+      - image: circleci/node:10
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+      - run:
+          name: Show current branch
+          command: echo ${CIRCLE_BRANCH}
+
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+
+      - run:
+          name: Running unit tests
+          command: bash ./ci/unit-tests
+    
   # deploy:
   #   docker:
   #     - image: circleci/node:10
@@ -63,7 +76,7 @@ workflows:
   boolean-pipeline:
     jobs:
       - linter
-      # - unit-tests
+      - unit-tests
       # - e2e
       # - deploy:
       #     requires:

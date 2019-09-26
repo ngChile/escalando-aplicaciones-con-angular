@@ -19,7 +19,6 @@ jobs:
           name: Install local dependencies
           command: npm install
 
-      # Cache local dependencies if they don't exist
       - save_cache:
           paths:
             - node_modules
@@ -44,6 +43,14 @@ jobs:
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "package.json" }}
+      - run:
+          name: Install local dependencies
+          command: npm install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
 
       - run:
           name: Running unit tests
@@ -64,6 +71,15 @@ jobs:
       - restore_cache:
           keys:
             - v1-dependencies-{{ checksum "package.json" }}
+
+      - run:
+          name: Install local dependencies
+          command: npm install
+
+      - save_cache:
+          paths:
+            - node_modules
+          key: v1-dependencies-{{ checksum "package.json" }}
 
       - run:
           name: Running unit tests

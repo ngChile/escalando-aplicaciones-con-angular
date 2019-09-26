@@ -72,20 +72,20 @@ jobs:
 
       - restore_cache:
           keys:
-            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies
 
       - run:
           name: Install local dependencies
-          command: npm install
+          command: npm ci
 
       - save_cache:
           paths:
             - ~/.npm
             - ~/.cache
-          key: v1-dependencies-{{ checksum "package.json" }}
+          key: v1-dependencies
 
       - run:
-          name: Running unit tests
+          name: Running e2e tests
           command: bash ./ci/e2e
     
   # deploy:

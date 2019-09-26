@@ -5,8 +5,10 @@
     "ng": "ng",
     "start": "ng run web-app:serve-with-stubs",
     "test": "ng test --watch --coverage",
+    "test:ci": "ng test --coverage",
     "inspect-coverage": "ng test --coverage && http-server coverage",
     "e2e": "ng e2e",
+    "e2e:ci": "ng e2e --mode console",
     "lint": "ng lint",
     "build": "ng build"
   },

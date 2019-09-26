@@ -2,4 +2,4 @@
 set -e
 set -o pipefail
 
-ng e2e --mode console
+npm run e2e:ci

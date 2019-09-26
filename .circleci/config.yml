@@ -1,0 +1,130 @@
+version: 2
+jobs:
+  linter:
+    docker:
+      - image: circleci/node:10
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+      - run:
+          name: Show current branch
+          command: echo ${CIRCLE_BRANCH}
+
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+      - run:
+          name: Install local dependencies
+          command: npm install
+
+      - save_cache:
+          paths:
+            - ~/.npm
+            - ~/.cache
+          key: v1-dependencies-{{ checksum "package.json" }}
+
+      - run:
+          name: Linting
+          command: npm run lint
+     
+  unit-tests:
+    docker:
+      - image: circleci/node:10
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+      - run:
+          name: Show current branch
+          command: echo ${CIRCLE_BRANCH}
+
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+      - run:
+          name: Install local dependencies
+          command: npm install
+
+      - save_cache:
+          paths:
+            - ~/.npm
+            - ~/.cache
+          key: v1-dependencies-{{ checksum "package.json" }}
+
+      - run:
+          name: Running unit tests
+          command: bash ./ci/unit-tests
+  
+  e2e:
+    docker:
+      - image: cypress/base:10
+        environment:
+          ## this enables colors in the output
+          TERM: xterm
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+      - run:
+          name: Show current branch
+          command: echo ${CIRCLE_BRANCH}
+
+      - restore_cache:
+          keys:
+            - v1-dependencies
+
+      - run:
+          name: Install local dependencies
+          command: npm ci
+
+      - save_cache:
+          paths:
+            - ~/.npm
+            - ~/.cache
+          key: v1-dependencies
+
+      - run:
+          name: Running e2e tests
+          command: bash ./ci/e2e
+    
+  deploy:
+    docker:
+      - image: circleci/node:10
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+
+      - run:
+          name: Show current branch
+          command: echo ${CIRCLE_BRANCH}
+
+      - run:
+          name: Deploy Docker Image
+          command: bash ./ci/deploy
+
+      - run:
+          name: Deploy to Heroku
+          command: bash ./ci/release
+
+workflows:
+  version: 2
+  boolean-pipeline:
+    jobs:
+      - linter
+      - unit-tests
+      - e2e
+      - deploy:
+          requires:
+            - linter
+            - unit-tests
+            - e2e
+          filters:
+            branches:
+              only:
+                - master

@@ -120,7 +120,7 @@ jobs:
 
 workflows:
   version: 2
-  boolean-pipeline:
+  angular-chile-pipeline:
     jobs:
       - linter
       - unit-tests

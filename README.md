@@ -1,4 +1,4 @@
-[![CircleCI](https://circleci.com/gh/booleancl/escalando-aplicaciones-con-angular.svg?style=svg)](https://circleci.com/gh/booleancl/escalando-aplicaciones-con-angular)
+[![CircleCI](https://circleci.com/gh/ngChile/escalando-aplicaciones-con-angular.svg?style=svg)](https://circleci.com/gh/ngChile/escalando-aplicaciones-con-angular)
 
 # Escalando Aplicaciones con Angular
 

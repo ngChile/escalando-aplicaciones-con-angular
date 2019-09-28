@@ -1,4 +1,30 @@
 version: 2
+
+aliases:
+  restore_cache: &restore_cache
+    restore_cache:
+      name: Restore Npm Package Cache
+      keys:
+        - v1-dependencies-{{ checksum "package.json" }}
+
+  install_node_modules: &install_node_modules
+    run:
+      name: Install local dependencies
+      command: npm ci
+
+  save_cache: &save_cache
+    save_cache:
+      name: Save NPM modules cache
+      paths:
+        - ~/.npm
+        - ~/.cache
+      key: v1-dependencies-{{ checksum "package.json" }}
+
+  show_current_branch: &show_current_branch
+    - run:
+      name: Show current branch
+      command: echo ${CIRCLE_BRANCH}
+
 jobs:
   linter:
     docker:
@@ -8,27 +34,14 @@ jobs:
 
     steps:
       - checkout
-      - run:
-          name: Show current branch
-          command: echo ${CIRCLE_BRANCH}
-
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-      - run:
-          name: Install local dependencies
-          command: npm install
-
-      - save_cache:
-          paths:
-            - ~/.npm
-            - ~/.cache
-          key: v1-dependencies-{{ checksum "package.json" }}
-
+      - <<: *show_current_branch
+      - <<: *restore_cache
+      - <<: *install_node_modules
+      - <<: *save_cache
       - run:
           name: Linting
           command: npm run lint
-     
+
   unit-tests:
     docker:
       - image: circleci/node:10
@@ -37,23 +50,10 @@ jobs:
 
     steps:
       - checkout
-      - run:
-          name: Show current branch
-          command: echo ${CIRCLE_BRANCH}
-
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-      - run:
-          name: Install local dependencies
-          command: npm install
-
-      - save_cache:
-          paths:
-            - ~/.npm
-            - ~/.cache
-          key: v1-dependencies-{{ checksum "package.json" }}
-
+      - <<: *show_current_branch
+      - <<: *restore_cache
+      - <<: *install_node_modules
+      - <<: *save_cache
       - run:
           name: Running unit tests
           command: bash ./ci/unit-tests
@@ -69,24 +69,10 @@ jobs:
 
     steps:
       - checkout
-      - run:
-          name: Show current branch
-          command: echo ${CIRCLE_BRANCH}
-
-      - restore_cache:
-          keys:
-            - v1-dependencies
-
-      - run:
-          name: Install local dependencies
-          command: npm ci
-
-      - save_cache:
-          paths:
-            - ~/.npm
-            - ~/.cache
-          key: v1-dependencies
-
+      - <<: *show_current_branch
+      - <<: *restore_cache
+      - <<: *install_node_modules
+      - <<: *save_cache
       - run:
           name: Running e2e tests
           command: bash ./ci/e2e
@@ -101,15 +87,10 @@ jobs:
       - checkout
       - setup_remote_docker:
           docker_layer_caching: true
-
-      - run:
-          name: Show current branch
-          command: echo ${CIRCLE_BRANCH}
-      
-      - restore_cache:
-          keys:
-            - v1-dependencies-{{ checksum "package.json" }}
-
+      - <<: *show_current_branch
+      - <<: *restore_cache
+      - <<: *install_node_modules
+      - <<: *save_cache
       - run:
           name: Deploy Docker Image
           command: bash ./ci/deploy

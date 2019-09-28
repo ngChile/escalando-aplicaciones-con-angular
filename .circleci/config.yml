@@ -21,7 +21,7 @@ aliases:
       key: v1-dependencies-{{ checksum "package.json" }}
 
   show_current_branch: &show_current_branch
-    - run:
+    run:
       name: Show current branch
       command: echo ${CIRCLE_BRANCH}
 

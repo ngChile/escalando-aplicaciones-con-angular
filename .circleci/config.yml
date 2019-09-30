@@ -134,7 +134,7 @@ workflows:
             branches:
               only:
                 - master
-      - smoke-test
+      - smoke-test:
           requires:
             - deploy
           filters:

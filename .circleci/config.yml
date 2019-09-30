@@ -39,8 +39,8 @@ jobs:
       - <<: *install_node_modules
       - <<: *save_cache
       - run:
-        name: Linting
-        command: npm run lint
+          name: Linting
+          command: npm run lint
 
   unit-tests:
     docker:
@@ -55,8 +55,8 @@ jobs:
       - <<: *install_node_modules
       - <<: *save_cache
       - run:
-        name: Running unit tests
-        command: ./ci/unit-tests
+          name: Running unit tests
+          command: ./ci/unit-tests
 
   e2e:
     docker:
@@ -74,8 +74,8 @@ jobs:
       - <<: *install_node_modules
       - <<: *save_cache
       - run:
-        name: Running e2e tests
-        command: bash ./ci/e2e
+          name: Running e2e tests
+          command: bash ./ci/e2e
 
   deploy:
     docker:
@@ -92,12 +92,12 @@ jobs:
       - <<: *install_node_modules
       - <<: *save_cache
       - run:
-        name: Deploy Docker Image
-        command: ./ci/deploy
+          name: Deploy Docker Image
+          command: ./ci/deploy
 
       - run:
-        name: Deploy to Heroku
-        command: ./ci/release
+          name: Deploy to Heroku
+          command: ./ci/release
 
   smoke-test:
     docker:
@@ -109,11 +109,11 @@ jobs:
       - checkout
       - <<: *show_current_branch
       - run:
-        name: Install Super Agent for smoke test
-        command: npm i superagent
+          name: Install Super Agent for smoke test
+          command: npm i superagent
       - run:
-        name: Running unit tests
-        command: ./ci/smoke-test
+          name: Running unit tests
+          command: ./ci/smoke-test
 
 workflows:
   version: 2

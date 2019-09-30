@@ -56,8 +56,8 @@ jobs:
       - <<: *save_cache
       - run:
           name: Running unit tests
-          command: bash ./ci/unit-tests
-  
+          command: ./ci/unit-tests
+
   e2e:
     docker:
       - image: cypress/base:10
@@ -76,7 +76,7 @@ jobs:
       - run:
           name: Running e2e tests
           command: bash ./ci/e2e
-    
+
   deploy:
     docker:
       - image: circleci/node:10
@@ -93,11 +93,30 @@ jobs:
       - <<: *save_cache
       - run:
           name: Deploy Docker Image
-          command: bash ./ci/deploy
+          command: ./ci/deploy
 
       - run:
           name: Deploy to Heroku
-          command: bash ./ci/release
+          command: ./ci/release
+
+  smoke-test:
+    docker:
+      - image: circleci/node:10
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+      - <<: *show_current_branch
+      - <<: *restore_cache
+      - <<: *install_node_modules
+      - <<: *save_cache
+      - run:
+          name: Install Super Agent for smoke test
+          command: npm i superagent
+      - run:
+          name: Running Smoke test
+          command: ./ci/smoke-test
 
 workflows:
   version: 2
@@ -111,6 +130,13 @@ workflows:
             - linter
             - unit-tests
             - e2e
+          filters:
+            branches:
+              only:
+                - master
+      - smoke-test:
+          requires:
+            - deploy
           filters:
             branches:
               only:

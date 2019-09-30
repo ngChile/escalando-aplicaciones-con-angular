@@ -108,11 +108,14 @@ jobs:
     steps:
       - checkout
       - <<: *show_current_branch
+      - <<: *restore_cache
+      - <<: *install_node_modules
+      - <<: *save_cache
       - run:
           name: Install Super Agent for smoke test
           command: npm i superagent
       - run:
-          name: Running unit tests
+          name: Running Smoke test
           command: ./ci/smoke-test
 
 workflows:
@@ -122,7 +125,6 @@ workflows:
       - linter
       - unit-tests
       - e2e
-      - smoke-test
       - deploy:
           requires:
             - linter
@@ -132,10 +134,10 @@ workflows:
             branches:
               only:
                 - master
-      # - smoke-test
-      #   requires:
-      #     - deploy
-      #   filters:
-      #     branches:
-      #       only:
-      #         - master
+      - smoke-test
+          requires:
+            - deploy
+          filters:
+            branches:
+              only:
+                - master

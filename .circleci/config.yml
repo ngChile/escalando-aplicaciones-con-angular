@@ -57,7 +57,7 @@ jobs:
       - run:
         name: Running unit tests
         command: ./ci/unit-tests
-  
+
   e2e:
     docker:
       - image: cypress/base:10
@@ -76,7 +76,7 @@ jobs:
       - run:
         name: Running e2e tests
         command: bash ./ci/e2e
-    
+
   deploy:
     docker:
       - image: circleci/node:10
@@ -98,7 +98,7 @@ jobs:
       - run:
         name: Deploy to Heroku
         command: ./ci/release
-  
+
   smoke-test:
     docker:
       - image: circleci/node:10
@@ -114,6 +114,7 @@ jobs:
       - run:
         name: Running unit tests
         command: ./ci/smoke-test
+
 workflows:
   version: 2
   angular-chile-pipeline:
@@ -123,14 +124,14 @@ workflows:
       - e2e
       - smoke-test
       - deploy:
-        requires:
-          - linter
-          - unit-tests
-          - e2e
-        filters:
-          branches:
-            only:
-              - master
+          requires:
+            - linter
+            - unit-tests
+            - e2e
+          filters:
+            branches:
+              only:
+                - master
       # - smoke-test
       #   requires:
       #     - deploy

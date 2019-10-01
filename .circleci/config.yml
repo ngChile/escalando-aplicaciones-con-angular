@@ -146,7 +146,7 @@ workflows:
       - linter
       - unit-tests
       - e2e
-      - build
+      - build:
           requires:
             - linter
             - unit-tests

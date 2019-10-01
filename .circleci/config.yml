@@ -107,7 +107,7 @@ jobs:
           command: ./ci/build
       - <<: *store_dist
 
-  deploy:
+  staging-deploy:
     docker:
       - image: circleci/node:10
 
@@ -125,10 +125,9 @@ jobs:
       - run:
           name: Deploy Docker Image
           command: ./ci/deploy
-
-      # - run:
-      #     name: Deploy to Heroku
-      #     command: ./ci/release
+      - run:
+          name: Deploy to Heroku
+          command: ./ci/release
 
   smoke-test:
     docker:
@@ -153,26 +152,17 @@ workflows:
   version: 2
   angular-chile-pipeline:
     jobs:
-      # - linter
-      # - unit-tests
-      # - e2e
-      # - build:
-      #     requires:
-      #       - linter
-      #       - unit-tests
-      #       - e2e
-      - build
-      - deploy:
+      - linter
+      - unit-tests
+      - e2e
+      - build:
+          requires:
+            - linter
+            - unit-tests
+            - e2e
+      - staging-deploy:
           requires:
             - build
-          # filters:
-          #   branches:
-          #     only:
-          #       - master
-      # - smoke-test:
-      #     requires:
-      #       - deploy
-      #     filters:
-      #       branches:
-      #         only:
-      #           - master
+      - smoke-test:
+          requires:
+            - deploy

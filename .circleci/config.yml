@@ -7,11 +7,6 @@ aliases:
       keys:
         - v1-dependencies-{{ checksum "package.json" }}
 
-  install_node_modules: &install_node_modules
-    run:
-      name: Install local dependencies
-      command: npm ci
-
   save_cache: &save_cache
     save_cache:
       name: Save NPM modules cache
@@ -19,6 +14,24 @@ aliases:
         - ~/.npm
         - ~/.cache
       key: v1-dependencies-{{ checksum "package.json" }}
+  
+  store_dist: &store_dist
+    save_cache:
+      name: Save dist folder
+      paths:
+        - dist
+      key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
+  
+  restore_dist: &restore_dist
+    restore_cache:
+      name: Restore built dist folder
+      keys:
+        - v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
+
+  install_node_modules: &install_node_modules
+    run:
+      name: Install local dependencies
+      command: npm ci
 
   show_current_branch: &show_current_branch
     run:
@@ -92,8 +105,7 @@ jobs:
       - run:
           name: Building artifact using ng build
           command: ./ci/build
-      - persist_to_workspace:
-          root: ./dist
+      - <<: *store_dist
 
   deploy:
     docker:
@@ -102,8 +114,6 @@ jobs:
     working_directory: ~/repo
 
     steps:
-      - attach_workspace:
-          at: ./dist
       - checkout
       - setup_remote_docker:
           docker_layer_caching: true
@@ -111,13 +121,14 @@ jobs:
       - <<: *restore_cache
       - <<: *install_node_modules
       - <<: *save_cache
+      - <<: *restore_dist
       - run:
           name: Deploy Docker Image
           command: ./ci/deploy
 
-      - run:
-          name: Deploy to Heroku
-          command: ./ci/release
+      # - run:
+      #     name: Deploy to Heroku
+      #     command: ./ci/release
 
   smoke-test:
     docker:

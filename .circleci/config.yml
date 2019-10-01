@@ -25,10 +25,6 @@ aliases:
       name: Show current branch
       command: echo ${CIRCLE_BRANCH}
 
-  store_artifact: &store_artifact
-    store_artifacts:
-      path: ~/repo/dist
-
 jobs:
   linter:
     docker:
@@ -96,7 +92,9 @@ jobs:
       - run:
           name: Building artifact using ng build
           command: ./ci/build
-      - <<: *store_artifact
+      - persist_to_workspace:
+          root: ./dist
+          paths: ./dist
 
   deploy:
     docker:
@@ -105,6 +103,8 @@ jobs:
     working_directory: ~/repo
 
     steps:
+      - attach_workspace:
+          at: ./dist
       - checkout
       - setup_remote_docker:
           docker_layer_caching: true
@@ -143,14 +143,15 @@ workflows:
   version: 2
   angular-chile-pipeline:
     jobs:
-      - linter
-      - unit-tests
-      - e2e
-      - build:
-          requires:
-            - linter
-            - unit-tests
-            - e2e
+      # - linter
+      # - unit-tests
+      # - e2e
+      # - build:
+      #     requires:
+      #       - linter
+      #       - unit-tests
+      #       - e2e
+      build
       - deploy:
           requires:
             - build

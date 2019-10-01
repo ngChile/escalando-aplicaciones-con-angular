@@ -3,6 +3,6 @@ set -e
 set -o pipefail
 
 echo "============================================================="
-echo "          CONSTRUYENDO APLICACIÓN                            "
+echo "          Building Artifact                                  "
 echo "============================================================="
 npm run build -- --prod

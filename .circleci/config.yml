@@ -94,7 +94,6 @@ jobs:
           command: ./ci/build
       - persist_to_workspace:
           root: ./dist
-          paths: ./dist
 
   deploy:
     docker:

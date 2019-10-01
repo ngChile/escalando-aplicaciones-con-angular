@@ -151,7 +151,7 @@ workflows:
       #       - linter
       #       - unit-tests
       #       - e2e
-      build
+      - build
       - deploy:
           requires:
             - build

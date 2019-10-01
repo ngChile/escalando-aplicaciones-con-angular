@@ -1,27 +1,26 @@
 #!/usr/bin/env node
-
-const superagent = require('superagent');
+const { get } = require('superagent');
 const { version } = require('../package.json');
 
-(async function(){
+(async function() {
   try {
-    const response = await superagent.get('https://boolean-cl-angular.herokuapp.com')
+    const response = await get('https://boolean-cl-angular.herokuapp.com');
     const htmlContent = response.text;
     const regexForVersionNumber = /<title>.*\s*\|\s*(\d+\.?\d+\.\d+)\s*<\/title>/g;
     const versionFromHtmlDocumentMatch = regexForVersionNumber.exec(htmlContent);
-    
+
     if (versionFromHtmlDocumentMatch) {
         const actualVersionDeployed = versionFromHtmlDocumentMatch[1];
         if (actualVersionDeployed === version) {
           console.info(`
-            SMOKE TEST PASSED: 
+            SMOKE TEST PASSED:
                 ACTUAL VERSION DEPLOYED ${actualVersionDeployed}
                 PACKAGE VERSION ON MASTER BRANCH ${version}
           `);
           process.exit(0);
         } else {
           console.error(`
-            SMOKE TEST FAILED: 
+            SMOKE TEST FAILED:
                 ACTUAL VERSION DEPLOYED ${actualVersionDeployed}
                 PACKAGE VERSION ON MASTER BRANCH ${version}
           `);
@@ -29,9 +28,9 @@ const { version } = require('../package.json');
         }
     }
 
-  } catch(error) {
+  } catch (error) {
       console.error(`
-            SMOKE TEST FAILED: 
+            SMOKE TEST FAILED:
                 ERROR WHILE RUNNING: ${error.message}
       `);
       process.exit(1);

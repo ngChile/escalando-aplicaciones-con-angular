@@ -3,15 +3,12 @@ set -e
 set -o pipefail
 
 echo "============================================================="
-echo "          CONSTRUYENDO APLICACIÓN                            "
-echo "============================================================="
-npm run build -- --prod
-
-echo "============================================================="
-echo "      CREANDO IMAGEN DOCKER                                  "
+echo "      Creating Docker Image                                  "
 echo "============================================================="
 PACKAGE_VERSION=$(node -p -e "require('./package.json').version")
 IMAGE_NAME="registry.heroku.com/${HEROKU_APP_NAME}/web"
+
+#asume that dist folder was created in separate "build artifact" job
 
 mkdir -p ./docker/public
 cp -R dist/web-app/. ./docker/public
@@ -20,7 +17,7 @@ cp stubs/* docker/
 rm docker/config.json
 
 echo "============================================================="
-echo "          ESTRUCTURA DIRECTORIO                              "
+echo "          Show directory files                               "
 echo "============================================================="
 ls -lha docker
 
@@ -30,6 +27,6 @@ echo "$HEROKU_KEY" | docker login --username ${HEROKU_OWNER_EMAIL} --password-st
 docker build -t registry.heroku.com/${HEROKU_APP_NAME}/web --build-arg app_version=${PACKAGE_VERSION} .
 
 echo "============================================================="
-echo "      PUBLICANDO ...                                         "
+echo "      Publising Docker Image in Heroku Registry ...          "
 echo "============================================================="
 docker push registry.heroku.com/${HEROKU_APP_NAME}/web

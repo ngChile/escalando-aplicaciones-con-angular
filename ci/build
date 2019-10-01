@@ -1,0 +1,8 @@
+#!/bin/bash
+set -e
+set -o pipefail
+
+echo "============================================================="
+echo "          CONSTRUYENDO APLICACIÓN                            "
+echo "============================================================="
+npm run build -- --prod

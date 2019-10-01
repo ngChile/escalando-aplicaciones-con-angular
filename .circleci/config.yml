@@ -25,6 +25,10 @@ aliases:
       name: Show current branch
       command: echo ${CIRCLE_BRANCH}
 
+  store_artifact: &store_artifact
+    store_artifacts:
+      path: ~/repo/dist
+
 jobs:
   linter:
     docker:
@@ -77,6 +81,23 @@ jobs:
           name: Running e2e tests
           command: bash ./ci/e2e
 
+  build:
+    docker:
+      - image: circleci/node:10
+
+    working_directory: ~/repo
+    
+    steps:
+      - checkout
+      - <<: *show_current_branch
+      - <<: *restore_cache
+      - <<: *install_node_modules
+      - <<: *save_cache
+      - run:
+          name: Building artifact using ng build
+          command: ./ci/build
+      - <<: *store_artifact
+
   deploy:
     docker:
       - image: circleci/node:10
@@ -125,19 +146,22 @@ workflows:
       - linter
       - unit-tests
       - e2e
-      - deploy:
+      - build
           requires:
             - linter
             - unit-tests
             - e2e
-          filters:
-            branches:
-              only:
-                - master
-      - smoke-test:
+      - deploy:
           requires:
-            - deploy
-          filters:
-            branches:
-              only:
-                - master
+            - build
+          # filters:
+          #   branches:
+          #     only:
+          #       - master
+      # - smoke-test:
+      #     requires:
+      #       - deploy
+      #     filters:
+      #       branches:
+      #         only:
+      #           - master

@@ -129,7 +129,7 @@ jobs:
           name: Deploy to Heroku
           command: ./ci/release
 
-  smoke-test:
+  smoke-test-staging:
     docker:
       - image: circleci/node:10
 
@@ -148,6 +148,20 @@ jobs:
           name: Running Smoke test
           command: ./ci/smoke-test
 
+  production-deploy:
+    docker:
+      - image: circleci/node:10
+
+    working_directory: ~/repo
+
+    steps:
+      - checkout
+      - <<: *show_current_branch
+      - <<: *restore_dist
+      - run:
+        name: "Show dist folder"
+        command: ls -lha ./dist && ls -lha ./dist/public
+
 workflows:
   version: 2
   angular-chile-pipeline:
@@ -163,6 +177,13 @@ workflows:
       - staging-deploy:
           requires:
             - build
-      - smoke-test:
+      - smoke-test-staging:
           requires:
             - staging-deploy
+      - production-approval:
+          type: approval
+          requires:
+           - smoke-test-staging
+      - production-deploy:
+          requires:
+            - production-approval

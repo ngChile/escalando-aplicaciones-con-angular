@@ -159,7 +159,7 @@ jobs:
       - <<: *show_current_branch
       - <<: *restore_dist
       - run:
-        name: "Show dist folder"
+        name: Show dist folder
         command: ls -lha ./dist && ls -lha ./dist/public
 
 workflows:

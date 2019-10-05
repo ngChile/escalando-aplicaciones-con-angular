@@ -186,7 +186,15 @@ workflows:
       - production-approval:
           type: approval
           requires:
-           - smoke-test-staging
+            - smoke-test-staging
+          filters:
+            branches:
+              only:
+                - master
       - production-deploy:
           requires:
             - production-approval
+          filters:
+            branches:
+              only:
+                - master

@@ -2,6 +2,7 @@ FROM node:10-alpine
 
 ARG app_version
 ENV APP_VERSION=$app_version
+ENV ENVIRONMENT_NAME=$environment_name
 
 COPY . .
 

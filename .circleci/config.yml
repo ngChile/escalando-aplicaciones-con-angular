@@ -159,10 +159,11 @@ jobs:
       - <<: *show_current_branch
       - <<: *restore_dist
       - run:
-        name: Show dist folder
-        command: |
-          ls -lha ./dist
-          ls -lha ./dist/public
+          name: Deploy Docker Image
+          command: ./ci/deploy --prod
+      - run:
+          name: Deploy to Heroku
+          command: ./ci/release --prod
 
 workflows:
   version: 2

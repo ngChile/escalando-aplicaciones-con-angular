@@ -149,15 +149,14 @@ workflows:
   version: 2
   angular-chile-pipeline:
     jobs:
-      # - linter
-      # - unit-tests
-      # - e2e
-      - build
-      # - build:
-          # requires:
-          #   - linter
-          #   - unit-tests
-          #   - e2e
+      - linter
+      - unit-tests
+      - e2e
+      - build:
+          requires:
+            - linter
+            - unit-tests
+            - e2e
       - staging-deploy:
           requires:
             - build

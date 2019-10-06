@@ -68,12 +68,10 @@ docker build -t registry.heroku.com/$APP_NAME/web \
     --build-arg app_version=${PACKAGE_VERSION} \
     --build-arg environment_name=${ENVIRONMENT_NAME} .
 
+TAG_NAME=$([ $IS_PROD = "yes" ] && echo "release" || echo ${CIRCLE_BRANCH//\//\-})
 echo "==========================================================================================="
-echo "      Publishing Docker Image registry.heroku.com/$APP_NAME/web:$CIRCLE_BRANCH in Heroku Registry ...     "
+echo "      Publishing Docker Image registry.heroku.com/$APP_NAME/web:$TAG_NAME in Heroku Registry ...     "
 echo "==========================================================================================="
 echo "$HEROKU_KEY" | docker login --username $HEROKU_OWNER_EMAIL --password-stdin registry.heroku.com
-if [ $IS_PROD = "yes" ]; then
-    docker push registry.heroku.com/$APP_NAME/web:release
-elif [ $IS_PROD = "no" ]; then
-    docker push registry.heroku.com/$APP_NAME/web:$CIRCLE_BRANCH
-fi
+docker push registry.heroku.com/$APP_NAME/web:$TAG_NAME
+

@@ -115,12 +115,9 @@ jobs:
 
     steps:
       - checkout
-      - setup_remote_docker:
-          docker_layer_caching: true
+      # - setup_remote_docker:
+      #     docker_layer_caching: true
       - <<: *show_current_branch
-      - <<: *restore_cache
-      - <<: *install_node_modules
-      - <<: *save_cache
       - <<: *restore_dist
       - run:
           name: Deploy Docker Image

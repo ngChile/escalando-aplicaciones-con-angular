@@ -131,8 +131,7 @@ jobs:
           command: ./ci/smoke-test
 
   production-deploy:
-    docker:
-      - image: circleci/node:10
+    machine: true
     working_directory: ~/repo
     steps:
       - checkout

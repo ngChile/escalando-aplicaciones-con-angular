@@ -42,9 +42,7 @@ jobs:
   linter:
     docker:
       - image: circleci/node:10
-
     working_directory: ~/repo
-
     steps:
       - checkout
       - <<: *show_current_branch
@@ -58,9 +56,7 @@ jobs:
   unit-tests:
     docker:
       - image: circleci/node:10
-
     working_directory: ~/repo
-
     steps:
       - checkout
       - <<: *show_current_branch
@@ -77,9 +73,7 @@ jobs:
         environment:
           ## this enables colors in the output
           TERM: xterm
-
     working_directory: ~/repo
-
     steps:
       - checkout
       - <<: *show_current_branch
@@ -93,9 +87,7 @@ jobs:
   build:
     docker:
       - image: circleci/node:10
-
     working_directory: ~/repo
-    
     steps:
       - checkout
       - <<: *show_current_branch
@@ -108,15 +100,10 @@ jobs:
       - <<: *store_dist
 
   staging-deploy:
-    docker:
-      - image: circleci/node:10
-
+    machine: true
     working_directory: ~/repo
-
     steps:
       - checkout
-      - setup_remote_docker
-      #     docker_layer_caching: true
       - <<: *show_current_branch
       - <<: *restore_dist
       - run:
@@ -129,9 +116,7 @@ jobs:
   smoke-test-staging:
     docker:
       - image: circleci/node:10
-
     working_directory: ~/repo
-
     steps:
       - checkout
       - <<: *show_current_branch
@@ -148,9 +133,7 @@ jobs:
   production-deploy:
     docker:
       - image: circleci/node:10
-
     working_directory: ~/repo
-
     steps:
       - checkout
       - <<: *show_current_branch
@@ -166,14 +149,15 @@ workflows:
   version: 2
   angular-chile-pipeline:
     jobs:
-      - linter
-      - unit-tests
-      - e2e
-      - build:
-          requires:
-            - linter
-            - unit-tests
-            - e2e
+      # - linter
+      # - unit-tests
+      # - e2e
+      - build
+      # - build:
+          # requires:
+          #   - linter
+          #   - unit-tests
+          #   - e2e
       - staging-deploy:
           requires:
             - build

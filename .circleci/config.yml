@@ -68,7 +68,7 @@ jobs:
           name: Running unit tests
           command: ./ci/unit-tests
       - codecov/upload:
-          file: coverage/*.json
+          file: coverage/lcov.info
       - store_artifacts:
           path: ./test-results/junit
       - store_artifacts:

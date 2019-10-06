@@ -124,8 +124,8 @@ jobs:
       - <<: *install_node_modules
       - <<: *save_cache
       - run:
-          name: Install Super Agent for smoke test
-          command: npm i superagent
+          name: Install Super Agent and Yargs for smoke test
+          command: npm i superagent yargs
       - run:
           name: Running Smoke test
           command: ./ci/smoke-test

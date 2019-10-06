@@ -2,10 +2,9 @@
 set -e
 set -o pipefail
 
-get_image_name() {
-    [ "$1" = "yes" ] && \
-        echo "registry.heroku.com/${HEROKU_APP_NAME}/web" \
-        || echo "registry.heroku.com/${HEROKU_APP_NAME_STAGING}/web"
+get_app_name() {
+    IS_PROD = $1
+    [ "$IS_PROD" = "yes" ] && echo $HEROKU_APP_NAME || echo $HEROKU_APP_NAME_STAGING
 }
 
 is_prod_deploy(){
@@ -40,7 +39,7 @@ PACKAGE_VERSION=$(node -p -e "require('./package.json').version")
 IS_PROD=$(is_prod_deploy $1)
 
 echo "Get image name with production flag -> $IS_PROD"
-IMAGE_NAME=$(get_image_name $IS_PROD)
+APP_NAME=$(get_app_name $IS_PROD)
 
 ENVIRONMENT_NAME=$([ $IS_PROD = "yes" ] && echo "production" || echo "staging")
 
@@ -62,9 +61,9 @@ ls -lha docker/public && ls -lha docker
 cd docker
 
 echo "$HEROKU_KEY" | docker login --username ${HEROKU_OWNER_EMAIL} --password-stdin registry.heroku.com
-docker build -t $IMAGE_NAME --build-arg app_version=${PACKAGE_VERSION} --build-arg environment_name=${ENVIRONMENT_NAME} .
+docker build -t registry.heroku.com/$APP_NAME/web --build-arg app_version=${PACKAGE_VERSION} --build-arg environment_name=${ENVIRONMENT_NAME} .
 
 echo "==================================================================="
-echo "      Publising Docker Image $IMAGE_NAME in Heroku Registry ...    "
+echo "      Publising Docker Image registry.heroku.com/$APP_NAME/web in Heroku Registry ...    "
 echo "==================================================================="
-docker push $IMAGE_NAME
+docker push registry.heroku.com/${APP_NAME}/web

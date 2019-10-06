@@ -64,11 +64,12 @@ echo "          Authentication in Docker Heroku Registry for Deploy for Environm
 echo "======================================================================================================="
 echo "$HEROKU_KEY" | docker login --username $HEROKU_OWNER_EMAIL --password-stdin registry.heroku.com
 
-docker build -t registry.heroku.com/$APP_NAME/web \
+TAG_NAME=$([ $IS_PROD = "yes" ] && echo "release" || echo ${CIRCLE_BRANCH//\//\-})
+
+docker build -t registry.heroku.com/$APP_NAME/web:$TAG_NAME \
     --build-arg app_version=${PACKAGE_VERSION} \
     --build-arg environment_name=${ENVIRONMENT_NAME} .
 
-TAG_NAME=$([ $IS_PROD = "yes" ] && echo "release" || echo ${CIRCLE_BRANCH//\//\-})
 echo "==========================================================================================="
 echo "      Publishing Docker Image registry.heroku.com/$APP_NAME/web:$TAG_NAME in Heroku Registry ...     "
 echo "==========================================================================================="

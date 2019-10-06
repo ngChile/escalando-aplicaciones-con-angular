@@ -45,7 +45,7 @@ app.post('/admin/v1/users', (req, res) => {
     appData$.then(({ users }) => {
         // TODO: remove push on production
         users.list.push(req.body);
-        res.send(users);
+        res.send(req.body);
     });
 });
 
@@ -59,7 +59,7 @@ app.post('/auth-service/v1/roles', (req, res) => {
     appData$.then(({ roles }) => {
         // TODO: remove push on production
         roles.push(req.body)
-        res.send(roles);
+        res.send(req.body);
     });
 });
 

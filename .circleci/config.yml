@@ -1,5 +1,6 @@
-version: 2
-
+version: 2.1
+orbs:
+  codecov: codecov/codecov@1.0.4
 aliases:
   restore_cache: &restore_cache
     restore_cache:
@@ -66,8 +67,12 @@ jobs:
       - run:
           name: Running unit tests
           command: ./ci/unit-tests
+      - codecov/upload:
+          file: coverage/*.json
       - store_artifacts:
           path: ./test-results/junit
+      - store_artifacts:
+          path: ./coverage
       - store_test_results:
           path: ./test-results
   e2e:

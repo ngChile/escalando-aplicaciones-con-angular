@@ -7,11 +7,6 @@ aliases:
       keys:
         - v1-dependencies-{{ checksum "package.json" }}
 
-  install_node_modules: &install_node_modules
-    run:
-      name: Install local dependencies
-      command: npm ci
-
   save_cache: &save_cache
     save_cache:
       name: Save NPM modules cache
@@ -19,6 +14,24 @@ aliases:
         - ~/.npm
         - ~/.cache
       key: v1-dependencies-{{ checksum "package.json" }}
+  
+  store_dist: &store_dist
+    save_cache:
+      name: Save dist folder
+      paths:
+        - dist
+      key: v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
+  
+  restore_dist: &restore_dist
+    restore_cache:
+      name: Restore built dist folder
+      keys:
+        - v1-dist-{{ .Environment.CIRCLE_BRANCH }}-{{ .Environment.CIRCLE_SHA1 }}
+
+  install_node_modules: &install_node_modules
+    run:
+      name: Install local dependencies
+      command: npm ci
 
   show_current_branch: &show_current_branch
     run:
@@ -29,9 +42,7 @@ jobs:
   linter:
     docker:
       - image: circleci/node:10
-
     working_directory: ~/repo
-
     steps:
       - checkout
       - <<: *show_current_branch
@@ -45,9 +56,7 @@ jobs:
   unit-tests:
     docker:
       - image: circleci/node:10
-
     working_directory: ~/repo
-
     steps:
       - checkout
       - <<: *show_current_branch
@@ -64,9 +73,7 @@ jobs:
         environment:
           ## this enables colors in the output
           TERM: xterm
-
     working_directory: ~/repo
-
     steps:
       - checkout
       - <<: *show_current_branch
@@ -77,34 +84,39 @@ jobs:
           name: Running e2e tests
           command: bash ./ci/e2e
 
-  deploy:
+  build:
     docker:
       - image: circleci/node:10
-
     working_directory: ~/repo
-
     steps:
       - checkout
-      - setup_remote_docker:
-          docker_layer_caching: true
       - <<: *show_current_branch
       - <<: *restore_cache
       - <<: *install_node_modules
       - <<: *save_cache
       - run:
+          name: Building artifact using ng build
+          command: ./ci/build
+      - <<: *store_dist
+
+  staging-deploy:
+    machine: true
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - <<: *show_current_branch
+      - <<: *restore_dist
+      - run:
           name: Deploy Docker Image
           command: ./ci/deploy
-
       - run:
           name: Deploy to Heroku
           command: ./ci/release
 
-  smoke-test:
+  smoke-test-staging:
     docker:
       - image: circleci/node:10
-
     working_directory: ~/repo
-
     steps:
       - checkout
       - <<: *show_current_branch
@@ -112,11 +124,26 @@ jobs:
       - <<: *install_node_modules
       - <<: *save_cache
       - run:
-          name: Install Super Agent for smoke test
-          command: npm i superagent
+          name: Install Super Agent and Yargs for smoke test
+          command: npm i superagent yargs
       - run:
           name: Running Smoke test
           command: ./ci/smoke-test
+
+  production-deploy:
+    docker:
+      - image: circleci/node:10
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - <<: *show_current_branch
+      - <<: *restore_dist
+      - run:
+          name: Deploy Docker Image
+          command: ./ci/deploy --prod
+      - run:
+          name: Deploy to Heroku
+          command: ./ci/release --prod
 
 workflows:
   version: 2
@@ -125,18 +152,28 @@ workflows:
       - linter
       - unit-tests
       - e2e
-      - deploy:
+      - build:
           requires:
             - linter
             - unit-tests
             - e2e
+      - staging-deploy:
+          requires:
+            - build
+      - smoke-test-staging:
+          requires:
+            - staging-deploy
+      - production-approval:
+          type: approval
+          requires:
+            - smoke-test-staging
           filters:
             branches:
               only:
                 - master
-      - smoke-test:
+      - production-deploy:
           requires:
-            - deploy
+            - production-approval
           filters:
             branches:
               only:

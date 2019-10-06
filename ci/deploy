@@ -2,34 +2,74 @@
 set -e
 set -o pipefail
 
-echo "============================================================="
-echo "          CONSTRUYENDO APLICACIÓN                            "
-echo "============================================================="
-npm run build -- --prod
+get_app_name() {
+    [ "$1" = "yes" ] && echo $HEROKU_APP_NAME || echo $HEROKU_APP_NAME_STAGING
+}
+
+is_prod_deploy(){
+    [ "$1" = "--prod" ] && echo "yes" || echo "no"
+}
+
+#asume that dist folder was created in separate "build" job
+set_staging_server() {
+    mkdir -p ./docker/public
+    cp -R dist/web-app/. ./docker/public
+    cp -R server/* docker/
+    mkdir -p docker/services/default_data
+    cp stubs/* docker/services/default_data
+    rm docker/services/default_data/config.json
+}
+
+#asume that dist folder was created in separate "build" job
+set_production_server() {
+    #TODO this commands should be generate another things only for production
+    mkdir -p ./docker/public
+    cp -R dist/web-app/. ./docker/public
+    cp -R server/* docker/
+    mkdir -p docker/services/default_data
+    cp stubs/* docker/services/default_data
+    rm docker/services/default_data/config.json
+}
 
 echo "============================================================="
-echo "      CREANDO IMAGEN DOCKER                                  "
+echo "      Creating Docker Image                                  "
 echo "============================================================="
 PACKAGE_VERSION=$(node -p -e "require('./package.json').version")
-IMAGE_NAME="registry.heroku.com/${HEROKU_APP_NAME}/web"
+IS_PROD=$(is_prod_deploy $1)
 
-mkdir -p ./docker/public
-cp -R dist/web-app/. ./docker/public
-cp server/server.js docker/
-cp stubs/* docker/
-rm docker/config.json
+echo "Get image name with production flag -> $IS_PROD"
+APP_NAME=$(get_app_name $IS_PROD)
+
+ENVIRONMENT_NAME=$([ $IS_PROD = "yes" ] && echo "production" || echo "staging")
 
 echo "============================================================="
-echo "          ESTRUCTURA DIRECTORIO                              "
+echo "          Provisioning docker directory                      "
 echo "============================================================="
-ls -lha docker
+if [ $IS_PROD = "yes" ]; then
+    set_production_server
+elif [ $IS_PROD = "no" ]; then
+    set_staging_server
+fi
+
+echo "============================================================="
+echo "          Show directory files                               "
+echo "============================================================="
+# TODO should show entire tree of docker directory
+ls -lha docker/public && ls -lha docker
 
 cd docker
+echo "======================================================================================================="
+echo "          Authentication in Docker Heroku Registry for Deploy for Environment $ENVIRONMENT_NAME"
+echo "======================================================================================================="
+echo "$HEROKU_KEY" | docker login --username $HEROKU_OWNER_EMAIL --password-stdin registry.heroku.com
 
-echo "$HEROKU_KEY" | docker login --username ${HEROKU_OWNER_EMAIL} --password-stdin registry.heroku.com
-docker build -t registry.heroku.com/${HEROKU_APP_NAME}/web --build-arg app_version=${PACKAGE_VERSION} .
+TAG_NAME=$([ $IS_PROD = "yes" ] && echo "release" || echo ${CIRCLE_BRANCH//\//\-})
 
-echo "============================================================="
-echo "      PUBLICANDO ...                                         "
-echo "============================================================="
-docker push registry.heroku.com/${HEROKU_APP_NAME}/web
+docker build -t registry.heroku.com/$APP_NAME/web:$TAG_NAME \
+    --build-arg app_version=${PACKAGE_VERSION} \
+    --build-arg environment_name=${ENVIRONMENT_NAME} .
+
+echo "==========================================================================================="
+echo "      Publishing Docker Image registry.heroku.com/$APP_NAME/web:$TAG_NAME in Heroku Registry ...     "
+echo "==========================================================================================="
+docker push registry.heroku.com/$APP_NAME/web:$TAG_NAME

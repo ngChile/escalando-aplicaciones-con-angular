@@ -1,27 +1,32 @@
 #!/usr/bin/env node
 
-const superagent = require('superagent');
+const { get } = require('superagent');
+const { argv } = require('yargs');
 const { version } = require('../package.json');
 
-(async function(){
+(async function() {
+  const isProd = argv.prod;
+  const appName = isProd ? process.env.HEROKU_APP_NAME : process.env.HEROKU_APP_NAME_STAGING;
+  const targetUrl = `https://${appName}.herokuapp.com`;
+
   try {
-    const response = await superagent.get('https://boolean-cl-angular.herokuapp.com')
+    const response = await get(targetUrl);
     const htmlContent = response.text;
     const regexForVersionNumber = /<title>.*\s*\|\s*(\d+\.?\d+\.\d+)\s*<\/title>/g;
     const versionFromHtmlDocumentMatch = regexForVersionNumber.exec(htmlContent);
-    
+
     if (versionFromHtmlDocumentMatch) {
         const actualVersionDeployed = versionFromHtmlDocumentMatch[1];
         if (actualVersionDeployed === version) {
           console.info(`
-            SMOKE TEST PASSED: 
+            SMOKE TEST PASSED FOR ${targetUrl}:
                 ACTUAL VERSION DEPLOYED ${actualVersionDeployed}
                 PACKAGE VERSION ON MASTER BRANCH ${version}
           `);
           process.exit(0);
         } else {
           console.error(`
-            SMOKE TEST FAILED: 
+            SMOKE TEST FAILED FOR ${targetUrl}:
                 ACTUAL VERSION DEPLOYED ${actualVersionDeployed}
                 PACKAGE VERSION ON MASTER BRANCH ${version}
           `);
@@ -29,9 +34,9 @@ const { version } = require('../package.json');
         }
     }
 
-  } catch(error) {
+  } catch (error) {
       console.error(`
-            SMOKE TEST FAILED: 
+            SMOKE TEST FAILED FOR ${targetUrl}:
                 ERROR WHILE RUNNING: ${error.message}
       `);
       process.exit(1);

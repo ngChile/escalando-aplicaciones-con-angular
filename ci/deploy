@@ -3,8 +3,7 @@ set -e
 set -o pipefail
 
 get_app_name() {
-    IS_PROD = $1
-    [ "$IS_PROD" = "yes" ] && echo $HEROKU_APP_NAME || echo $HEROKU_APP_NAME_STAGING
+    [ "$1" = "yes" ] && echo $HEROKU_APP_NAME || echo $HEROKU_APP_NAME_STAGING
 }
 
 is_prod_deploy(){

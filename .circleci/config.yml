@@ -66,7 +66,10 @@ jobs:
       - run:
           name: Running unit tests
           command: ./ci/unit-tests
-
+      - store_artifacts:
+          path: ./test-results/junit
+      - store_test_results:
+          path: ./test-results
   e2e:
     docker:
       - image: cypress/base:10

@@ -20,6 +20,7 @@ module.exports = {
     moduleNameMapper: {
         '^@app/(.*)$': '<rootDir>/src/app/$1'
     },
+    modulePathIgnorePatterns: ['<rootDir>/docker'],
     transform: {
         '^.+\\.(j|t)s?$': 'ts-jest',
     }

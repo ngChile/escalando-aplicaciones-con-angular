@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "ng run web-app:serve-with-stubs",
     "test": "ng test --watch --coverage",
-    "test:ci": "ng test --coverage",
+    "test:ci": "ng test --ci --reporters=default --reporters=jest-junit",
     "inspect-coverage": "ng test --coverage && http-server coverage",
     "e2e": "ng e2e",
     "e2e:ci": "ng e2e --mode console",
@@ -14,6 +14,10 @@
   },
   "cypress-cucumber-preprocessor": {
     "step_definitions": "./e2e/support/step_definitions"
+  },
+  "jest-junit":{
+    "outputDirectory": "./test-results/junit",
+    "outputName": "results.xml"
   },
   "dependencies": {
     "@angular/animations": "^8.2.3",
@@ -55,6 +59,7 @@
     "jasmine-core": "~3.4.0",
     "jasmine-spec-reporter": "~4.2.1",
     "jest": "^24.9.0",
+    "jest-junit": "^8.0.0",
     "ngx-devkit-cypress-builder": "^1.0.1",
     "ngx-devkit-stubby-builder": "^1.2.2",
     "stubby": "^4.0.0",

@@ -15,7 +15,7 @@
   "cypress-cucumber-preprocessor": {
     "step_definitions": "./e2e/support/step_definitions"
   },
-  "jest-junit":{
+  "jest-junit": {
     "outputDirectory": "./test-results/junit",
     "outputName": "results.xml"
   },
@@ -65,6 +65,6 @@
     "stubby": "^4.0.0",
     "ts-node": "~8.3.0",
     "tslint": "~5.19.0",
-    "typescript": "^3.5.3"
+    "typescript": ">=3.4.0 <3.6.0"
   }
 }

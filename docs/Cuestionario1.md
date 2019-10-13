@@ -1,4 +1,10 @@
-**Preguntas Clase 1**
+<!-- TODO: Borrador de cuestionario preguntas Angular
+El objetivo es que cualquier usuario de Angular sea capaz
+de comprender estos conceptos que son aplicados por la Comunidad Angular en la aplicación desplegada para este repositorio y que distintas personas puedan colaborar con este cuestionario mediante Pull Requests o Creación de Issues basado en sus entrevistas,
+su conocimiento etc. 
+Para más información dirigirse al documento CONTRIBUTING.md -->
+
+**Preguntas Básicas**
 
 1 - ¿ Para que sirve definir la llave de configuración `imports` en un módulo de angular?
 * Para incluir otros módulos.

@@ -2,8 +2,7 @@
 
 Gracias por tu interés en colaborar en este proyecto. Para que toda la comunidad se vea beneficiada de tu aporte te pedimos por favor seguir las siguientes guías para que se mantengan las pautas básicas definidas para este proyecto. Cualquier crítica o mejora a este proceso puedes contactarnos a través de los canales oficiales de la Comunidad Angular Chile y estaremos encantados de discutirlo.
 
-Vamos a lo concreto: Guía de contribución
-
+### Contenidos
  - [Código de Conducta](#coc)
  - [¿Tienes Alguna duda relacionada a este Stack o sobre Angular?](#question)
  - [¿Encontraste un error?](#issue)
@@ -14,15 +13,15 @@ Vamos a lo concreto: Guía de contribución
 Nuestra comunidad es totalmente inclusiva. Si quieres colaborar revisa nuestro [Código de Conducta](https://github.com/ngChile/code_of_conduct).
 
 ## <a name="question"></a> ¿Tienes Alguna duda relacionada a este Stack o sobre Angular?
-No habrás "issues" para preguntas de soporte en general. De esta manera podremos enfocar nuestros esfuerzos en resolver los errores y apoyar todas las mejoras propuestas para este repositorio.
+No abras *Issues* para preguntas de soporte en general. De esta manera podremos enfocar nuestros esfuerzos en resolver los errores y apoyar todas las mejoras propuestas para este repositorio.
 Siempre vamos a recomendar que cualquier tipo de duda ajena al contexto de este repositorio sea resuelta en [Stack Overflow](https://stackoverflow.com/questions/tagged/angular) donde encontrarás un toda la ayuda que necesites y si quieres contactarnos directamente te invitamos a unirte a nuestro [Slack](https://angular-chile.slack.com).
 
 
 ## <a name="issue"></a> ¿Encontraste un error?
-Si encontraste un error por favor crear un "Issue" en nuestro proyecto principal. [Click acá](https://github.com/ngChile/escalando-aplicaciones-con-angular/issues/new)
+Si encontraste un error por favor crear un *Issue* en nuestro proyecto principal. [Click acá](https://github.com/ngChile/escalando-aplicaciones-con-angular/issues/new)
 
 ## <a name="feature"></a> Mejoras
-Si crees que tienes una idea que puede aportar o quieres solicitar a la comunidad que se haga una mejora en el repositorio crea un "Issue" con tu solicitud.
+Si crees que tienes una idea que puede aportar o quieres solicitar a la comunidad que se haga una mejora en el repositorio crea un *Issue* con tu solicitud.
 [Click acá](https://github.com/ngChile/escalando-aplicaciones-con-angular/issues/new)
 
 ## <a name="submit"></a> Guía de contribución
@@ -44,7 +43,7 @@ Ya que para la comunidad no es tarea fácil tener el tiempo de manejar los permi
 Una vez tengas la copia del repositorio es muy importante que crees una rama que siga el siguiente formato:
 
 ```
-  <scope>/<description>
+  <identificador>/<descripcion>
 ```
 
 Ejemplos:
@@ -55,28 +54,21 @@ Ejemplos:
   ci/new-job-visual-regression-tests
 ```
 
-##### Scope
+##### Identificador
 Se considera obligatorio para el nombre de las ramas ya que definirá el tipo de aumento de versión basado en [Semantic Versioning](https://semver.org/). 
 Valores posibles:
-  - feature
-  - bugfix
-  - docs
-  - ci
-  - test
-  - chore
-
-`feature` representa una nueva funcionalidad.
-`bugfix` representa un error que será solucionado.
-`docs` se agrega o edita la documentación.
-`ci` representa alguna mejora o edición del Pipeline de este proyecto configurado a través de Circle Ci.
-`test` representa una mejora exclusivamente relacionado a pruebas de software (las pruebas de software también deberían ser creadas en los features y bugfixes)
-`chore` representa cualquier tarea ajena a las descritas anteriormente. Por ejemplo actualizar las dependencias del proyecto.
-
-##### Description
+  - `feature`: Representa una nueva funcionalidad.
+  - `bugfix`: Representa un error que será solucionado.
+  - `docs`: Se agrega o edita la documentación.
+  - `ci`: Representa alguna mejora o edición del Pipeline de este proyecto configurado a través de Circle Ci.
+  - `test`: Representa una mejora exclusivamente relacionada a pruebas de software (las pruebas de software también deberían ser creadas en los features y bugfixes). Un ejemplo de esto podría ser agregar cobertura, cambiar ejecutor de pruebas, solucionar problemas en las pruebas y más.
+  - `chore`: Representa cualquier tarea ajena a las descritas anteriormente. Por ejemplo actualizar las dependencias del proyecto.
+ 
+##### Descripción
 
 Cualquier nombre separado por el caractér `-` que represente en que se quiere colaborar.
 
-Tanto `scope` como `description` deben ser en lenguaje inglés.
+Tanto `identificador` como `descripcion` deben ser preferentemente en lenguaje inglés. 
  
 ### <a name="pull-request"></a> 
 
@@ -88,4 +80,3 @@ Para que tu Pull Request sea aceptado debe cumplir con pasar todo el proceso de 
 ### Gracias Totales
 
 Muchas Gracias por tu tiempo y por ayudar a que la comunidad Angular Chile siga brindando el apoyo a toda la industria a partir de la experiencia de todas las personas que contribuyen a este proyecto.
-

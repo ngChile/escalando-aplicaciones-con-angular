@@ -1,0 +1,10 @@
+{
+  "groups": {
+    "default": {
+      "packages": [
+        "docker/package.json",
+        "package.json"
+      ]
+    }
+  }
+}

@@ -11,7 +11,7 @@
 ##Objetivos del Stack
 
 - Buena experiencia de desarrollo
-- Stack Actualizado
+- Stack constantemente actualizado
 - 0% dependencia de los servicios Backend
 
 ### Descripción

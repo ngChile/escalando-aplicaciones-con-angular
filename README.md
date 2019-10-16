@@ -41,10 +41,10 @@ El estilo de control de versiones que utiliza este repositorio es `feature-branc
 Para poder contribuir a este proyecto lea estas [instrucciones](CONTRIBUTING.md).
 
 ### Autores
-[Gonzalo Pincheira](https://github.com/gpincheiraa)
-Nicolás Ávila
-Sebastián Jiménez
-Maikel Perez
+- [Gonzalo Pincheira](https://github.com/gpincheiraa)
+- Nicolás Ávila
+- Sebastián Jiménez
+- Maikel Perez
 
 ### Contacto:
 

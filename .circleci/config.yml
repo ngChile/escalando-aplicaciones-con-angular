@@ -14,7 +14,7 @@ aliases:
       paths:
         - ~/.npm
         - ~/.cache
-      key: - v1-dependencies-{{ checksum "package.json" }}
+      key: v1-dependencies-{{ checksum "package.json" }}
 
   store_dist: &store_dist
     save_cache:

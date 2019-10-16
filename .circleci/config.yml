@@ -2,20 +2,21 @@ version: 2.1
 orbs:
   codecov: codecov/codecov@1.0.5
 aliases:
-  restore_cache: &restore_cache
+  restore_npm_cache: &restore_npm_cache
     restore_cache:
       name: Restore Npm Package Cache
       keys:
         - v1-dependencies-{{ checksum "package.json" }}
-
-  save_cache: &save_cache
+        - v1-dependencies
+  save_npm_cache: &save_npm_cache
     save_cache:
       name: Save NPM modules cache
       paths:
         - ~/.npm
         - ~/.cache
-      key: v1-dependencies-{{ checksum "package.json" }}
-  
+      key: 
+        - v1-dependencies-{{ checksum "package.json" }}
+        - v1-dependencies
   store_dist: &store_dist
     save_cache:
       name: Save dist folder
@@ -33,6 +34,7 @@ aliases:
     run:
       name: Install local dependencies
       command: npm ci
+      when: always
 
   show_current_branch: &show_current_branch
     run:
@@ -47,9 +49,9 @@ jobs:
     steps:
       - checkout
       - <<: *show_current_branch
-      - <<: *restore_cache
+      - <<: *restore_npm_cache
       - <<: *install_node_modules
-      - <<: *save_cache
+      - <<: *save_npm_cache
       - run:
           name: Linting
           command: npm run lint
@@ -61,9 +63,9 @@ jobs:
     steps:
       - checkout
       - <<: *show_current_branch
-      - <<: *restore_cache
+      - <<: *restore_npm_cache
       - <<: *install_node_modules
-      - <<: *save_cache
+      - <<: *save_npm_cache
       - run:
           name: Running unit tests
           command: ./ci/unit-tests
@@ -85,9 +87,9 @@ jobs:
     steps:
       - checkout
       - <<: *show_current_branch
-      - <<: *restore_cache
+      - <<: *restore_npm_cache
       - <<: *install_node_modules
-      - <<: *save_cache
+      - <<: *save_npm_cache
       - run:
           name: Running e2e tests
           command: bash ./ci/e2e
@@ -99,9 +101,9 @@ jobs:
     steps:
       - checkout
       - <<: *show_current_branch
-      - <<: *restore_cache
+      - <<: *restore_npm_cache
       - <<: *install_node_modules
-      - <<: *save_cache
+      - <<: *save_npm_cache
       - run:
           name: Building artifact using ng build
           command: ./ci/build
@@ -128,9 +130,9 @@ jobs:
     steps:
       - checkout
       - <<: *show_current_branch
-      - <<: *restore_cache
+      - <<: *restore_npm_cache
       - <<: *install_node_modules
-      - <<: *save_cache
+      - <<: *save_npm_cache
       - run:
           name: Install Super Agent and Yargs for smoke test
           command: npm i superagent yargs

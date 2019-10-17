@@ -1,16 +1,35 @@
-[circle-ci-url]: https://circleci.com/gh/ngChile/escalando-aplicaciones-con-angular
-[circle-ci-image]: https://circleci.com/gh/ngChile/escalando-aplicaciones-con-angular.svg?style=shield
 
-[codecov-url]: https://codecov.io/gh/ngChile/escalando-aplicaciones-con-angular
-[codecov-image]: https://codecov.io/gh/ngChile/escalando-aplicaciones-con-angular/branch/docs%2Fbadges-and-docs/graph/badge.svg
+<p align="center">
+  <a href="https://storybook.js.org/">
+    <img src="https://avatars0.githubusercontent.com/u/39106599?s=100&u=f1bc8a9d967080db189cd68d87aac1d900f65fd0&v=4)" alt="Storybook" width="100" />
+  </a>
+</p>
+# Escalando Aplicaciones con Angular
+***Un repositorio con deuda técnica eterna***
 
-[greenkeeper-url]: https://greenkeeper.io/
-[greenkeeper-image]: https://badges.greenkeeper.io/ngChile/escalando-aplicaciones-con-angular.svg
+<p align="center">
+    <a href="https://circleci.com/gh/ngChile/escalando-aplicaciones-con-angular">
+        <img src="https://circleci.com/gh/ngChile/escalando-aplicaciones-con-angular.svg?style=shield" alt="Build Status on CircleCI" />
+    </a>
+    <a href="https://codecov.io/gh/ngChile/escalando-aplicaciones-con-angular">
+        <img src="https://codecov.io/gh/ngChile/escalando-aplicaciones-con-angular/branch/docs%2Fbadges-and-docs/graph/badge.svg" alt="Unit tests Coverage" />
+    </a>
+    <a href="https://www.codefactor.io/repository/github/ngchile/escalando-aplicaciones-con-angular">
+        <img src="https://www.codefactor.io/repository/github/ngchile/escalando-aplicaciones-con-angular/badge" alt="CodeFactor" />
+    </a>
+    <a href="https://greenkeeper.io/">
+        <img src="https://badges.greenkeeper.io/ngChile/escalando-aplicaciones-con-angular.svg" alt="Greenkeeper service enabled status" />
+    </a>
+    <a href="https://snyk.io/test/github/ngChile/escalando-aplicaciones-con-angular">
+        <img src="https://snyk.io/test/github/ngChile/escalando-aplicaciones-con-angular/badge.svg" alt="Snyk service vulnerabilities reported" />
+    </a>
+    <a href="https://github.com/ngChile/escalando-aplicaciones-con-angular/blob/master/LICENSE">
+    <img src="https://img.shields.io/github/license/ngChile/escalando-aplicaciones-con-angular.svg" alt="License" />
+  </a>
+</p>
 
-[![CircleCI][circle-ci-image]][circle-ci-url] [![Greenkeeper badge][greenkeeper-image]][greenkeeper-url] [![codecov][codecov-image]][codecov-url]
 
-# Escalando Aplicaciones con Angular 
-[![AngularChile](https://avatars0.githubusercontent.com/u/39106599?s=100&u=f1bc8a9d967080db189cd68d87aac1d900f65fd0&v=4)](https://medium.com/angular-chile)  ***Un repositorio con deuda técnica eterna***
+
 
 Este repositorio es un proyecto vivo que busca lograr que toda la comunidad del software pueda colaborar enseñando a través de artículos, cursos personalizados, etc. e integrando sus códigos a este.
 
@@ -41,12 +60,11 @@ El estilo de control de versiones que utiliza este repositorio es `feature-branc
 Para poder contribuir a este proyecto lea estas [instrucciones](CONTRIBUTING.md).
 
 ### Autores
-- [Gonzalo Pincheira](https://github.com/gpincheiraa)
-- Nicolás Ávila
-- Sebastián Jiménez
-- Maikel Perez
+-   [Gonzalo Pincheira](https://github.com/gpincheiraa)
+-   Nicolás Ávila
+-   Sebastián Jiménez
+-   Maikel Perez
 
-### Contacto:
-
+### Contacto
 Siguenos en twitter: https://twitter.com/angularChile
 Únete al slack de Comunidad Angular: angular-chile.slack.com

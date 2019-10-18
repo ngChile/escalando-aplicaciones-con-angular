@@ -1,0 +1,48 @@
+#!/usr/bin/env node
+
+const { get } = require('superagent');
+const prettier = require('prettier');
+(async function() {
+  console.log(`Contributors for repository url ${process.env.CIRCLE_REPOSITORY_URL}`);
+  const createColumn = ({ url, avatar_url, login }) => (
+    `<td align="${url}">
+      <a href="http://matheu.srv.br">
+        <img
+          src="${avatar_url}"
+          width="100px;"
+          alt="${login}"/>
+        <br />
+        <sub>
+          <b>${login}</b>
+        </sub>
+      </a>
+    </td>`
+  );
+  const targetUrl = 'https://api.github.com/repos/ngChile/escalando-aplicaciones-con-angular/contributors';
+  const headers = {
+    'Content-Type': 'application/json',
+    'user-agent': 'node.js'
+  };
+  try {
+    const response = await get(targetUrl).set(headers);
+    const contributorsList = JSON.parse(response.text);
+    const htmlTable = contributorsList
+      .reduce((table, contributor, index) => {
+        const isRowStart = index % 6 === 0;
+        const isRowEnd = index % 6 === 5 || index === contributorsList.length - 1;
+        return (
+          isRowStart
+            ? table + '<tr>' + createColumn(contributor)
+            : (
+              isRowEnd
+                ? table + createColumn(contributor) + '</tr>'
+                : table + createColumn(contributor)
+            )
+        );
+      }, '<table>')
+      .concat('</table>');
+      console.log(prettier.format(htmlTable, { parser: 'html' }));
+  } catch (error) {
+    console.error(error);
+  }
+})();

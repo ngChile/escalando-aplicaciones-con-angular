@@ -61,8 +61,8 @@ Para poder contribuir a este proyecto lea estas [instrucciones](CONTRIBUTING.md)
 
 - [Gonzalo Pincheira](https://github.com/gpincheiraa)
 - [Nicolás Ávila](https://github.com/nicoavila)
-- Sebastián Jiménez
-- Maikel Perez
+- [Sebastián Jiménez](https://github.com/sbstn-jmnz)
+- [Maikel Perez](https://github.com/mdperez86s)
 
 ### Contribuidores
 Gracias a todos quienes han enviado un Pull Request a este repositorio.

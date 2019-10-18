@@ -178,33 +178,39 @@ workflows:
   version: 2
   angular-chile-pipeline:
     jobs:
-      - update-contributors
-      # - linter
-      # - unit-tests
-      # - e2e
-      # - build:
-      #     requires:
-      #       - linter
-      #       - unit-tests
-      #       - e2e
-      # - staging-deploy:
-      #     requires:
-      #       - build
-      # - smoke-test-staging:
-      #     requires:
-      #       - staging-deploy
-      # - production-approval:
-      #     type: approval
-      #     requires:
-      #       - smoke-test-staging
-      #     filters:
-      #       branches:
-      #         only:
-      #           - master
-      # - production-deploy:
-      # requires:
-      #   - production-approval
-      # filters:
-      #   branches:
-      #     only:
-      #       - master
+      - linter
+      - unit-tests
+      - e2e
+      - build:
+          requires:
+            - linter
+            - unit-tests
+            - e2e
+      - staging-deploy:
+          requires:
+            - build
+      - smoke-test-staging:
+          requires:
+            - staging-deploy
+      - production-approval:
+          type: approval
+          requires:
+            - smoke-test-staging
+          filters:
+            branches:
+              only:
+                - master
+      - production-deploy:
+          requires:
+            - production-approval
+          filters:
+            branches:
+              only:
+                - master
+      - update-contributors:
+          requires:
+            - production-deploy
+          filters:
+            branches:
+              only:
+                - master

@@ -1,0 +1,33 @@
+#!/bin/bash
+
+PROJECT_NAME=$(echo -e $(jq -r '.name' package.json))
+ALL_CONTRIBUTORS_SRC=$( \
+  curl https://api.github.com/repos/ngChile/escalando-aplicaciones-con-angular/contributors \
+  | jq -rc \
+    --arg PROJECT_NAME $PROJECT_NAME \
+    '{
+        "projectName": $PROJECT_NAME,
+        "projectOwner": "ngChile",
+        "repoType": "github",
+        "repoHost": "https://github.com",
+        "files": [
+          "README.md"
+        ],
+        "imageSize": 100,
+        "commit": true,
+        "contributors": [.[] |
+          {
+            "login": .login,
+            "name": .login,
+            "avatar_url": .avatar_url,
+            "profile": .html_url,
+            "contributions": [
+              "code"
+            ]
+          }
+        ]
+    }'
+)
+echo $ALL_CONTRIBUTORS_SRC > .all-contributorsrc
+
+npm run update-contributors

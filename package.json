@@ -6,11 +6,11 @@
     "start": "ng run web-app:serve-with-stubs",
     "test": "ng test --watch --coverage",
     "test:ci": "ng test --ci --reporters=default --reporters=jest-junit",
-    "inspect-coverage": "ng test --coverage && http-server coverage",
     "e2e": "ng e2e",
     "e2e:ci": "ng e2e --mode console",
     "lint": "ng lint",
-    "build": "ng build"
+    "build": "ng build",
+    "update-contributors": "all-contributors generate"
   },
   "cypress-cucumber-preprocessor": {
     "step_definitions": "./e2e/support/step_definitions"
@@ -50,6 +50,7 @@
     "@types/jasminewd2": "~2.0.3",
     "@types/jest": "^24.0.18",
     "@types/node": "^12.11.1",
+    "all-contributors-cli": "^6.9.1",
     "codelyzer": "~5.1.0",
     "cypress": "^3.4.1",
     "cypress-cucumber-preprocessor": "^1.16.0",
@@ -61,8 +62,10 @@
     "ngx-devkit-cypress-builder": "^1.0.2",
     "ngx-devkit-stubby-builder": "^1.2.3",
     "stubby": "^4.0.0",
+    "superagent": "^5.1.0",
     "ts-node": "~8.4.1",
     "tslint": "~5.20.0",
-    "typescript": ">=3.4.0 <3.6.0"
+    "typescript": ">=3.4.0 <3.6.0",
+    "yargs": "^14.2.0"
   }
 }

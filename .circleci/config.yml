@@ -1,6 +1,7 @@
 version: 2.1
 orbs:
   codecov: codecov/codecov@1.0.5
+  jq: circleci/jq@1.9.0
 aliases:
   restore_npm_cache: &restore_npm_cache
     restore_cache:
@@ -133,9 +134,6 @@ jobs:
       - <<: *install_node_modules
       - <<: *save_npm_cache
       - run:
-          name: Install Super Agent and Yargs for smoke test
-          command: npm i superagent yargs
-      - run:
           name: Running Smoke test
           command: ./ci/smoke-test
 
@@ -153,6 +151,29 @@ jobs:
           name: Deploy to Heroku
           command: ./ci/release --prod
 
+  update-contributors:
+    docker:
+      - image: circleci/node:10
+    working_directory: ~/repo
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "a7:af:f2:47:72:a1:69:7d:d2:9f:fe:c1:81:98:41:88"
+      - checkout
+      - <<: *show_current_branch
+      - <<: *restore_npm_cache
+      - <<: *install_node_modules
+      - <<: *save_npm_cache
+      - run:
+          name: Updating contributors list
+          command: ./ci/update-contributors
+      - run: |
+          git config credential.helper 'cache --timeout=120'
+          git config user.email circleci@circleci
+          git config user.name "ngChile Circle Ci Deployment Bot"
+          git add .
+          git diff-index --quiet HEAD || git commit -m "[skip ci] Update Contributors List via CircleCI"
+          git push origin ${CIRCLE_BRANCH}
 workflows:
   version: 2
   angular-chile-pipeline:
@@ -182,6 +203,13 @@ workflows:
       - production-deploy:
           requires:
             - production-approval
+          filters:
+            branches:
+              only:
+                - master
+      - update-contributors:
+          requires:
+            - production-deploy
           filters:
             branches:
               only:

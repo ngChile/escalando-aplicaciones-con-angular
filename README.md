@@ -66,8 +66,8 @@ Para poder contribuir a este proyecto lea estas [instrucciones](CONTRIBUTING.md)
 
 ### Contribuidores
 Gracias a todos quienes han enviado un Pull Request a este repositorio.
-<!--begin-contributors-list-->
-<!--end-contributors-list-->
+<!-- ALL-CONTRIBUTORS-LIST:START - Do not remove or modify this section -->
+<!-- ALL-CONTRIBUTORS-LIST:END -->
 
 ## Contacto
 

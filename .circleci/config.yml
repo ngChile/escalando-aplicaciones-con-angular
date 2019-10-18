@@ -1,6 +1,7 @@
 version: 2.1
 orbs:
   codecov: codecov/codecov@1.0.5
+  jq: circleci/jq@1.9.0
 aliases:
   restore_npm_cache: &restore_npm_cache
     restore_cache:
@@ -133,9 +134,6 @@ jobs:
       - <<: *install_node_modules
       - <<: *save_npm_cache
       - run:
-          name: Install Super Agent and Yargs for smoke test
-          command: npm i superagent yargs
-      - run:
           name: Running Smoke test
           command: ./ci/smoke-test
 
@@ -164,18 +162,18 @@ jobs:
       - <<: *install_node_modules
       - <<: *save_npm_cache
       - run:
-          name: Install Super Agent and Prettier for smoke test
-          command: npm i superagent prettier
-      - run:
           name: Updating contributors list
           command: ./ci/update-contributors
+      - run: |
+          git status
+          git diff
 
 workflows:
   version: 2
   angular-chile-pipeline:
     jobs:
       - update-contributors
-      - linter
+      # - linter
       # - unit-tests
       # - e2e
       # - build:

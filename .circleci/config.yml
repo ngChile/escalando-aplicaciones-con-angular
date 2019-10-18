@@ -170,7 +170,7 @@ jobs:
           git config user.name "ngChile Circle Ci Deployment Bot"
           git add .
           git diff-index --quiet HEAD || git commit -m "[skip ci] Update Contributors List via CircleCI"
-          git push
+          git push origin ${CIRCLE_BRANCH}
 workflows:
   version: 2
   angular-chile-pipeline:

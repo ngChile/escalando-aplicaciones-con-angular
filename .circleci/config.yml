@@ -165,12 +165,9 @@ jobs:
           name: Updating contributors list
           command: ./ci/update-contributors
       - run: |
-          git config credential.helper 'cache --timeout=120'
-          git config user.email circleci@circleci
-          git config user.name "ngChile Circle Ci Deployment Bot"
           git add .
           git diff-index --quiet HEAD || git commit -m "[skip ci] Update Contributors List via CircleCI"
-          git push -q https://${GITHUB_TOKEN}@github.com/ngChile/escalando-aplicaciones-con-angular.git ${CIRCLE_BRANCH}
+          git push
 workflows:
   version: 2
   angular-chile-pipeline:

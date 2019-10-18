@@ -137,6 +137,16 @@ jobs:
           name: Running Smoke test
           command: ./ci/smoke-test
 
+  auto-semver:
+    machine: true
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - <<: *show_current_branch
+      - run:
+          name: Autom semver
+          command: ./ci/autosemver
+
   production-deploy:
     machine: true
     working_directory: ~/repo
@@ -178,39 +188,40 @@ workflows:
   version: 2
   angular-chile-pipeline:
     jobs:
-      - linter
-      - unit-tests
-      - e2e
-      - build:
-          requires:
-            - linter
-            - unit-tests
-            - e2e
-      - staging-deploy:
-          requires:
-            - build
-      - smoke-test-staging:
-          requires:
-            - staging-deploy
-      - production-approval:
-          type: approval
-          requires:
-            - smoke-test-staging
-          filters:
-            branches:
-              only:
-                - master
-      - production-deploy:
-          requires:
-            - production-approval
-          filters:
-            branches:
-              only:
-                - master
-      - update-contributors:
-          requires:
-            - production-deploy
-          filters:
-            branches:
-              only:
-                - master
+      - auto-semver
+      # - linter
+      # - unit-tests
+      # - e2e
+      # - build:
+      #     requires:
+      #       - linter
+      #       - unit-tests
+      #       - e2e
+      # - staging-deploy:
+      #     requires:
+      #       - build
+      # - smoke-test-staging:
+      #     requires:
+      #       - staging-deploy
+      # - production-approval:
+      #     type: approval
+      #     requires:
+      #       - smoke-test-staging
+      #     filters:
+      #       branches:
+      #         only:
+      #           - master
+      # - production-deploy:
+      #     requires:
+      #       - production-approval
+      #     filters:
+      #       branches:
+      #         only:
+      #           - master
+      # - update-contributors:
+      #     requires:
+      #       - production-deploy
+      #     filters:
+      #       branches:
+      #         only:
+      #           - master

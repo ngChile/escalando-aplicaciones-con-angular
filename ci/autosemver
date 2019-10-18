@@ -1,0 +1,44 @@
+#!/bin/bash
+
+echo "bash version: $BASH_VERSION"
+# TODO: this pattern should support [skip ci] text message
+commit_message_pattern='[0-9a-f]+ Merge pull request #[0-9]+ from ([a-zA-Z]+)/([@\-\.\:\/0-9a-zA-Z]+)'
+last_commit_message=$(git log --oneline --merges -1)
+
+[[ "$last_commit_message" =~ $commit_message_pattern ]]
+
+contributorUsername=${BASH_REMATCH[1]}
+contributorBranchName=${BASH_REMATCH[2]}
+
+echo "=============================================================="
+echo "Regex input: ${BASH_REMATCH[0]}"
+echo "Contributor username: $contributorUsername"
+echo "Merged branch: $contributorBranchName"
+echo "=============================================================="
+
+branch_name_pattern='([a-zA-Z]+)/[@\-\.\:\/0-9a-zA-Z]+'
+
+[[ "$contributorBranchName" =~ $branch_name_pattern ]]
+
+branch_name_prefix=${BASH_REMATCH[1]}
+
+echo "=============================================================="
+echo "Regex input: ${BASH_REMATCH[0]}"
+echo "Branch name prefix: $branch_name_prefix"
+echo "=============================================================="
+
+not_semver_prefix_pattern='docs|ci|chore|test'
+patch_semver_prefix_pattern='bugfix|fix|greenkeeper'
+minor_semver_prefix_pattern='feature'
+
+if [[ "$branch_name_prefix" =~ $not_semver_prefix_pattern ]]; then
+    echo "not auto semver"
+elif [[ "$branch_name_prefix" =~ $patch_semver_prefix_pattern ]]; then
+    echo "auto semver patch"
+elif [[ "$branch_name_prefix" =~ $minor_semver_prefix_pattern ]]; then
+    echo "auto semver feature"
+    echo "Your change it is a MAJOR breaking change? please follow this instructions"
+else 
+    echo "ERROR: your branch does not follow the branch name policies. See more information in CONTRIBUTING.md"
+fi
+

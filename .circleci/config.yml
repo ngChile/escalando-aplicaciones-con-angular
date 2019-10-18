@@ -175,7 +175,7 @@ workflows:
   angular-chile-pipeline:
     jobs:
       - update-contributors
-      # - linter
+      - linter
       # - unit-tests
       # - e2e
       # - build:
@@ -198,9 +198,9 @@ workflows:
       #         only:
       #           - master
       # - production-deploy:
-          requires:
-            - production-approval
-          filters:
-            branches:
-              only:
-                - master
+      # requires:
+      #   - production-approval
+      # filters:
+      #   branches:
+      #     only:
+      #       - master

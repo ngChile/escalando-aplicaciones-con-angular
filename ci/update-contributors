@@ -1,13 +1,13 @@
 #!/bin/bash
 
-PROJECT_NAME=$(echo -e $(jq -r '.name' package.json))
 ALL_CONTRIBUTORS_SRC=$( \
-  curl https://api.github.com/repos/ngChile/escalando-aplicaciones-con-angular/contributors \
+  curl -v https://api.github.com/repos/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/contributors \
   | jq -rc \
-    --arg PROJECT_NAME $PROJECT_NAME \
+    --arg PROJECT_NAME $CIRCLE_PROJECT_REPONAME \
+    --arg PROJECT_OWNER $CIRCLE_PROJECT_USERNAME \
     '{
         "projectName": $PROJECT_NAME,
-        "projectOwner": "ngChile",
+        "projectOwner": $PROJECT_OWNER,
         "repoType": "github",
         "repoHost": "https://github.com",
         "files": [
@@ -21,13 +21,12 @@ ALL_CONTRIBUTORS_SRC=$( \
             "name": .login,
             "avatar_url": .avatar_url,
             "profile": .html_url,
-            "contributions": [
-              "code"
-            ]
+            "contributions": []
           }
         ]
     }'
 )
+
 echo $ALL_CONTRIBUTORS_SRC > .all-contributorsrc
 
 npm run update-contributors

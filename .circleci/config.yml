@@ -164,12 +164,12 @@ jobs:
       - image: circleci/node:10
     working_directory: ~/repo
     steps:
-      - attach_workspace:
-          at: ./workspace_variables
       - add_ssh_keys:
           fingerprints:
             - "a7:af:f2:47:72:a1:69:7d:d2:9f:fe:c1:81:98:41:88"
       - checkout
+      - attach_workspace:
+          at: ./workspace_variables
       - <<: *restore_npm_cache
       - <<: *install_node_modules
       - <<: *save_npm_cache

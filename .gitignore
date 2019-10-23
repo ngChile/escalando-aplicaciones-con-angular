@@ -36,6 +36,7 @@ yarn-error.log
 testem.log
 /typings
 .all-contributorsrc
+/workspace_variables/
 
 # System Files
 .DS_Store

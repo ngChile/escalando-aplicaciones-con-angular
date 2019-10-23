@@ -3,6 +3,11 @@ orbs:
   codecov: codecov/codecov@1.0.5
   jq: circleci/jq@1.9.0
 aliases:
+  set_git_credentials: &set_git_credentials
+    run: |
+        git config credential.helper 'cache --timeout=120'
+        git config user.email ngChile@circleci
+        git config user.name "ngChile Circle Ci Deployment Bot"
   restore_npm_cache: &restore_npm_cache
     restore_cache:
       name: Restore Npm Package Cache
@@ -36,11 +41,6 @@ aliases:
       command: npm ci
       when: always
 
-  show_current_branch: &show_current_branch
-    run:
-      name: Show current branch
-      command: echo ${CIRCLE_BRANCH}
-
   show_bash_version: &show_bash_version
     run:
       name: Show current branch
@@ -50,19 +50,25 @@ jobs:
     machine: true
     working_directory: ~/repo
     steps:
-      - checkout
+      - <<: *set_git_credentials
       - <<: *show_bash_version
-      - <<: *show_current_branch
+      - add_ssh_keys:
+          fingerprints:
+            - "a7:af:f2:47:72:a1:69:7d:d2:9f:fe:c1:81:98:41:88"
+      - checkout      
       - run:
           name: Check Format name of incoming branch
           command: ./ci/branch-validator
+    - persist_to_workspace:
+          root: workspace_variables
+          paths:
+              - custom-env-variables
   linter:
     docker:
       - image: circleci/node:10
     working_directory: ~/repo
     steps:
       - checkout
-      - <<: *show_current_branch
       - <<: *restore_npm_cache
       - <<: *install_node_modules
       - <<: *save_npm_cache
@@ -75,7 +81,6 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
-      - <<: *show_current_branch
       - <<: *restore_npm_cache
       - <<: *install_node_modules
       - <<: *save_npm_cache
@@ -99,7 +104,6 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
-      - <<: *show_current_branch
       - <<: *restore_npm_cache
       - <<: *install_node_modules
       - <<: *save_npm_cache
@@ -112,7 +116,6 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
-      - <<: *show_current_branch
       - <<: *restore_npm_cache
       - <<: *install_node_modules
       - <<: *save_npm_cache
@@ -125,7 +128,6 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
-      - <<: *show_current_branch
       - <<: *restore_dist
       - run:
           name: Deploy Docker Image
@@ -139,7 +141,6 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
-      - <<: *show_current_branch
       - <<: *restore_npm_cache
       - <<: *install_node_modules
       - <<: *save_npm_cache
@@ -151,7 +152,6 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
-      - <<: *show_current_branch
       - <<: *restore_dist
       - run:
           name: Deploy Docker Image
@@ -168,70 +168,54 @@ jobs:
           fingerprints:
             - "a7:af:f2:47:72:a1:69:7d:d2:9f:fe:c1:81:98:41:88"
       - checkout
-      - <<: *show_current_branch
       - <<: *restore_npm_cache
       - <<: *install_node_modules
       - <<: *save_npm_cache
-      - run: |
-          git config credential.helper 'cache --timeout=120'
-          git config user.email ngChile@circleci
-          git config user.name "ngChile Circle Ci Deployment Bot"
+      - <<: *set_git_credentials
+      # - run:
+      #     name: Updating contributors list
+      #     command: ./ci/update-contributors
       - run:
-          name: Updating contributors list
-          command: ./ci/update-contributors
-      - run:
-          name: Auto semantic version
-          command: ./ci/autosemver
-      - run: |
-          git --no-pager diff
-          git add README.md package.json
-          git diff-index --quiet HEAD || git commit -m "[skip ci] Update Repository with new version (if was changed) and contributors list."
-          git push origin ${CIRCLE_BRANCH}
-          git push --follow-tags
+          name: Updating repository
+          command: ./ci/update-repository     
 workflows:
   version: 2
   angular-chile-pipeline:
     jobs:
       - branch-validator
-      - linter:
-          requires:
-            - branch-validator
-      - unit-tests:
-          requires:
-            - branch-validator
-      - e2e:
-          requires:
-            - branch-validator
-      - build:
-          requires:
-            - linter
-            - unit-tests
-            - e2e
-      - staging-deploy:
-          requires:
-            - build
-      - smoke-test-staging:
-          requires:
-            - staging-deploy
-      - production-approval:
-          type: approval
-          requires:
-            - smoke-test-staging
-          filters:
-            branches:
-              only:
-                - master
-      - production-deploy:
-          requires:
-            - production-approval
-          filters:
-            branches:
-              only:
-                - master
-      - update-repository:
-          requires:
-            - production-deploy
-          filters:
-            branches:
-              only:
-                - master
+      - update-repository
+      # - linter:
+      #     requires:
+      #       - branch-validator
+      # - unit-tests:
+      #     requires:
+      #       - branch-validator
+      # - e2e:
+      #     requires:
+      #       - branch-validator
+      # - build:
+      #     requires:
+      #       - linter
+      #       - unit-tests
+      #       - e2e
+      # - staging-deploy:
+      #     requires:
+      #       - build
+      # - smoke-test-staging:
+      #     requires:
+      #       - staging-deploy
+      # - production-approval:
+      #     type: approval
+      #     requires:
+      #       - smoke-test-staging
+      #     filters:
+      #       branches:
+      #         only:
+      #           - master
+      # - production-deploy:
+      #     requires:
+      #       - production-approval
+      #     filters:
+      #       branches:
+      #         only:
+      #           - master

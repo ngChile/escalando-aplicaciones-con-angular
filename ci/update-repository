@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+#TODO: make a detailed changelog file and detailed commit message using template
+# COMMIT_MESSAGE="[skip ci] Update Repository with new version (if was changed) and contributors list."
+
+# git --no-pager diff
+# git add README.md package.json
+# git diff-index --quiet HEAD || git commit -m $COMMIT_MESSAGE
+# git push origin ${CIRCLE_BRANCH}
+# git push --follow-tags
+
+ls -la
+
+cat workspace_variables/custom-env-variables

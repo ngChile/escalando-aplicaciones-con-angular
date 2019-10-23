@@ -41,7 +41,21 @@ aliases:
       name: Show current branch
       command: echo ${CIRCLE_BRANCH}
 
+  show_bash_version: &show_bash_version
+    run:
+      name: Show current branch
+      command: echo ${BASH_VERSION}
 jobs:
+  branch-validator:
+    machine: true
+    working_directory: ~/repo
+    steps:
+      - checkout
+      - <<: *show_bash_version
+      - <<: *show_current_branch
+      - run:
+          name: Check Format name of incoming branch
+          command: ./ci/branch-validator
   linter:
     docker:
       - image: circleci/node:10
@@ -55,7 +69,6 @@ jobs:
       - run:
           name: Linting
           command: npm run lint
-
   unit-tests:
     docker:
       - image: circleci/node:10
@@ -93,7 +106,6 @@ jobs:
       - run:
           name: Running e2e tests
           command: bash ./ci/e2e
-
   build:
     docker:
       - image: circleci/node:10
@@ -108,7 +120,6 @@ jobs:
           name: Building artifact using ng build
           command: ./ci/build
       - <<: *store_dist
-
   staging-deploy:
     machine: true
     working_directory: ~/repo
@@ -122,7 +133,6 @@ jobs:
       - run:
           name: Deploy to Heroku
           command: ./ci/release
-
   smoke-test-staging:
     docker:
       - image: circleci/node:10
@@ -136,17 +146,6 @@ jobs:
       - run:
           name: Running Smoke test
           command: ./ci/smoke-test
-
-  auto-semver:
-    machine: true
-    working_directory: ~/repo
-    steps:
-      - checkout
-      - <<: *show_current_branch
-      - run:
-          name: Autom semver
-          command: ./ci/autosemver
-
   production-deploy:
     machine: true
     working_directory: ~/repo
@@ -160,10 +159,8 @@ jobs:
       - run:
           name: Deploy to Heroku
           command: ./ci/release --prod
-
   update-contributors:
-    docker:
-      - image: circleci/node:10
+    machine: true
     working_directory: ~/repo
     steps:
       - add_ssh_keys:
@@ -179,16 +176,39 @@ jobs:
           command: ./ci/update-contributors
       - run: |
           git config credential.helper 'cache --timeout=120'
-          git config user.email circleci@circleci
+          git config user.email ngChile@circleci
           git config user.name "ngChile Circle Ci Deployment Bot"
-          git add .
+          git --no-pager diff
+          git add README.md
           git diff-index --quiet HEAD || git commit -m "[skip ci] Update Contributors List via CircleCI"
           git push origin ${CIRCLE_BRANCH}
+  auto-semver:
+    machine: true
+    working_directory: ~/repo
+    steps:
+      - add_ssh_keys:
+          fingerprints:
+            - "a7:af:f2:47:72:a1:69:7d:d2:9f:fe:c1:81:98:41:88"
+      - checkout
+      - <<: *show_current_branch
+      - run:
+          name: Auto semantic version
+          command: ./ci/autosemver
+      - run: |
+          git config credential.helper 'cache --timeout=120'
+          git config user.email ngChile@circleci
+          git config user.name "ngChile Circle Ci Deployment Bot"
+          git --no-pager diff
+          git add package.json
+          git diff-index --quiet HEAD || git commit -m "[skip ci] Update version"
+          git push origin ${CIRCLE_BRANCH}
+          git push --follow-tags
 workflows:
   version: 2
   angular-chile-pipeline:
     jobs:
-      - auto-semver
+      - branch-validator
+      # - auto-semver
       # - linter
       # - unit-tests
       # - e2e

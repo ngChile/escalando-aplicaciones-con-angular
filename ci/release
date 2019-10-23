@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/usr/bin/env bash
 
 # TODO: this functions should be imported form utils script
 get_app_name() {

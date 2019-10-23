@@ -160,7 +160,8 @@ jobs:
           name: Deploy to Heroku
           command: ./ci/release --prod
   update-contributors:
-    machine: true
+    docker:
+      - image: circleci/node:10
     working_directory: ~/repo
     steps:
       - add_ssh_keys:
@@ -183,7 +184,8 @@ jobs:
           git diff-index --quiet HEAD || git commit -m "[skip ci] Update Contributors List via CircleCI"
           git push origin ${CIRCLE_BRANCH}
   auto-semver:
-    machine: true
+    docker:
+      - image: circleci/node:10
     working_directory: ~/repo
     steps:
       - add_ssh_keys:

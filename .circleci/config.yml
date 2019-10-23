@@ -176,7 +176,7 @@ jobs:
       - <<: *set_git_credentials
       - run:
           name: Updating repository
-          command: ./ci/update-repository     
+          command: ./ci/update-repository
 workflows:
   version: 2
   angular-chile-pipeline:

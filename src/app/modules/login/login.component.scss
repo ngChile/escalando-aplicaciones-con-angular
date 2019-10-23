@@ -34,6 +34,14 @@
           margin-bottom: .5rem;
         }
       }
+
+      .mat-card-actions {
+        display: flex;
+        margin: 10px 0;
+        padding: 0;
+        align-items: baseline;
+        justify-content: space-around;
+      }
     }
   }
 }

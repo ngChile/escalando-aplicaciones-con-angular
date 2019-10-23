@@ -159,7 +159,7 @@ jobs:
       - run:
           name: Deploy to Heroku
           command: ./ci/release --prod
-  update-contributors:
+  update-repository:
     docker:
       - image: circleci/node:10
     working_directory: ~/repo
@@ -175,24 +175,6 @@ jobs:
       - run:
           name: Updating contributors list
           command: ./ci/update-contributors
-      - run: |
-          git config credential.helper 'cache --timeout=120'
-          git config user.email ngChile@circleci
-          git config user.name "ngChile Circle Ci Deployment Bot"
-          git --no-pager diff
-          git add README.md
-          git diff-index --quiet HEAD || git commit -m "[skip ci] Update Contributors List via CircleCI"
-          git push origin ${CIRCLE_BRANCH}
-  auto-semver:
-    docker:
-      - image: circleci/node:10
-    working_directory: ~/repo
-    steps:
-      - add_ssh_keys:
-          fingerprints:
-            - "a7:af:f2:47:72:a1:69:7d:d2:9f:fe:c1:81:98:41:88"
-      - checkout
-      - <<: *show_current_branch
       - run:
           name: Auto semantic version
           command: ./ci/autosemver
@@ -201,8 +183,8 @@ jobs:
           git config user.email ngChile@circleci
           git config user.name "ngChile Circle Ci Deployment Bot"
           git --no-pager diff
-          git add package.json
-          git diff-index --quiet HEAD || git commit -m "[skip ci] Update version"
+          git add README.md package.json
+          git diff-index --quiet HEAD || git commit -m "[skip ci] Update Repository with new version (if was changed) and contributors list."
           git push origin ${CIRCLE_BRANCH}
           git push --follow-tags
 workflows:
@@ -245,16 +227,9 @@ workflows:
             branches:
               only:
                 - master
-      - update-contributors:
+      - update-repository:
           requires:
             - production-deploy
-          filters:
-            branches:
-              only:
-                - master
-      - auto-semver:
-          requires:
-            - update-contributors
           filters:
             branches:
               only:

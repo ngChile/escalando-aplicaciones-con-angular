@@ -7,7 +7,7 @@ function store_tag_attempt {
     echo "export BUMP_VERSION_TYPE=$BUMP_VERSION_TYPE" >> workspace_variables/custom-env-variables
     echo "export PACKAGE_VERSION=$PACKAGE_VERSION" >> workspace_variables/custom-env-variables
     echo "Custom variables:"
-    cat workspace_variables/custom-env-variables
+    cat ./workspace_variables/custom-env-variables
 }
 
 function check_branch_name_validity {
@@ -51,8 +51,10 @@ function check_branch_name_validity {
     echo "See more information in CONTRIBUTING.md https://www.github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/blob/master/CONTRIBUTING.md"
 }
 
-mkdir -p workspace_variables
-touch custom-env-variables
+mkdir -p ./workspace_variables
+touch /workspace_variables/custom-env-variables
+
+ls -la
 
 if [[ "$CIRCLE_BRANCH" == "master" ]]; then
     merge_commit_message_pattern='Merge[[:space:]]+pull[[:space:]]+request[[:space:]]+#[0-9]+[[:space:]]+from[[:space:]]+([[:alpha:]]+)\/([[:punct:][:alnum:]]+)'

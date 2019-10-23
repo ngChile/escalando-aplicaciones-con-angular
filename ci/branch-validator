@@ -51,8 +51,8 @@ function check_branch_name_validity {
     echo "See more information in CONTRIBUTING.md https://www.github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/blob/master/CONTRIBUTING.md"
 }
 
-mkdir -p ./workspace_variables
-touch /workspace_variables/custom-env-variables
+mkdir ./workspace_variables
+touch ./workspace_variables/custom-env-variables
 
 ls -la
 

@@ -71,19 +71,19 @@ Gracias a todos quienes han enviado un Pull Request a este repositorio.
 <!-- markdownlint-disable -->
 <table>
   <tr>
-    <td align="center"><a href="https://github.com/gpincheiraa"><img src="https://avatars0.githubusercontent.com/u/5608336?v=4" width="100px;" alt="gpincheiraa"/><br /><sub><b>gpincheiraa</b></sub></a><br /></td>
-    <td align="center"><a href="https://github.com/mdperez86"><img src="https://avatars2.githubusercontent.com/u/13334210?v=4" width="100px;" alt="mdperez86"/><br /><sub><b>mdperez86</b></sub></a><br /></td>
-    <td align="center"><a href="https://github.com/sbstn-jmnz"><img src="https://avatars1.githubusercontent.com/u/4334071?v=4" width="100px;" alt="sbstn-jmnz"/><br /><sub><b>sbstn-jmnz</b></sub></a><br /></td>
-    <td align="center"><a href="https://github.com/YerkoPalma"><img src="https://avatars1.githubusercontent.com/u/5105812?v=4" width="100px;" alt="YerkoPalma"/><br /><sub><b>YerkoPalma</b></sub></a><br /></td>
-    <td align="center"><a href="https://github.com/tacevedo"><img src="https://avatars0.githubusercontent.com/u/14237453?v=4" width="100px;" alt="tacevedo"/><br /><sub><b>tacevedo</b></sub></a><br /></td>
-    <td align="center"><a href="https://github.com/apps/greenkeeper"><img src="https://avatars3.githubusercontent.com/in/505?v=4" width="100px;" alt="greenkeeper[bot]"/><br /><sub><b>greenkeeper[bot]</b></sub></a><br /></td>
-    <td align="center"><a href="https://github.com/llekn"><img src="https://avatars2.githubusercontent.com/u/2346636?v=4" width="100px;" alt="llekn"/><br /><sub><b>llekn</b></sub></a><br /></td>
+    <td align="center"><a href="https://github.com/gpincheiraa"><img src="https://avatars0.githubusercontent.com/u/5608336?v=4" width="100px;" alt="gpincheiraa"/><br /><sub><b>gpincheiraa</b></sub></a><br /><a href="https://github.com/ngChile/escalando-aplicaciones-con-angular/commits?author=gpincheiraa" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/mdperez86"><img src="https://avatars2.githubusercontent.com/u/13334210?v=4" width="100px;" alt="mdperez86"/><br /><sub><b>mdperez86</b></sub></a><br /><a href="https://github.com/ngChile/escalando-aplicaciones-con-angular/commits?author=mdperez86" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/sbstn-jmnz"><img src="https://avatars1.githubusercontent.com/u/4334071?v=4" width="100px;" alt="sbstn-jmnz"/><br /><sub><b>sbstn-jmnz</b></sub></a><br /><a href="https://github.com/ngChile/escalando-aplicaciones-con-angular/commits?author=sbstn-jmnz" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/YerkoPalma"><img src="https://avatars1.githubusercontent.com/u/5105812?v=4" width="100px;" alt="YerkoPalma"/><br /><sub><b>YerkoPalma</b></sub></a><br /><a href="https://github.com/ngChile/escalando-aplicaciones-con-angular/commits?author=YerkoPalma" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/tacevedo"><img src="https://avatars0.githubusercontent.com/u/14237453?v=4" width="100px;" alt="tacevedo"/><br /><sub><b>tacevedo</b></sub></a><br /><a href="https://github.com/ngChile/escalando-aplicaciones-con-angular/commits?author=tacevedo" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/apps/greenkeeper"><img src="https://avatars3.githubusercontent.com/in/505?v=4" width="100px;" alt="greenkeeper[bot]"/><br /><sub><b>greenkeeper[bot]</b></sub></a><br /><a href="https://github.com/ngChile/escalando-aplicaciones-con-angular/commits?author=greenkeeper[bot]" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/llekn"><img src="https://avatars2.githubusercontent.com/u/2346636?v=4" width="100px;" alt="llekn"/><br /><sub><b>llekn</b></sub></a><br /><a href="https://github.com/ngChile/escalando-aplicaciones-con-angular/commits?author=llekn" title="Code">💻</a></td>
   </tr>
   <tr>
-    <td align="center"><a href="https://github.com/JoZero"><img src="https://avatars3.githubusercontent.com/u/45615986?v=4" width="100px;" alt="JoZero"/><br /><sub><b>JoZero</b></sub></a><br /></td>
-    <td align="center"><a href="https://github.com/sebacaro"><img src="https://avatars2.githubusercontent.com/u/3081701?v=4" width="100px;" alt="sebacaro"/><br /><sub><b>sebacaro</b></sub></a><br /></td>
-    <td align="center"><a href="https://github.com/booleanchile"><img src="https://avatars2.githubusercontent.com/u/46203382?v=4" width="100px;" alt="booleanchile"/><br /><sub><b>booleanchile</b></sub></a><br /></td>
-    <td align="center"><a href="https://github.com/nicoavila"><img src="https://avatars0.githubusercontent.com/u/602639?v=4" width="100px;" alt="nicoavila"/><br /><sub><b>nicoavila</b></sub></a><br /></td>
+    <td align="center"><a href="https://github.com/JoZero"><img src="https://avatars3.githubusercontent.com/u/45615986?v=4" width="100px;" alt="JoZero"/><br /><sub><b>JoZero</b></sub></a><br /><a href="https://github.com/ngChile/escalando-aplicaciones-con-angular/commits?author=JoZero" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/sebacaro"><img src="https://avatars2.githubusercontent.com/u/3081701?v=4" width="100px;" alt="sebacaro"/><br /><sub><b>sebacaro</b></sub></a><br /><a href="https://github.com/ngChile/escalando-aplicaciones-con-angular/commits?author=sebacaro" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/booleanchile"><img src="https://avatars2.githubusercontent.com/u/46203382?v=4" width="100px;" alt="booleanchile"/><br /><sub><b>booleanchile</b></sub></a><br /><a href="https://github.com/ngChile/escalando-aplicaciones-con-angular/commits?author=booleanchile" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/nicoavila"><img src="https://avatars0.githubusercontent.com/u/602639?v=4" width="100px;" alt="nicoavila"/><br /><sub><b>nicoavila</b></sub></a><br /><a href="https://github.com/ngChile/escalando-aplicaciones-con-angular/commits?author=nicoavila" title="Code">💻</a></td>
   </tr>
 </table>
 

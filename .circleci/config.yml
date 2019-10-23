@@ -50,12 +50,12 @@ jobs:
     machine: true
     working_directory: ~/repo
     steps:
-      - <<: *set_git_credentials
       - <<: *show_bash_version
       - add_ssh_keys:
           fingerprints:
             - "a7:af:f2:47:72:a1:69:7d:d2:9f:fe:c1:81:98:41:88"
-      - checkout      
+      - checkout
+      - <<: *set_git_credentials
       - run:
           name: Check Format name of incoming branch
           command: ./ci/branch-validator

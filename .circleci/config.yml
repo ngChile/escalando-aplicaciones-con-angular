@@ -184,6 +184,8 @@ workflows:
     jobs:
       - branch-validator
       - update-repository
+        requires:
+          - branch-validator
       # - linter:
       #     requires:
       #       - branch-validator

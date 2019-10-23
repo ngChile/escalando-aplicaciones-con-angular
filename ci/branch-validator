@@ -1,5 +1,15 @@
 #!/usr/bin/env bash
 
+function store_tag_attempt {
+    BUMP_VERSION_TYPE=$1
+    PACKAGE_VERSION_TARGET=$(jq -r ".version" < package.json)
+
+    echo "export BUMP_VERSION_TYPE=$BUMP_VERSION_TYPE" >> ./workspace_variables/custom-env-variables
+    echo "export PACKAGE_VERSION_TARGET=$PACKAGE_VERSION_TARGET" >> ./workspace_variables/custom-env-variables
+    echo "Custom variables:"
+    cat ./workspace_variables/custom-env-variables
+}
+
 function check_branch_name_validity {
     branch_name=$1
     branch_name_prefix_pattern='([[:alpha:]]+)\/[[:punct:][:alnum:]]+'
@@ -17,6 +27,22 @@ function check_branch_name_validity {
     echo "=============================================================="
 
     if [[ $branch_name_prefix =~ $not_semver_prefix_pattern ]] || [[ $branch_name_prefix =~ $patch_semver_prefix_pattern ]] || [[ $branch_name_prefix =~ $minor_semver_prefix_pattern ]]; then
+        
+        if [[ "$CIRCLE_BRANCH" == "master" ]]; then
+            # git checkout because npm version commands needs working directory clean
+            git checkout .
+
+            if [[ $branch_name_prefix =~ $patch_semver_prefix_pattern ]]; then
+                echo "auto semver patch for branch $branch_name_prefix"
+                npm version patch
+                store_tag_attempt "PATCH"
+            elif [[ $branch_name_prefix =~ $minor_semver_prefix_pattern ]]; then
+                echo "auto semver feature for branch $branch_name_prefix"
+                npm version minor
+                store_tag_attempt "MINOR"
+            fi
+        fi
+
         echo "OK! your branch called '$branch_name' use the right convention names"
     else    
         echo "ERROR: your branch called '$branch_name' does not follow the branch name policies."
@@ -24,6 +50,11 @@ function check_branch_name_validity {
 
     echo "See more information in CONTRIBUTING.md https://www.github.com/$CIRCLE_PROJECT_USERNAME/$CIRCLE_PROJECT_REPONAME/blob/master/CONTRIBUTING.md"
 }
+
+mkdir ./workspace_variables
+touch ./workspace_variables/custom-env-variables
+
+ls -la
 
 if [[ "$CIRCLE_BRANCH" == "master" ]]; then
     merge_commit_message_pattern='Merge[[:space:]]+pull[[:space:]]+request[[:space:]]+#[0-9]+[[:space:]]+from[[:space:]]+([[:alpha:]]+)\/([[:punct:][:alnum:]]+)'

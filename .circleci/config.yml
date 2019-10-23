@@ -183,9 +183,9 @@ workflows:
   angular-chile-pipeline:
     jobs:
       - branch-validator
-      - update-repository
-        requires:
-          - branch-validator
+      - update-repository:
+          requires:
+            - branch-validator
       # - linter:
       #     requires:
       #       - branch-validator

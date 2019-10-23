@@ -24,8 +24,6 @@ echo "============================================================="
 ./ci/update-contributors
 
 echo "=============================================================="
-
-echo "============================================================="
 echo "         Create semver tags if applies                       "
 echo "============================================================="
 if [[ -n $BUMP_VERSION_TYPE && -n $PACKAGE_VERSION_TARGET ]]; then
@@ -42,18 +40,20 @@ if [[ -n $BUMP_VERSION_TYPE && -n $PACKAGE_VERSION_TARGET ]]; then
     echo "package.json version: $NEW_PACKAGE_VERSION                    "
     echo "package version target: $PACKAGE_VERSION_TARGET               "
     echo "=============================================================="
-    echo "                                                              "
+    echo "                                                           "
+
+    git commit --ammend -m "[skip ci] $NEW_PACKAGE_VERSION"
 fi
 
 echo "=============================================================="
 echo "          Push new tag and updated repository                 "
 echo "=============================================================="
 #TODO: make a detailed changelog file and detailed commit message using template
-COMMIT_MESSAGE="[skip ci] Update Repository with new version (if was changed) and contributors list."
+NEW_COMMIT_MESSAGE="[skip ci] Update Repository with new version (if was changed) and contributors list."
 
 git status
 git --no-pager diff
 git add .
-git diff-index --quiet HEAD || git commit -m $COMMIT_MESSAGE
+git diff-index --quiet HEAD || git commit -m $NEW_COMMIT_MESSAGE
 git push origin ${CIRCLE_BRANCH}
 git push --follow-tags

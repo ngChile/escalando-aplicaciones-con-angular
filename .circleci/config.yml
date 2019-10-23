@@ -59,7 +59,7 @@ jobs:
       - run:
           name: Check Format name of incoming branch
           command: ./ci/branch-validator
-    - persist_to_workspace:
+      - persist_to_workspace:
           root: workspace_variables
           paths:
               - custom-env-variables

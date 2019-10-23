@@ -9,6 +9,6 @@
 # git push origin ${CIRCLE_BRANCH}
 # git push --follow-tags
 
-ls -la
+ls -la ./workspace_variables/
 
-cat workspace_variables/custom-env-variables
+cat ./workspace_variables/custom-env-variables

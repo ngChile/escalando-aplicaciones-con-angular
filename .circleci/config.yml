@@ -174,9 +174,6 @@ jobs:
       - <<: *install_node_modules
       - <<: *save_npm_cache
       - <<: *set_git_credentials
-      # - run:
-      #     name: Updating contributors list
-      #     command: ./ci/update-contributors
       - run:
           name: Updating repository
           command: ./ci/update-repository     
@@ -185,41 +182,45 @@ workflows:
   angular-chile-pipeline:
     jobs:
       - branch-validator
-      - update-repository:
+      - linter:
           requires:
             - branch-validator
-      # - linter:
-      #     requires:
-      #       - branch-validator
-      # - unit-tests:
-      #     requires:
-      #       - branch-validator
-      # - e2e:
-      #     requires:
-      #       - branch-validator
-      # - build:
-      #     requires:
-      #       - linter
-      #       - unit-tests
-      #       - e2e
-      # - staging-deploy:
-      #     requires:
-      #       - build
-      # - smoke-test-staging:
-      #     requires:
-      #       - staging-deploy
-      # - production-approval:
-      #     type: approval
-      #     requires:
-      #       - smoke-test-staging
-      #     filters:
-      #       branches:
-      #         only:
-      #           - master
-      # - production-deploy:
-      #     requires:
-      #       - production-approval
-      #     filters:
-      #       branches:
-      #         only:
-      #           - master
+      - unit-tests:
+          requires:
+            - branch-validator
+      - e2e:
+          requires:
+            - branch-validator
+      - build:
+          requires:
+            - linter
+            - unit-tests
+            - e2e
+      - staging-deploy:
+          requires:
+            - build
+      - smoke-test-staging:
+          requires:
+            - staging-deploy
+      - production-approval:
+          type: approval
+          requires:
+            - smoke-test-staging
+          filters:
+            branches:
+              only:
+                - master
+      - production-deploy:
+          requires:
+            - production-approval
+          filters:
+            branches:
+              only:
+                - master
+      - update-repository:
+          requires:
+            - production-deploy
+          filters:
+            branches:
+              only:
+                - master

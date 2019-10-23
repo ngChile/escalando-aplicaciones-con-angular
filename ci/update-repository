@@ -1,14 +1,59 @@
 #!/usr/bin/env bash
 
-#TODO: make a detailed changelog file and detailed commit message using template
-# COMMIT_MESSAGE="[skip ci] Update Repository with new version (if was changed) and contributors list."
-
-# git --no-pager diff
-# git add README.md package.json
-# git diff-index --quiet HEAD || git commit -m $COMMIT_MESSAGE
-# git push origin ${CIRCLE_BRANCH}
-# git push --follow-tags
-
+echo "============================================================="
+echo "          Check contents of custom-env-variables             "
+echo "============================================================="
 ls -la ./workspace_variables/
+cat ./workspace_variables/custom-env-variables >> $BASH_ENV
+source $BASH_ENV
 
-cat ./workspace_variables/custom-env-variables
+echo "=============================================================="
+
+echo "============================================================="
+echo "          Check diff contents and reset if applies           "
+echo "============================================================="
+git status
+git --no-pager diff
+git checkout .
+
+echo "=============================================================="
+
+echo "============================================================="
+echo "          Updating contributors list                         "
+echo "============================================================="
+./ci/update-contributors
+
+echo "=============================================================="
+
+echo "============================================================="
+echo "         Create semver tags if applies                       "
+echo "============================================================="
+if [[ -n $BUMP_VERSION_TYPE && -n $PACKAGE_VERSION_TARGET ]]; then
+    if [[ $BUMP_VERSION_TYPE == "PATCH" ]]; then
+        echo "auto semver patch for branch $branch_name_prefix"
+        npm version patch
+    elif [[ $BUMP_VERSION_TYPE == "MINOR" ]]; then
+        echo "auto semver feature for branch $branch_name_prefix"
+        npm version minor
+    fi
+
+    NEW_PACKAGE_VERSION=$(jq -r ".version" < package.json)
+    echo "=============================================================="
+    echo "package.json version: $NEW_PACKAGE_VERSION                    "
+    echo "package version target: $PACKAGE_VERSION_TARGET               "
+    echo "=============================================================="
+    echo "                                                              "
+fi
+
+echo "=============================================================="
+echo "          Push new tag and updated repository                 "
+echo "=============================================================="
+#TODO: make a detailed changelog file and detailed commit message using template
+COMMIT_MESSAGE="[skip ci] Update Repository with new version (if was changed) and contributors list."
+
+git status
+git --no-pager diff
+git add .
+git diff-index --quiet HEAD || git commit -m $COMMIT_MESSAGE
+git push origin ${CIRCLE_BRANCH}
+git push --follow-tags

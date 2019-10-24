@@ -42,7 +42,7 @@ if [[ -n $BUMP_VERSION_TYPE && -n $PACKAGE_VERSION_TARGET ]]; then
     echo "=============================================================="
     echo "                                                           "
 
-    git commit --ammend -m "[skip ci] $NEW_PACKAGE_VERSION"
+    git commit --amend -m "[skip ci] $NEW_PACKAGE_VERSION"
 fi
 
 echo "=============================================================="

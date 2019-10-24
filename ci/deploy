@@ -42,7 +42,7 @@ echo "============================================================="
 echo "      Creating Docker Image                                  "
 echo "============================================================="
 
-if [[ $IS_PROD == "yes"]]; then
+if [[ $IS_PROD == "yes" ]]; then
     PACKAGE_VERSION=$PACKAGE_VERSION_TARGET
 elif [[ $IS_PROD == "no" ]]; then
     PACKAGE_VERSION=$(jq -r ".version" < package.json)

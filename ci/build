@@ -3,6 +3,13 @@ set -e
 set -o pipefail
 
 echo "============================================================="
+echo "          Check contents of custom-env-variables             "
+echo "============================================================="
+ls -la ./workspace_variables/
+cat ./workspace_variables/custom-env-variables >> $BASH_ENV
+source $BASH_ENV
+
+echo "============================================================="
 echo "          Building Artifact                                  "
 echo "============================================================="
 npm run build -- --prod

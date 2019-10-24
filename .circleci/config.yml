@@ -12,15 +12,13 @@ aliases:
     restore_cache:
       name: Restore Npm Package Cache
       keys:
-        - v1-dependencies-{{ checksum "package.json" }}
-        - v1-dependencies-
+        - v1-dependencies-{{ checksum "package-lock.json" }}
   save_npm_cache: &save_npm_cache
     save_cache:
       name: Save NPM modules cache
       paths:
-        - ~/.npm
-        - ~/.cache
-      key: v1-dependencies-{{ checksum "package.json" }}
+        - ./node_modules
+      key: v1-dependencies-{{ checksum "package-lock.json" }}
 
   store_dist: &store_dist
     save_cache:
@@ -69,9 +67,9 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
-      - <<: *restore_npm_cache
+      # - <<: *restore_npm_cache
       - <<: *install_node_modules
-      - <<: *save_npm_cache
+      # - <<: *save_npm_cache
       - run:
           name: Linting
           command: npm run lint
@@ -81,9 +79,9 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
-      - <<: *restore_npm_cache
+      # - <<: *restore_npm_cache
       - <<: *install_node_modules
-      - <<: *save_npm_cache
+      # - <<: *save_npm_cache
       - run:
           name: Running unit tests
           command: ./ci/unit-tests
@@ -104,9 +102,9 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
-      - <<: *restore_npm_cache
+      # - <<: *restore_npm_cache
       - <<: *install_node_modules
-      - <<: *save_npm_cache
+      # - <<: *save_npm_cache
       - run:
           name: Running e2e tests
           command: bash ./ci/e2e
@@ -116,9 +114,11 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
-      - <<: *restore_npm_cache
+      - attach_workspace:
+          at: ./workspace_variables
+      # - <<: *restore_npm_cache
       - <<: *install_node_modules
-      - <<: *save_npm_cache
+      # - <<: *save_npm_cache
       - run:
           name: Building artifact using ng build
           command: ./ci/build
@@ -128,6 +128,8 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
+      - attach_workspace:
+          at: ./workspace_variables
       - <<: *restore_dist
       - run:
           name: Deploy Docker Image
@@ -141,9 +143,11 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
-      - <<: *restore_npm_cache
+      - attach_workspace:
+          at: ./workspace_variables
+      # - <<: *restore_npm_cache
       - <<: *install_node_modules
-      - <<: *save_npm_cache
+      # - <<: *save_npm_cache
       - run:
           name: Running Smoke test
           command: ./ci/smoke-test
@@ -152,6 +156,8 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
+      - attach_workspace:
+          at: ./workspace_variables
       - <<: *restore_dist
       - run:
           name: Deploy Docker Image
@@ -170,9 +176,9 @@ jobs:
       - checkout
       - attach_workspace:
           at: ./workspace_variables
-      - <<: *restore_npm_cache
+      # - <<: *restore_npm_cache
       - <<: *install_node_modules
-      - <<: *save_npm_cache
+      # - <<: *save_npm_cache
       - <<: *set_git_credentials
       - run:
           name: Updating repository
@@ -217,6 +223,8 @@ workflows:
             branches:
               only:
                 - master
+      # TODO1: smoke test production should check if all it is ok. if error exists, the docker image should be rollback.
+      # TODO2: a functional tests suite should check if all it is ok in production.
       - update-repository:
           requires:
             - production-deploy

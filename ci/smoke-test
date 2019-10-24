@@ -1,44 +1,39 @@
-#!/usr/bin/env node
+#!/usr/bin/env bash
 
-const { get } = require('superagent');
-const { argv } = require('yargs');
-const { version } = require('../package.json');
+get_app_name() {
+    [ "$1" = "yes" ] && echo $HEROKU_APP_NAME || echo $HEROKU_APP_NAME_STAGING
+}
 
-(async function() {
-  const isProd = argv.prod;
-  const appName = isProd ? process.env.HEROKU_APP_NAME : process.env.HEROKU_APP_NAME_STAGING;
-  const targetUrl = `https://${appName}.herokuapp.com`;
+is_prod_deploy() {
+    [ "$1" = "--prod" ] && echo "yes" || echo "no"
+}
 
-  try {
-    const response = await get(targetUrl);
-    const htmlContent = response.text;
-    const regexForVersionNumber = /<title>.*\s*\|\s*(\d+\.?\d+\.\d+)\s*<\/title>/g;
-    const versionFromHtmlDocumentMatch = regexForVersionNumber.exec(htmlContent);
+echo "============================================================="
+echo "          Check contents of custom-env-variables             "
+echo "============================================================="
+ls -la ./workspace_variables/
+cat ./workspace_variables/custom-env-variables >> $BASH_ENV
+source $BASH_ENV
 
-    if (versionFromHtmlDocumentMatch) {
-        const actualVersionDeployed = versionFromHtmlDocumentMatch[1];
-        if (actualVersionDeployed === version) {
-          console.info(`
-            SMOKE TEST PASSED FOR ${targetUrl}:
-                ACTUAL VERSION DEPLOYED ${actualVersionDeployed}
-                PACKAGE VERSION ON MASTER BRANCH ${version}
-          `);
-          process.exit(0);
-        } else {
-          console.error(`
-            SMOKE TEST FAILED FOR ${targetUrl}:
-                ACTUAL VERSION DEPLOYED ${actualVersionDeployed}
-                PACKAGE VERSION ON MASTER BRANCH ${version}
-          `);
-          process.exit(1);
-        }
-    }
+IS_PROD=$(is_prod_deploy $1)
+APP_NAME=$(get_app_name $IS_PROD)
 
-  } catch (error) {
-      console.error(`
-            SMOKE TEST FAILED FOR ${targetUrl}:
-                ERROR WHILE RUNNING: ${error.message}
-      `);
-      process.exit(1);
-  }
-})();
+if [[ $IS_PROD == "yes" ]]; then
+    TARGET_URL="https://$HEROKU_APP_NAME.herokuapp.com"
+    PACKAGE_VERSION=$PACKAGE_VERSION_TARGET
+elif [[ $IS_PROD == "no" ]]; then
+    TARGET_URL="https://$HEROKU_APP_NAME_STAGING.herokuapp.com"
+    PACKAGE_VERSION=$(jq -r ".version" < package.json)
+fi
+
+PRODUCTION_VERSION_IN_HTML=$(curl -s $TARGET_URL | grep -iPo "(?<=\|\s).+(?=</title>)")
+
+if [[ $PACKAGE_VERSION == $PRODUCTION_VERSION_IN_HTML ]]; then
+  echo "SMOKE TEST PASSED FOR $TARGET_URL: \
+    ACTUAL VERSION DEPLOYED $PRODUCTION_VERSION_IN_HTML \
+    PACKAGE VERSION FOR DEPLOYMENT $PACKAGE_VERSION"
+else
+  echo "SMOKE TEST FAILED FOR $TARGET_URL: \
+    ACTUAL VERSION DEPLOYED $PRODUCTION_VERSION_IN_HTML \
+    PACKAGE VERSION FOR DEPLOYMENT $PACKAGE_VERSION"
+fi

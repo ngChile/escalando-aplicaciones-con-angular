@@ -128,6 +128,8 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
+      - attach_workspace:
+          at: ./workspace_variables
       - <<: *restore_dist
       - run:
           name: Deploy Docker Image
@@ -152,6 +154,8 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
+      - attach_workspace:
+          at: ./workspace_variables
       - <<: *restore_dist
       - run:
           name: Deploy Docker Image
@@ -217,6 +221,8 @@ workflows:
             branches:
               only:
                 - master
+      # TODO1: smoke test production should check if all it is ok. if error exists, the docker image should be rollback.
+      # TODO2: a functional tests suite should check if all it is ok in production.
       - update-repository:
           requires:
             - production-deploy

@@ -32,9 +32,22 @@ set_production_server() {
 }
 
 echo "============================================================="
+echo "          Check contents of custom-env-variables             "
+echo "============================================================="
+ls -la ./workspace_variables/
+cat ./workspace_variables/custom-env-variables >> $BASH_ENV
+source $BASH_ENV
+
+echo "============================================================="
 echo "      Creating Docker Image                                  "
 echo "============================================================="
-PACKAGE_VERSION=$(jq -r ".version" < package.json)
+
+if [[ $IS_PROD == "yes"]]; then
+    PACKAGE_VERSION=$PACKAGE_VERSION_TARGET
+elif [[ $IS_PROD == "no" ]]; then
+    PACKAGE_VERSION=$(jq -r ".version" < package.json)
+fi
+
 IS_PROD=$(is_prod_deploy $1)
 
 echo "Get image name with production flag -> $IS_PROD"
@@ -45,9 +58,9 @@ ENVIRONMENT_NAME=$([ $IS_PROD = "yes" ] && echo "production" || echo "staging")
 echo "============================================================="
 echo "          Provisioning docker directory                      "
 echo "============================================================="
-if [ $IS_PROD = "yes" ]; then
+if [[ $IS_PROD == "yes" ]]; then
     set_production_server
-elif [ $IS_PROD = "no" ]; then
+elif [[ $IS_PROD == "no" ]]; then
     set_staging_server
 fi
 

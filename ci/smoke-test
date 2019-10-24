@@ -4,7 +4,7 @@ get_app_name() {
     [ "$1" = "yes" ] && echo $HEROKU_APP_NAME || echo $HEROKU_APP_NAME_STAGING
 }
 
-is_prod_deploy(){
+is_prod_deploy() {
     [ "$1" = "--prod" ] && echo "yes" || echo "no"
 }
 
@@ -18,7 +18,7 @@ source $BASH_ENV
 IS_PROD=$(is_prod_deploy $1)
 APP_NAME=$(get_app_name $IS_PROD)
 
-if [[ $IS_PROD == "yes"]]; then
+if [[ $IS_PROD == "yes" ]]; then
     TARGET_URL="https://$HEROKU_APP_NAME.herokuapp.com"
     PACKAGE_VERSION=$PACKAGE_VERSION_TARGET
 elif [[ $IS_PROD == "no" ]]; then

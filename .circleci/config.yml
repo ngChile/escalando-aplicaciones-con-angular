@@ -116,6 +116,8 @@ jobs:
     working_directory: ~/repo
     steps:
       - checkout
+      - attach_workspace:
+          at: ./workspace_variables
       - <<: *restore_npm_cache
       - <<: *install_node_modules
       - <<: *save_npm_cache

@@ -26,53 +26,14 @@ elif [[ $IS_PROD == "no" ]]; then
     PACKAGE_VERSION=$(jq -r ".version" < package.json)
 fi
 
-PRODUCTION_VERSION_IN_HTML=$(curl -s $TARGET_URL  | grep -iPo "(?<=\<title\>.*[[:space:]]*\|[[:space:]]*([0-9]+\.?[0-9]+\.[0-9]+)[[:space:]]*\<\/title\>)")
+PRODUCTION_VERSION_IN_HTML=$(curl -s $TARGET_URL | grep -iPo "(?<=\|\s).+(?=</title>)")
 
 if [[ $PACKAGE_VERSION == $PRODUCTION_VERSION_IN_HTML ]]; then
-  echo "YEAH!. Check package version: $PACKAGE_VERSION .... in html: $PRODUCTION_VERSION_IN_HTML"
+  echo "SMOKE TEST PASSED FOR $TARGET_URL: \
+    ACTUAL VERSION DEPLOYED $PRODUCTION_VERSION_IN_HTML \
+    PACKAGE VERSION FOR DEPLOYMENT $PACKAGE_VERSION"
 else
-  echo "NOPE!. Check package version: $PACKAGE_VERSION .... in html: $PRODUCTION_VERSION_IN_HTML"
+  echo "SMOKE TEST FAILED FOR $TARGET_URL: \
+    ACTUAL VERSION DEPLOYED $PRODUCTION_VERSION_IN_HTML \
+    PACKAGE VERSION FOR DEPLOYMENT $PACKAGE_VERSION"
 fi
-
-# const { get } = require('superagent');
-# const { argv } = require('yargs');
-# const { version } = require('../package.json');
-
-# (async function() {
-#   const isProd = argv.prod;
-#   const appName = isProd ? process.env.HEROKU_APP_NAME : process.env.HEROKU_APP_NAME_STAGING;
-#   const targetUrl = `https://${appName}.herokuapp.com`;
-
-#   try {
-#     const response = await get(targetUrl);
-#     const htmlContent = response.text;
-#     const regexForVersionNumber = /<title>.*\s*\|\s*(\d+\.?\d+\.\d+)\s*<\/title>/g;
-#     const versionFromHtmlDocumentMatch = regexForVersionNumber.exec(htmlContent);
-
-#     if (versionFromHtmlDocumentMatch) {
-#         const actualVersionDeployed = versionFromHtmlDocumentMatch[1];
-#         if (actualVersionDeployed === version) {
-#           console.info(`
-#             SMOKE TEST PASSED FOR ${targetUrl}:
-#                 ACTUAL VERSION DEPLOYED ${actualVersionDeployed}
-#                 PACKAGE VERSION ON MASTER BRANCH ${version}
-#           `);
-#           process.exit(0);
-#         } else {
-#           console.error(`
-#             SMOKE TEST FAILED FOR ${targetUrl}:
-#                 ACTUAL VERSION DEPLOYED ${actualVersionDeployed}
-#                 PACKAGE VERSION ON MASTER BRANCH ${version}
-#           `);
-#           process.exit(1);
-#         }
-#     }
-
-#   } catch (error) {
-#       console.error(`
-#             SMOKE TEST FAILED FOR ${targetUrl}:
-#                 ERROR WHILE RUNNING: ${error.message}
-#       `);
-#       process.exit(1);
-#   }
-# })();

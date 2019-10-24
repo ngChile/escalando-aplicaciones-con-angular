@@ -14,7 +14,7 @@ function check_branch_name_validity {
     branch_name=$1
     branch_name_prefix_pattern='([[:alpha:]]+)\/[[:punct:][:alnum:]]+'
     not_semver_prefix_pattern='^docs|ci|chore|test$'
-    patch_semver_prefix_pattern='^bugfix|fix|greenkeeper$'
+    patch_semver_prefix_pattern='^bugfix|fix|hotfix|greenkeeper$'
     minor_semver_prefix_pattern='^feature$'
 
     [[ "$branch_name" =~ $branch_name_prefix_pattern ]]

@@ -11,7 +11,7 @@ is_prod_deploy(){
 
 IS_PROD=$(is_prod_deploy $1)
 APP_NAME=$(get_app_name $IS_PROD)
-TAG_NAME=$([ $IS_PROD = "yes" ] && echo "release" || echo ${CIRCLE_BRANCH//\//\-})
+TAG_NAME=$([ $IS_PROD = "yes" ] && echo "release" || echo ${CIRCLE_BRANCH//[\/@\.-]/_})
 imageId=$(docker inspect registry.heroku.com/$APP_NAME/web:$TAG_NAME --format={{.Id}})
 payload='{"updates":[{"type":"web","docker_image":"'"$imageId"'"}]}'
 

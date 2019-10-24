@@ -34,7 +34,7 @@ set_production_server() {
 echo "============================================================="
 echo "      Creating Docker Image                                  "
 echo "============================================================="
-PACKAGE_VERSION=$(node -p -e "require('./package.json').version")
+PACKAGE_VERSION=$(jq -r ".version" < package.json)
 IS_PROD=$(is_prod_deploy $1)
 
 echo "Get image name with production flag -> $IS_PROD"

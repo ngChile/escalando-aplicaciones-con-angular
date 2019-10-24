@@ -18,8 +18,7 @@ aliases:
     save_cache:
       name: Save NPM modules cache
       paths:
-        - ~/.npm
-        - ~/.cache
+        - ./node_modules
       key: v1-dependencies-{{ checksum "package.json" }}
 
   store_dist: &store_dist

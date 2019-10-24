@@ -1,4 +1,4 @@
-#!/usr/bin/env node
+#!/usr/bin/env bash
 
 get_app_name() {
     [ "$1" = "yes" ] && echo $HEROKU_APP_NAME || echo $HEROKU_APP_NAME_STAGING

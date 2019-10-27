@@ -41,14 +41,13 @@ source $BASH_ENV
 echo "============================================================="
 echo "      Creating Docker Image                                  "
 echo "============================================================="
+IS_PROD=$(is_prod_deploy $1)
 
-if [[ $IS_PROD == "yes" ]]; then
+if [[ $IS_PROD == "yes" || "$CIRCLE_BRANCH" == "master" ]]; then
     PACKAGE_VERSION=$PACKAGE_VERSION_TARGET
 elif [[ $IS_PROD == "no" ]]; then
     PACKAGE_VERSION=$(jq -r ".version" < package.json)
 fi
-
-IS_PROD=$(is_prod_deploy $1)
 
 echo "Get image name with production flag -> $IS_PROD"
 APP_NAME=$(get_app_name $IS_PROD)

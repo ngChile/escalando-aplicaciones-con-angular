@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+set -e
+set -o pipefail
 
 function store_tag_attempt {
     BUMP_VERSION_TYPE=$1

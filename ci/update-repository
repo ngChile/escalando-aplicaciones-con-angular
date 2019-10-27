@@ -1,4 +1,6 @@
 #!/usr/bin/env bash
+set -e
+set -o pipefail
 
 echo "============================================================="
 echo "          Check contents of custom-env-variables             "

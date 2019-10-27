@@ -19,11 +19,13 @@ const routes: Routes = [
   },
   {
     path: 'register',
-    loadChildren: './pages/register/register.module#RegisterModule',
+    loadChildren: () => import('./pages/register/register.module')
+      .then(m => m.RegisterModule),
   },
   {
     path: 'admin',
-    loadChildren: './pages/admin/admin.module#AdminModule',
+    loadChildren: () => import('./pages/admin/admin.module')
+      .then(m => m.AdminModule),
   },
   {
     path: 'scholarship-form',
@@ -39,7 +41,8 @@ const routes: Routes = [
   },
   {
     path: '',
-    loadChildren: './pages/home/home.module#HomeModule',
+    loadChildren: () => import('./pages/home/home.module')
+      .then(m => m.HomeModule),
     canLoad: [AuthGuard]
   },
   {

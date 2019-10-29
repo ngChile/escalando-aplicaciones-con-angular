@@ -9,14 +9,24 @@ load_env_variables() {
     ls -la ./workspace_variables/
     cat ./workspace_variables/custom-env-variables >> $BASH_ENV
     source $BASH_ENV
+    cat ./workspace_variables/custom-env-variables
+}
+
+skip_deployment() {
+    echo "==========================================================================="
+    echo "      Merge marked as NOTSEMVER. the production deployment will be skip.   "
+    echo "==========================================================================="
+    exit 0
 }
 
 tag_repository() {
-    if [[ $BUMP_VERSION_TYPE == "PATCH" ]]; then
-        echo "auto semver patch for branch $branch_name_prefix"
+    git checkout .
+
+    if [[ "$BUMP_VERSION_TYPE" == "PATCH" ]]; then
+        echo "auto semver patch."
         npm version patch
-    elif [[ $BUMP_VERSION_TYPE == "MINOR" ]]; then
-        echo "auto semver feature for branch $branch_name_prefix"
+    elif [[ "$BUMP_VERSION_TYPE" == "MINOR" ]]; then
+        echo "auto semver minor."
         npm version minor
     fi
 
@@ -25,7 +35,6 @@ tag_repository() {
     echo "package.json version: $NEW_PACKAGE_VERSION                    "
     echo "package version target: $PACKAGE_VERSION_TARGET               "
     echo "=============================================================="
-    echo "                                                           "
 
     git commit --amend -m "[skip ci] $NEW_PACKAGE_VERSION"
 }
@@ -37,7 +46,7 @@ echo "          Updating contributors list                         "
 echo "============================================================="
 ./ci/update-contributors
 
-if [[ "$BUMP_VERSION_TYPE" != "NOTSEMVER" ]]; then
+if [[ "$BUMP_VERSION_TYPE" == "NOTSEMVER" ]]; then
     #try to push if update contributors list were updated
     git push origin ${CIRCLE_BRANCH}
     skip_deployment
@@ -47,5 +56,7 @@ else
     echo "     Push repository if exists changes in contributors list and/or tag name     "
     echo "================================================================================"
     git push origin ${CIRCLE_BRANCH}
-    git push --follow-tags
+    git push origin --tags
 fi
+
+tag_repository

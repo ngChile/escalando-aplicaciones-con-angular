@@ -47,8 +47,7 @@ build_and_push_docker_image() {
     echo "============================================================="
     echo "      Creating Docker Image                                  "
     echo "============================================================="
-    IS_PROD=$(is_prod_deploy $1)
-
+    IS_PROD=$1
     if [[ $IS_PROD == "yes" || "$CIRCLE_BRANCH" == "master" ]]; then
         # use PACKAGE_VERSION_TARGET because eventually in minor or patch semver change we will deploy the release candidate version.
         # if the deploy fails the repository won't be updated with tag and package version
@@ -100,10 +99,11 @@ skip_deployment() {
     exit 0
 }
 
+IS_PROD=$(is_prod_deploy $1)
 load_env_variables
 
 if [[ $IS_PROD == "yes" && "$BUMP_VERSION_TYPE" == "NOTSEMVER" ]]; then
     skip_deployment
 else
-    build_and_push_docker_image
+    build_and_push_docker_image $IS_PROD
 fi

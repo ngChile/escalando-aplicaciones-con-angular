@@ -11,6 +11,15 @@ is_prod_deploy() {
     [ "$1" = "--prod" ] && echo "yes" || echo "no"
 }
 
+load_env_variables() {
+    echo "============================================================="
+    echo "          Check contents of custom-env-variables             "
+    echo "============================================================="
+    ls -la ./workspace_variables/
+    cat ./workspace_variables/custom-env-variables >> $BASH_ENV
+    source $BASH_ENV
+}
+
 skip_deployment() {
     echo "==========================================================================="
     echo "      Merge marked as NOTSEMVER. the production deployment will be skip.   "
@@ -18,10 +27,12 @@ skip_deployment() {
     exit 0
 }
 
+IS_PROD=$(is_prod_deploy $1)
+load_env_variables
+
 if [[ $IS_PROD == "yes" && "$BUMP_VERSION_TYPE" == "NOTSEMVER" ]]; then
     skip_deployment
 else
-    IS_PROD=$(is_prod_deploy $1)
     APP_NAME=$(get_app_name $IS_PROD)
     TAG_NAME=$([ $IS_PROD = "yes" ] && echo "release" || echo ${CIRCLE_BRANCH//[\/@\.-]/_})
     imageId=$(docker inspect registry.heroku.com/$APP_NAME/web:$TAG_NAME --format={{.Id}})

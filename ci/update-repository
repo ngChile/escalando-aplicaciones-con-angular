@@ -2,33 +2,16 @@
 set -e
 set -o pipefail
 
-echo "============================================================="
-echo "          Check contents of custom-env-variables             "
-echo "============================================================="
-ls -la ./workspace_variables/
-cat ./workspace_variables/custom-env-variables >> $BASH_ENV
-source $BASH_ENV
+load_env_variables() {
+    echo "============================================================="
+    echo "          Check contents of custom-env-variables             "
+    echo "============================================================="
+    ls -la ./workspace_variables/
+    cat ./workspace_variables/custom-env-variables >> $BASH_ENV
+    source $BASH_ENV
+}
 
-echo "=============================================================="
-
-echo "============================================================="
-echo "          Check diff contents and reset if applies           "
-echo "============================================================="
-git status
-git --no-pager diff
-git checkout .
-
-echo "=============================================================="
-
-echo "============================================================="
-echo "          Updating contributors list                         "
-echo "============================================================="
-./ci/update-contributors
-
-echo "=============================================================="
-echo "         Create semver tags if applies                       "
-echo "============================================================="
-if [[ -n $BUMP_VERSION_TYPE && -n $PACKAGE_VERSION_TARGET ]]; then
+tag_repository() {
     if [[ $BUMP_VERSION_TYPE == "PATCH" ]]; then
         echo "auto semver patch for branch $branch_name_prefix"
         npm version patch
@@ -45,17 +28,24 @@ if [[ -n $BUMP_VERSION_TYPE && -n $PACKAGE_VERSION_TARGET ]]; then
     echo "                                                           "
 
     git commit --amend -m "[skip ci] $NEW_PACKAGE_VERSION"
+}
+
+load_env_variables
+
+echo "============================================================="
+echo "          Updating contributors list                         "
+echo "============================================================="
+./ci/update-contributors
+
+if [[ "$BUMP_VERSION_TYPE" != "NOTSEMVER" ]]; then
+    #try to push if update contributors list were updated
+    git push origin ${CIRCLE_BRANCH}
+    skip_deployment
+else
+    tag_repository
+    echo "================================================================================"
+    echo "     Push repository if exists changes in contributors list and/or tag name     "
+    echo "================================================================================"
+    git push origin ${CIRCLE_BRANCH}
+    git push --follow-tags
 fi
-
-echo "=============================================================="
-echo "          Push new tag and updated repository                 "
-echo "=============================================================="
-#TODO: make a detailed changelog file and detailed commit message using template
-NEW_COMMIT_MESSAGE="[skip ci] Update Repository with new version (if was changed) and contributors list."
-
-git status
-git --no-pager diff
-git add .
-git diff-index --quiet HEAD || git commit -m $NEW_COMMIT_MESSAGE
-git push origin ${CIRCLE_BRANCH}
-git push --follow-tags

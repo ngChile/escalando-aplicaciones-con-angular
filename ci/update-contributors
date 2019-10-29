@@ -34,3 +34,10 @@ ALL_CONTRIBUTORS_SRC=$( \
 echo $ALL_CONTRIBUTORS_SRC > .all-contributorsrc
 
 npm run update-contributors
+
+NEW_COMMIT_MESSAGE="[skip ci] Update contributors list (if was changed)."
+
+git status
+git --no-pager diff
+git add .
+git diff-index --quiet HEAD || git commit -m $NEW_COMMIT_MESSAGE

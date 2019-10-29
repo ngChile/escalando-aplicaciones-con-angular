@@ -11,14 +11,25 @@ is_prod_deploy() {
     [ "$1" = "--prod" ] && echo "yes" || echo "no"
 }
 
-IS_PROD=$(is_prod_deploy $1)
-APP_NAME=$(get_app_name $IS_PROD)
-TAG_NAME=$([ $IS_PROD = "yes" ] && echo "release" || echo ${CIRCLE_BRANCH//[\/@\.-]/_})
-imageId=$(docker inspect registry.heroku.com/$APP_NAME/web:$TAG_NAME --format={{.Id}})
-payload='{"updates":[{"type":"web","docker_image":"'"$imageId"'"}]}'
+skip_deployment() {
+    echo "==========================================================================="
+    echo "      Merge marked as NOTSEMVER. the production deployment will be skip.   "
+    echo "==========================================================================="
+    exit 0
+}
 
-curl -n -X PATCH https://api.heroku.com/apps/$APP_NAME/formation \
--d "$payload" \
--H "Content-Type: application/json" \
--H "Accept: application/vnd.heroku+json; version=3.docker-releases" \
--H "Authorization: Bearer $HEROKU_KEY"
+if [[ $IS_PROD == "yes" && "$BUMP_VERSION_TYPE" == "NOTSEMVER" ]]; then
+    skip_deployment
+else
+    IS_PROD=$(is_prod_deploy $1)
+    APP_NAME=$(get_app_name $IS_PROD)
+    TAG_NAME=$([ $IS_PROD = "yes" ] && echo "release" || echo ${CIRCLE_BRANCH//[\/@\.-]/_})
+    imageId=$(docker inspect registry.heroku.com/$APP_NAME/web:$TAG_NAME --format={{.Id}})
+    payload='{"updates":[{"type":"web","docker_image":"'"$imageId"'"}]}'
+
+    curl -n -X PATCH https://api.heroku.com/apps/$APP_NAME/formation \
+        -d "$payload" \
+        -H "Content-Type: application/json" \
+        -H "Accept: application/vnd.heroku+json; version=3.docker-releases" \
+        -H "Authorization: Bearer $HEROKU_KEY"
+fi

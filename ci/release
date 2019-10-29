@@ -18,6 +18,7 @@ load_env_variables() {
     ls -la ./workspace_variables/
     cat ./workspace_variables/custom-env-variables >> $BASH_ENV
     source $BASH_ENV
+    cat ./workspace_variables/custom-env-variables
 }
 
 skip_deployment() {

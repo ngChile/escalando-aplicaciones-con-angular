@@ -82,8 +82,8 @@ Gracias a todos quienes han enviado un Pull Request a este repositorio.
   <tr>
     <td align="center"><a href="https://github.com/JoZero"><img src="https://avatars3.githubusercontent.com/u/45615986?v=4" width="100px;" alt="JoZero"/><br /><sub><b>JoZero</b></sub></a><br /><a href="https://github.com/ngChile/escalando-aplicaciones-con-angular/commits?author=JoZero" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/sebacaro"><img src="https://avatars2.githubusercontent.com/u/3081701?v=4" width="100px;" alt="sebacaro"/><br /><sub><b>sebacaro</b></sub></a><br /><a href="https://github.com/ngChile/escalando-aplicaciones-con-angular/commits?author=sebacaro" title="Code">💻</a></td>
-    <td align="center"><a href="https://github.com/booleanchile"><img src="https://avatars2.githubusercontent.com/u/46203382?v=4" width="100px;" alt="booleanchile"/><br /><sub><b>booleanchile</b></sub></a><br /><a href="https://github.com/ngChile/escalando-aplicaciones-con-angular/commits?author=booleanchile" title="Code">💻</a></td>
     <td align="center"><a href="https://github.com/nicoavila"><img src="https://avatars0.githubusercontent.com/u/602639?v=4" width="100px;" alt="nicoavila"/><br /><sub><b>nicoavila</b></sub></a><br /><a href="https://github.com/ngChile/escalando-aplicaciones-con-angular/commits?author=nicoavila" title="Code">💻</a></td>
+    <td align="center"><a href="https://github.com/booleanchile"><img src="https://avatars2.githubusercontent.com/u/46203382?v=4" width="100px;" alt="booleanchile"/><br /><sub><b>booleanchile</b></sub></a><br /><a href="https://github.com/ngChile/escalando-aplicaciones-con-angular/commits?author=booleanchile" title="Code">💻</a></td>
   </tr>
 </table>
 

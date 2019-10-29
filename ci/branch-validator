@@ -2,12 +2,13 @@
 set -e
 set -o pipefail
 
-function store_tag_attempt {
+function store_env_variables {
     BUMP_VERSION_TYPE=$1
     PACKAGE_VERSION_TARGET=$(jq -r ".version" < package.json)
 
     echo "export BUMP_VERSION_TYPE=$BUMP_VERSION_TYPE" >> ./workspace_variables/custom-env-variables
     echo "export PACKAGE_VERSION_TARGET=$PACKAGE_VERSION_TARGET" >> ./workspace_variables/custom-env-variables
+
     echo "Custom variables:"
     cat ./workspace_variables/custom-env-variables
 }
@@ -37,16 +38,19 @@ function check_branch_name_validity {
             if [[ $branch_name_prefix =~ $patch_semver_prefix_pattern ]]; then
                 echo "auto semver patch for branch $branch_name_prefix"
                 npm version patch
-                store_tag_attempt "PATCH"
+                store_env_variables "PATCH"
             elif [[ $branch_name_prefix =~ $minor_semver_prefix_pattern ]]; then
                 echo "auto semver feature for branch $branch_name_prefix"
                 npm version minor
-                store_tag_attempt "MINOR"
+                store_env_variables "MINOR"
+            elif [[ $branch_name_prefix =~ $not_semver_prefix_pattern ]]; then
+                echo "not auto semver for branch $branch_name_prefix" 
+                echo "This merge will be skip production deployment process. You can check the application state on Staging environment."
+                store_env_variables "NOTSEMVER"
             fi
         fi
-
         echo "OK! your branch called '$branch_name' use the right convention names"
-    else    
+    else
         echo "ERROR: your branch called '$branch_name' does not follow the branch name policies."
     fi
 

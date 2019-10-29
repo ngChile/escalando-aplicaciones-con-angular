@@ -10,7 +10,17 @@ is_prod_deploy(){
     [ "$1" = "--prod" ] && echo "yes" || echo "no"
 }
 
+load_env_variables() {
+    echo "============================================================="
+    echo "          Check contents of custom-env-variables             "
+    echo "============================================================="
+    ls -la ./workspace_variables/
+    cat ./workspace_variables/custom-env-variables >> $BASH_ENV
+    source $BASH_ENV
+}
+
 #asume that dist folder was created in separate "build" job
+#see restore_dist alias on circle ci config
 set_staging_server() {
     mkdir -p ./docker/public
     cp -R dist/web-app/. ./docker/public
@@ -21,8 +31,10 @@ set_staging_server() {
 }
 
 #asume that dist folder was created in separate "build" job
+#see restore_dist alias on circle ci config
 set_production_server() {
     #TODO this commands should be generate another things only for production
+    #example: use a real server instead mock server
     mkdir -p ./docker/public
     cp -R dist/web-app/. ./docker/public
     cp -R server/* docker/
@@ -31,57 +43,67 @@ set_production_server() {
     rm docker/services/default_data/config.json
 }
 
-echo "============================================================="
-echo "          Check contents of custom-env-variables             "
-echo "============================================================="
-ls -la ./workspace_variables/
-cat ./workspace_variables/custom-env-variables >> $BASH_ENV
-source $BASH_ENV
+build_and_push_docker_image() {
+    echo "============================================================="
+    echo "      Creating Docker Image                                  "
+    echo "============================================================="
+    IS_PROD=$(is_prod_deploy $1)
 
-echo "============================================================="
-echo "      Creating Docker Image                                  "
-echo "============================================================="
-IS_PROD=$(is_prod_deploy $1)
+    if [[ $IS_PROD == "yes" || "$CIRCLE_BRANCH" == "master" ]]; then
+        # use PACKAGE_VERSION_TARGET because eventually in minor or patch semver change we will deploy the release candidate version.
+        # if the deploy fails the repository won't be updated with tag and package version
+        PACKAGE_VERSION=$PACKAGE_VERSION_TARGET
+    elif [[ $IS_PROD == "no" ]]; then
+        PACKAGE_VERSION=$(jq -r ".version" < package.json)
+    fi
 
-if [[ $IS_PROD == "yes" || "$CIRCLE_BRANCH" == "master" ]]; then
-    PACKAGE_VERSION=$PACKAGE_VERSION_TARGET
-elif [[ $IS_PROD == "no" ]]; then
-    PACKAGE_VERSION=$(jq -r ".version" < package.json)
+    echo "Get image name with production flag -> $IS_PROD"
+    APP_NAME=$(get_app_name $IS_PROD)
+    ENVIRONMENT_NAME=$([ $IS_PROD = "yes" ] && echo "production" || echo "staging")
+    TAG_NAME=$([ $IS_PROD = "yes" ] && echo "release" || echo ${CIRCLE_BRANCH//[\/@\.-]/_})
+
+    echo "============================================================="
+    echo "          Provisioning docker directory                      "
+    echo "============================================================="
+    if [[ $IS_PROD == "yes" ]]; then
+        set_production_server
+    elif [[ $IS_PROD == "no" ]]; then
+        set_staging_server
+    fi
+
+    echo "============================================================="
+    echo "          Show directory files                               "
+    echo "============================================================="
+    # TODO should show entire tree of docker directory
+    ls -lha docker/public && ls -lha docker
+
+    cd docker
+    echo "======================================================================================================="
+    echo "          Authentication in Docker Heroku Registry for Deploy for Environment $ENVIRONMENT_NAME"
+    echo "======================================================================================================="
+    echo "$HEROKU_KEY" | docker login --username $HEROKU_OWNER_EMAIL --password-stdin registry.heroku.com
+
+    docker build -t registry.heroku.com/$APP_NAME/web:$TAG_NAME \
+        --build-arg app_version=${PACKAGE_VERSION} \
+        --build-arg environment_name=${ENVIRONMENT_NAME} .
+
+    echo "====================================================================================================="
+    echo "      Publishing Docker Image registry.heroku.com/$APP_NAME/web:$TAG_NAME in Heroku Registry ...     "
+    echo "====================================================================================================="
+    docker push registry.heroku.com/$APP_NAME/web:$TAG_NAME
+}
+
+skip_deployment() {
+    echo "==========================================================================="
+    echo "      Merge marked as NOTSEMVER. the production deployment will be skip.   "
+    echo "==========================================================================="
+    exit 0
+}
+
+load_env_variables
+
+if [[ $IS_PROD == "yes" && "$BUMP_VERSION_TYPE" == "NOTSEMVER" ]]; then
+    skip_deployment
+else
+    build_and_push_docker_image
 fi
-
-echo "Get image name with production flag -> $IS_PROD"
-APP_NAME=$(get_app_name $IS_PROD)
-
-ENVIRONMENT_NAME=$([ $IS_PROD = "yes" ] && echo "production" || echo "staging")
-
-echo "============================================================="
-echo "          Provisioning docker directory                      "
-echo "============================================================="
-if [[ $IS_PROD == "yes" ]]; then
-    set_production_server
-elif [[ $IS_PROD == "no" ]]; then
-    set_staging_server
-fi
-
-echo "============================================================="
-echo "          Show directory files                               "
-echo "============================================================="
-# TODO should show entire tree of docker directory
-ls -lha docker/public && ls -lha docker
-
-cd docker
-echo "======================================================================================================="
-echo "          Authentication in Docker Heroku Registry for Deploy for Environment $ENVIRONMENT_NAME"
-echo "======================================================================================================="
-echo "$HEROKU_KEY" | docker login --username $HEROKU_OWNER_EMAIL --password-stdin registry.heroku.com
-
-TAG_NAME=$([ $IS_PROD = "yes" ] && echo "release" || echo ${CIRCLE_BRANCH//[\/@\.-]/_})
-
-docker build -t registry.heroku.com/$APP_NAME/web:$TAG_NAME \
-    --build-arg app_version=${PACKAGE_VERSION} \
-    --build-arg environment_name=${ENVIRONMENT_NAME} .
-
-echo "==========================================================================================="
-echo "      Publishing Docker Image registry.heroku.com/$APP_NAME/web:$TAG_NAME in Heroku Registry ...     "
-echo "==========================================================================================="
-docker push registry.heroku.com/$APP_NAME/web:$TAG_NAME

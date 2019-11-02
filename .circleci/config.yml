@@ -41,7 +41,7 @@ aliases:
 
   show_bash_version: &show_bash_version
     run:
-      name: Show current branch
+      name: Show current bash version
       command: echo ${BASH_VERSION}
 jobs:
   branch-validator:

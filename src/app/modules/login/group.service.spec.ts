@@ -27,8 +27,8 @@ describe('Group Service', () => {
         }
       ]
     });
-    service = TestBed.get(GroupService);
-    httpClientMock = TestBed.get(HttpClient);
+    service = TestBed.inject(GroupService);
+    httpClientMock = TestBed.inject(HttpClient);
   });
 
   it('Should create an instance', () => {

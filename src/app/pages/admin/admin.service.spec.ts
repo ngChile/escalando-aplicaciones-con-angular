@@ -14,7 +14,7 @@ describe('AdminService', () => {
   }));
 
   it('should be created', () => {
-    const service: AdminService = TestBed.get(AdminService);
+    const service: AdminService = TestBed.inject(AdminService);
     expect(service).toBeTruthy();
   });
 });

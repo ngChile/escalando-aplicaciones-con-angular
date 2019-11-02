@@ -71,8 +71,8 @@ describe('AdminComponent', () => {
         fixture = TestBed.createComponent(AdminComponent);
         component = fixture.componentInstance;
 
-        activateRouteMock = TestBed.get(ActivatedRoute);
-        filterActivesPipeMock = TestBed.get(FilterActivesPipe);
+        activateRouteMock = TestBed.inject(ActivatedRoute);
+        filterActivesPipeMock = TestBed.inject(FilterActivesPipe);
     }));
 
     beforeEach(() => {

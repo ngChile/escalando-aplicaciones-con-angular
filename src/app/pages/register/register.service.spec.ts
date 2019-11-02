@@ -17,7 +17,7 @@ describe('RegisterService', () => {
   }));
 
   it('should be created', () => {
-    const service: RegisterService = TestBed.get(RegisterService);
+    const service: RegisterService = TestBed.inject(RegisterService);
     expect(service).toBeTruthy();
   });
 });

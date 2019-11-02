@@ -16,7 +16,7 @@ describe('ResolverService', () => {
   }));
 
   it('should be created', () => {
-    const service: ResolverService = TestBed.get(ResolverService);
+    const service: ResolverService = TestBed.inject(ResolverService);
     expect(service).toBeTruthy();
   });
 });

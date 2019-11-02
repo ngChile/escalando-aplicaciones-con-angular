@@ -14,7 +14,7 @@ describe('LoginService', () => {
         LoginService
       ]
     });
-    service = TestBed.get(LoginService);
+    service = TestBed.inject(LoginService);
   });
 
   it('should create', () => {

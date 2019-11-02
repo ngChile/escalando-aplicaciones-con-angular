@@ -9,9 +9,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
   templateUrl: './home.component.html',
   styleUrls: ['./home.component.scss']
 })
-export class HomeComponent implements OnDestroy {
+export class HomeComponent {
   mobileQuery: MediaQueryList;
-  private _mobileQueryListener: () => void;
 
   get user() {
     return this.loginService.user;
@@ -25,12 +24,6 @@ export class HomeComponent implements OnDestroy {
     media: MediaMatcher
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
-    this._mobileQueryListener = () => changeDetectorRef.detectChanges();
-    this.mobileQuery.addEventListener('change', this._mobileQueryListener);
-  }
-
-  ngOnDestroy(): void {
-    this.mobileQuery.addEventListener('change', this._mobileQueryListener);
   }
 
   logout(): void {

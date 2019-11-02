@@ -58,5 +58,3 @@ else
     git push origin ${CIRCLE_BRANCH}
     git push origin --tags
 fi
-
-tag_repository

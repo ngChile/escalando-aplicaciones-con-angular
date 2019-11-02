@@ -47,7 +47,7 @@
     "@angular-devkit/build-angular": "^0.900.0-rc.0",
     "@angular-devkit/core": "^8.3.15",
     "@angular-devkit/schematics": "^8.3.15",
-    "@angular/cli": "^8.3.15",
+    "@angular/cli": "^9.0.0-rc.0",
     "@angular/compiler-cli": "^9.0.0-next.14",
     "@angular/language-service": "^9.0.0-next.14",
     "@testing-library/angular": "^8.0.3",

@@ -1,0 +1,26 @@
+#!/usr/bin/env bash
+
+skip_deployment() {
+    echo "==========================================================================="
+    echo "      Merge marked as NOTSEMVER. the production deployment will be skip.   "
+    echo "==========================================================================="
+    exit 0
+}
+
+load_env_variables() {
+    echo "============================================================="
+    echo "          Check contents of custom-env-variables             "
+    echo "============================================================="
+    ls -la ./workspace_variables/
+    cat ./workspace_variables/custom-env-variables >> $BASH_ENV
+    source $BASH_ENV
+    cat ./workspace_variables/custom-env-variables
+}
+
+is_prod_deploy() {
+    [ "$1" = "--prod" ] && echo "yes" || echo "no"
+}
+
+get_app_name() {
+    [ "$1" = "yes" ] && echo $HEROKU_APP_NAME || echo $HEROKU_APP_NAME_STAGING
+}

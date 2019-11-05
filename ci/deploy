@@ -2,7 +2,7 @@
 set -e
 set -o pipefail
 
-. functions.sh
+. ci/functions
 
 #asume that dist folder was created in separate "build" job
 #see restore_dist alias on circle ci config

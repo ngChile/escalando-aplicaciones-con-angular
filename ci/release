@@ -2,7 +2,7 @@
 set -e
 set -o pipefail
 
-. functions.sh
+. ci/functions
 
 # TODO: this functions should be imported form utils script
 

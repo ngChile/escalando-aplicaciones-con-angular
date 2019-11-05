@@ -1,7 +1,5 @@
 #!/usr/bin/env bash
 
-# TODO: Permissions
-
 skip_deployment() {
     echo "==========================================================================="
     echo "      Merge marked as NOTSEMVER. the production deployment will be skip.   "

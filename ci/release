@@ -2,31 +2,7 @@
 set -e
 set -o pipefail
 
-# TODO: this functions should be imported form utils script
-get_app_name() {
-    [ "$1" = "yes" ] && echo $HEROKU_APP_NAME || echo $HEROKU_APP_NAME_STAGING
-}
-
-is_prod_deploy() {
-    [ "$1" = "--prod" ] && echo "yes" || echo "no"
-}
-
-load_env_variables() {
-    echo "============================================================="
-    echo "          Check contents of custom-env-variables             "
-    echo "============================================================="
-    ls -la ./workspace_variables/
-    cat ./workspace_variables/custom-env-variables >> $BASH_ENV
-    source $BASH_ENV
-    cat ./workspace_variables/custom-env-variables
-}
-
-skip_deployment() {
-    echo "==========================================================================="
-    echo "      Merge marked as NOTSEMVER. the production deployment will be skip.   "
-    echo "==========================================================================="
-    exit 0
-}
+. ci/shared-functions
 
 IS_PROD=$(is_prod_deploy $1)
 load_env_variables

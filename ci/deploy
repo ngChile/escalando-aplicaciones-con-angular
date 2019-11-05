@@ -2,23 +2,7 @@
 set -e
 set -o pipefail
 
-get_app_name() {
-    [ "$1" = "yes" ] && echo $HEROKU_APP_NAME || echo $HEROKU_APP_NAME_STAGING
-}
-
-is_prod_deploy(){
-    [ "$1" = "--prod" ] && echo "yes" || echo "no"
-}
-
-load_env_variables() {
-    echo "============================================================="
-    echo "          Check contents of custom-env-variables             "
-    echo "============================================================="
-    ls -la ./workspace_variables/
-    cat ./workspace_variables/custom-env-variables >> $BASH_ENV
-    source $BASH_ENV
-    cat ./workspace_variables/custom-env-variables
-}
+. ci/shared-functions
 
 #asume that dist folder was created in separate "build" job
 #see restore_dist alias on circle ci config
@@ -91,13 +75,6 @@ build_and_push_docker_image() {
     echo "      Publishing Docker Image registry.heroku.com/$APP_NAME/web:$TAG_NAME in Heroku Registry ...     "
     echo "====================================================================================================="
     docker push registry.heroku.com/$APP_NAME/web:$TAG_NAME
-}
-
-skip_deployment() {
-    echo "==========================================================================="
-    echo "      Merge marked as NOTSEMVER. the production deployment will be skip.   "
-    echo "==========================================================================="
-    exit 0
 }
 
 IS_PROD=$(is_prod_deploy $1)

@@ -2,22 +2,7 @@
 set -e
 set -o pipefail
 
-load_env_variables() {
-    echo "============================================================="
-    echo "          Check contents of custom-env-variables             "
-    echo "============================================================="
-    ls -la ./workspace_variables/
-    cat ./workspace_variables/custom-env-variables >> $BASH_ENV
-    source $BASH_ENV
-    cat ./workspace_variables/custom-env-variables
-}
-
-skip_deployment() {
-    echo "==========================================================================="
-    echo "      Merge marked as NOTSEMVER. the production deployment will be skip.   "
-    echo "==========================================================================="
-    exit 0
-}
+. ci/shared-functions
 
 tag_repository() {
     git checkout .

@@ -2,7 +2,7 @@
 set -e
 set -o pipefail
 
-./ci/functions
+. ci/functions
 
 tag_repository() {
     git checkout .

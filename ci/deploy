@@ -2,7 +2,7 @@
 set -e
 set -o pipefail
 
-./ci/functions
+. ci/functions
 
 #asume that dist folder was created in separate "build" job
 #see restore_dist alias on circle ci config
@@ -75,13 +75,6 @@ build_and_push_docker_image() {
     echo "      Publishing Docker Image registry.heroku.com/$APP_NAME/web:$TAG_NAME in Heroku Registry ...     "
     echo "====================================================================================================="
     docker push registry.heroku.com/$APP_NAME/web:$TAG_NAME
-}
-
-skip_deployment() {
-    echo "==========================================================================="
-    echo "      Merge marked as NOTSEMVER. the production deployment will be skip.   "
-    echo "==========================================================================="
-    exit 0
 }
 
 IS_PROD=$(is_prod_deploy $1)

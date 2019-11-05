@@ -4,8 +4,6 @@ set -o pipefail
 
 ./ci/functions
 
-# TODO: this functions should be imported form utils script
-
 IS_PROD=$(is_prod_deploy $1)
 load_env_variables
 

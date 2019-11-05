@@ -72,7 +72,7 @@ jobs:
       # - <<: *save_npm_cache
       - run:
           name: Linting
-          command: npm run lint
+          command: ./ci/linter
   unit-tests:
     docker:
       - image: circleci/node:10

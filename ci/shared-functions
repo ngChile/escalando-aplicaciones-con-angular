@@ -1,5 +1,7 @@
 #!/usr/bin/env bash
 
+#Shared functions, import using . ci/shared-functions
+
 load_env_variables() {
     echo "============================================================="
     echo "          Check contents of custom-env-variables             "

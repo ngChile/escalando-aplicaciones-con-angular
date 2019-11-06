@@ -6,15 +6,15 @@ load_workspace_variables() {
     echo "============================================================="
     echo "      Check contents of custom-env-variables if exists       "
     echo "============================================================="
-    WORKSPACE_VARIABLES_DIR="./workspace_variables/"
+    WORKSPACE_VARIABLES_FILE="./workspace_variables/custom-env-variables"
     
-    if [[ -d $WORKSPACE_VARIABLES_DIR ]]; then
+    if [[ -f $WORKSPACE_VARIABLES_FILE ]]; then
         ls -la ./workspace_variables/
         cat ./workspace_variables/custom-env-variables >> $BASH_ENV
         source $BASH_ENV
         cat ./workspace_variables/custom-env-variables
     else    
-        echo "Directory $WORKSPACE_VARIABLES_DIR were not created in latests jobs"
+        echo "File $WORKSPACE_VARIABLES_FILE were not created in latests jobs"
     fi 
 }
 

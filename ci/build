@@ -2,13 +2,11 @@
 set -e
 set -o pipefail
 
-echo "============================================================="
-echo "          Check contents of custom-env-variables             "
-echo "============================================================="
-ls -la ./workspace_variables/
-cat ./workspace_variables/custom-env-variables >> $BASH_ENV
-source $BASH_ENV
-cat ./workspace_variables/custom-env-variables
+. ci/shared-functions
+DIST_FOLDER="./dist"
+
+
+load_workspace_variables
 
 echo "============================================================="
 echo "          Building Artifact                                  "
@@ -17,6 +15,6 @@ npm run build -- --prod
 
 
 echo "============================================================="
-echo "          Show directory files                               "
+echo "          Show directory dist                                "
 echo "============================================================="
-ls -lha
+ls -lha $DIST_FOLDER

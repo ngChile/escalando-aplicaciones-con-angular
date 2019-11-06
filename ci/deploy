@@ -78,7 +78,7 @@ build_and_push_docker_image() {
 }
 
 IS_PROD=$(is_prod_deploy $1)
-load_env_variables
+load_workspace_variables
 
 if [[ $IS_PROD == "yes" && "$BUMP_VERSION_TYPE" == "NOTSEMVER" ]]; then
     skip_deployment

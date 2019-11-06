@@ -24,7 +24,7 @@ tag_repository() {
     git commit --amend -m "[skip ci] $NEW_PACKAGE_VERSION"
 }
 
-load_env_variables
+load_workspace_variables
 
 echo "============================================================="
 echo "          Updating contributors list                         "

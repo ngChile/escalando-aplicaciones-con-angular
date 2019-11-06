@@ -2,14 +2,20 @@
 
 #Shared functions, import using . ci/shared-functions
 
-load_env_variables() {
+load_workspace_variables() {
     echo "============================================================="
-    echo "          Check contents of custom-env-variables             "
+    echo "      Check contents of custom-env-variables if exists       "
     echo "============================================================="
-    ls -la ./workspace_variables/
-    cat ./workspace_variables/custom-env-variables >> $BASH_ENV
-    source $BASH_ENV
-    cat ./workspace_variables/custom-env-variables
+    WORKSPACE_VARIABLES_DIR="./workspace_variables/"
+    
+    if [[ -d $WORKSPACE_VARIABLES_DIR ]]; then
+        ls -la ./workspace_variables/
+        cat ./workspace_variables/custom-env-variables >> $BASH_ENV
+        source $BASH_ENV
+        cat ./workspace_variables/custom-env-variables
+    else    
+        echo "Directory $WORKSPACE_VARIABLES_DIR were not created in latests jobs"
+    fi 
 }
 
 skip_deployment() {

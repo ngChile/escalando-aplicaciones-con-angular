@@ -138,16 +138,12 @@ jobs:
           name: Deploy to Heroku
           command: ./ci/release
   smoke-test-staging:
-    docker:
-      - image: circleci/node:10
+    machine: true
     working_directory: ~/repo
     steps:
       - checkout
       - attach_workspace:
           at: ./workspace_variables
-      # - <<: *restore_npm_cache
-      - <<: *install_node_modules
-      # - <<: *save_npm_cache
       - run:
           name: Running Smoke test
           command: ./ci/smoke-test

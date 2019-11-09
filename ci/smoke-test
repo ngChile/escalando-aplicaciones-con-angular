@@ -2,34 +2,24 @@
 set -e
 set -o pipefail
 
-get_app_name() {
-    [ "$1" = "yes" ] && echo $HEROKU_APP_NAME || echo $HEROKU_APP_NAME_STAGING
-}
+. ci/shared-functions
 
-is_prod_deploy() {
-    [ "$1" = "--prod" ] && echo "yes" || echo "no"
-}
-
-echo "============================================================="
-echo "          Check contents of custom-env-variables             "
-echo "============================================================="
-ls -la ./workspace_variables/
-cat ./workspace_variables/custom-env-variables >> $BASH_ENV
-source $BASH_ENV
+load_workspace_variables
 
 IS_PROD=$(is_prod_deploy $1)
 APP_NAME=$(get_app_name $IS_PROD)
 
 if [[ $IS_PROD == "yes" ]]; then
     TARGET_URL="https://$HEROKU_APP_NAME.herokuapp.com"
-elif [[ $IS_PROD == "no" ]]; then
-    TARGET_URL="https://$HEROKU_APP_NAME_STAGING.herokuapp.com"
-fi
 
-if [[ $IS_PROD == "yes" || "$CIRCLE_BRANCH" == "master" ]]; then
-    PACKAGE_VERSION=$PACKAGE_VERSION_TARGET
+    if [[ "$CIRCLE_BRANCH" == "master" && -v PACKAGE_VERSION_TARGET ]]; then
+        PACKAGE_VERSION=$PACKAGE_VERSION_TARGET
+    else
+        PACKAGE_VERSION=$(jq -r ".version" < package.json)
+    fi
 elif [[ $IS_PROD == "no" ]]; then
     PACKAGE_VERSION=$(jq -r ".version" < package.json)
+    TARGET_URL="https://$HEROKU_APP_NAME_STAGING.herokuapp.com"
 fi
 
 PRODUCTION_VERSION_IN_HTML=$(curl -s $TARGET_URL | grep -iPo "(?<=\|\s).+(?=</title>)")

@@ -117,7 +117,8 @@
           "builder": "ngx-devkit-cypress-builder:cypress",
           "options": {
             "devServerTarget": "web-app:serve",
-            "mode": "browser"
+            "mode": "browser",
+            "configFile": "./e2e/cypress.json"
           },
           "configurations": {
             "production": {

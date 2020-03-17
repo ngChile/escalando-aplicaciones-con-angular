@@ -114,10 +114,11 @@
           }
         },
         "e2e": {
-          "builder": "ngx-devkit-cypress-builder:cypress",
+          "builder": "@ngchile/cypress-cucumber-schematics:cypress",
           "options": {
             "devServerTarget": "web-app:serve",
-            "mode": "browser"
+            "mode": "browser",
+            "configFile": "./cypress.json"
           },
           "configurations": {
             "production": {

@@ -23,6 +23,9 @@
   <a href="https://github.com/ngChile/escalando-aplicaciones-con-angular/blob/master/LICENSE">
     <img src="https://img.shields.io/github/license/ngChile/escalando-aplicaciones-con-angular.svg" alt="License" />
   </a>
+  <a href="https://dashboard.cypress.io/projects/m4uehr">
+    <img src="https://img.shields.io/badge/cypress-dashboard-brightgreen.svg" alt="Cypress Dashboard" />
+  </a>
 </p>
 
 Este repositorio es un proyecto vivo que busca lograr que toda la comunidad del software pueda colaborar enseñando a través de artículos, cursos personalizados, etc. e integrando sus códigos a este.

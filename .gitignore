@@ -30,6 +30,7 @@
 /coverage
 /test-results
 /e2e/screenshots
+/e2e/videos
 /libpeerconnection.log
 npm-debug.log
 yarn-error.log

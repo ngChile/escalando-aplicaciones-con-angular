@@ -5,6 +5,6 @@ set -o pipefail
 if [[ "$CIRCLE_BRANCH" == "master" ]]; then
   npm run e2e:ci -- --record --key $CYPRESS_RECORD_KEY
 else
-  npm run e2e:ci -- --video false
+  npm run e2e:ci
 fi
 

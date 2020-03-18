@@ -2,4 +2,9 @@
 set -e
 set -o pipefail
 
-npm run e2e:ci
+if [[ "$CIRCLE_BRANCH" == "master" ]]; then
+  npm run e2e:ci -- --record --key $CYPRESS_RECORD_KEY
+else
+  npm run e2e:ci
+fi
+

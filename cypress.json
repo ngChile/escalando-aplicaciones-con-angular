@@ -1,12 +1,13 @@
 {
-    "fixturesFolder": "./stubs",
-    "integrationFolder": "./e2e/features",
-    "pluginsFile": "./e2e/plugins/index.js",
-    "screenshotsFolder": "./e2e/screenshots",
-    "supportFile": "./e2e/support/index.js",
-    "videosFolder": "./e2e/videos",
-    "baseUrl": "http://localhost:4200",
-    "reporter": "reporters/custom.js",
-    "video": false,
-    "chromeWebSecurity": false
+  "fixturesFolder": "./stubs",
+  "integrationFolder": "./e2e/features",
+  "pluginsFile": "./e2e/plugins/index.js",
+  "screenshotsFolder": "./e2e/screenshots",
+  "supportFile": "./e2e/support/index.js",
+  "videosFolder": "./e2e/videos",
+  "baseUrl": "http://localhost:4200",
+  "reporter": "reporters/custom.js",
+  "video": true,
+  "chromeWebSecurity": false,
+  "projectId": "m4uehr"
 }

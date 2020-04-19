@@ -1,4 +1,4 @@
-import { Component, OnDestroy, ChangeDetectorRef } from '@angular/core';
+import { Component } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
 import { LoginService } from 'src/app/modules';
 import { Router } from '@angular/router';
@@ -20,7 +20,6 @@ export class HomeComponent {
     private loginService: LoginService,
     private router: Router,
     private snackBar: MatSnackBar,
-    changeDetectorRef: ChangeDetectorRef,
     media: MediaMatcher
   ) {
     this.mobileQuery = media.matchMedia('(max-width: 600px)');
@@ -28,21 +27,13 @@ export class HomeComponent {
 
   logout(): void {
     this.loginService.logout()
-      .then(() => {
-        this.loginService.clearUser();
-        this.router.navigateByUrl('/login');
-      })
-      .catch(error => {
-        this.snackBar.open(error.message, null, { duration: 5000 });
+      .subscribe({
+        next: () => {
+          this.router.navigateByUrl('/login');
+        },
+        error: (error) => {
+          this.snackBar.open(error.message, null, { duration: 5000 });
+        }
       });
-    // .subscribe({
-    //   next: () => {
-    //     this.router.navigateByUrl('/login');
-    //   },
-    //   error: (error) => {
-    //     this.snackBar.open(error.message, null, { duration: 5000 });
-    //   }
-    // });
   }
-
 }

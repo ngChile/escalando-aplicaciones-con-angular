@@ -34,8 +34,7 @@ export class LoginService {
     );
   }
 
-  logout(): Promise<any> {
-    return this.http.post(environment.endpoint.logout, {})
-      .toPromise();
+  logout(): Observable<any> {
+    return this.http.post(environment.endpoint.logout, {});
   }
 }

@@ -1,6 +1,5 @@
 import { TestBed } from '@angular/core/testing';
-import { HttpClientTestingModule, HttpTestingController } from '@angular/common/http/testing';
-import { HttpResponse } from '@angular/common/http';
+import { HttpClientTestingModule, HttpTestingController, TestRequest } from '@angular/common/http/testing';
 
 import { environment } from 'src/environments/environment';
 import { LoginService } from './login.service';
@@ -28,35 +27,34 @@ describe('LoginService', () => {
   });
 
   it('should map the post response to login state if user it is set', (done) => {
-    // Arrange
+    // Arrange: Preparar los datos necesarios para la ejecución del método
+    // y para la respuesta a la llamada XHR
     const email = 'herbie.hancock@gmail.com';
     const password = `masterOfJazzSince50's`;
-    const user = {
+    const bodyResponse = {
       name: 'Herbie',
       lastName: 'Hancock'
     };
-    const expectedResponse = new HttpResponse({
-      status: 201,
-      statusText: 'Created',
-      body: user
-    });
 
-    // Act: the target method is LoginService.authenticate
+    // Act: ejecutar el método objetivo -> LoginService.authenticate
+    // y desdencadenar la respuesta a una llamada XHR a través de un objeto de tipo "Mock"
+    // provisto por httpTestingController
     service
       .authenticate(email, password)
       .subscribe(isLoggedIn => {
-        // Assert (async assert using done jasmine callback)
-
-        // asserts for code design that call the endpoint URL with post body
-        expect(req.request.method).toEqual('POST');
-        expect(req.request.body).toEqual({ email, password });
-
-        // asserts for check the expected behaviour for authenticate method
+        // Assert 2: corroboraciones sobre el comportamiento del método
+        // DESPUÉS de recibir el resultado de la llamada HTTP
         expect(isLoggedIn).toBe(true);
-        expect(service.user).toEqual(user);
+        expect(service.user).toEqual(bodyResponse);
         done();
       });
-    const req = httpTestingController.expectOne(environment.endpoint.auth);
-    req.event(expectedResponse);
+    const requestMock: TestRequest = httpTestingController
+      .expectOne(environment.endpoint.auth);
+    requestMock.flush(bodyResponse);
+
+    // Assert 1: corroboraciones respecto de lo que sucede en método objetivo
+    // ANTES del resultado a la llamada HTTP.
+    expect(requestMock.request.method).toEqual('POST');
+    expect(requestMock.request.body).toEqual({ email, password });
   });
 });

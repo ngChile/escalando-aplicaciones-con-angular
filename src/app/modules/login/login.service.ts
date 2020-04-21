@@ -1,14 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { Observable, of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 
 import { environment } from 'src/environments/environment';
-import { User } from '@app/models/domain/user';
 
 @Injectable()
 export class LoginService {
-  user: User;
+  user = null;
   fallbackUrl = '';
 
   constructor(
@@ -23,11 +21,11 @@ export class LoginService {
     return !!this.user;
   }
 
-  authenticate(email: String, password: String): Observable<boolean> {
+  authenticate(email, password) {
     const postData = {
       email, password
     };
-    return this.http.post<User>(
+    return this.http.post(
       environment.endpoint.auth,
       postData
     )
@@ -39,7 +37,7 @@ export class LoginService {
       );
   }
 
-  logout(): Observable<any> {
+  logout() {
     return this.http.post(environment.endpoint.logout, {});
   }
 }

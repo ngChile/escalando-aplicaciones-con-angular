@@ -22,9 +22,6 @@ import { Group } from '@app/models/domain/group';
 class ActivatedRouteMock {
     data = null;
 }
-class FilterActivesPipeMock {
-    transform = jasmine.createSpy('filterActives.transform');
-}
 
 class AdminServiceMock { }
 
@@ -32,7 +29,9 @@ describe('AdminComponent', () => {
     let component: AdminComponent;
     let fixture: ComponentFixture<AdminComponent>;
     let activateRouteMock: ActivatedRouteMock;
-    let filterActivesPipeMock: FilterActivesPipeMock;
+    const filterActivesPipeMock = {
+        transform: jasmine.createSpy('filterActives.transform'),
+    };
     let users: User[];
     let groups: Group[];
 
@@ -58,7 +57,7 @@ describe('AdminComponent', () => {
                 },
                 {
                     provide: FilterActivesPipe,
-                    useClass: FilterActivesPipeMock
+                    useValue: filterActivesPipeMock
                 },
                 {
                     provide: AdminService,
@@ -72,7 +71,6 @@ describe('AdminComponent', () => {
         component = fixture.componentInstance;
 
         activateRouteMock = TestBed.inject(ActivatedRoute);
-        filterActivesPipeMock = TestBed.inject(FilterActivesPipe);
     }));
 
     beforeEach(() => {

@@ -9,8 +9,8 @@
   "scripts": {
     "ng": "ng",
     "start": "ng run web-app:serve-with-stubs",
-    "test": "ng test --watch --coverage",
-    "test:ci": "ng test --ci --reporters=default --reporters=jest-junit",
+    "test": "ng test --watch",
+    "test:ci": "ng test",
     "e2e": "ng e2e",
     "e2e:ci": "ng e2e --mode console",
     "lint": "ng lint",
@@ -19,10 +19,6 @@
   },
   "cypress-cucumber-preprocessor": {
     "step_definitions": "./e2e/support/step_definitions"
-  },
-  "jest-junit": {
-    "outputDirectory": "./test-results/junit",
-    "outputName": "results.xml"
   },
   "dependencies": {
     "@angular/animations": "^9.0.0",
@@ -43,7 +39,6 @@
   },
   "devDependencies": {
     "@angular-builders/custom-webpack": "^9.0.0",
-    "@angular-builders/jest": "^8.2.0",
     "@angular-devkit/architect": "^0.900",
     "@angular-devkit/build-angular": "~0.900.0",
     "@angular-devkit/core": "^8.3.15",
@@ -55,7 +50,6 @@
     "@testing-library/angular": "v9.0.0-beta.4",
     "@types/jasmine": "~3.4.0",
     "@types/jasminewd2": "~2.0.3",
-    "@types/jest": "^24.0.20",
     "@types/node": "^12.11.1",
     "all-contributors-cli": "^6.9.1",
     "codelyzer": "^5.2.0",
@@ -64,8 +58,12 @@
     "husky": "^3.0.4",
     "jasmine-core": "~3.5.0",
     "jasmine-spec-reporter": "~4.2.1",
-    "jest": "^24.9.0",
-    "jest-junit": "^8.0.0",
+    "karma": "~4.4.1",
+    "karma-chrome-launcher": "~3.1.0",
+    "karma-coverage-istanbul-reporter": "~2.1.0",
+    "karma-jasmine": "~3.0.1",
+    "karma-jasmine-html-reporter": "^1.4.2",
+    "karma-junit-reporter": "^2.0.1",
     "ngx-devkit-stubby-builder": "^1.2.7",
     "stubby": "^4.0.0",
     "ts-node": "~8.4.1",

@@ -2,4 +2,5 @@
 set -e
 set -o pipefail
 
-npm run test:ci
+npm run test:ci -- --watch=false  \
+  --browsers=ChromeHeadless  --source-map=false --reporters=junit,progress

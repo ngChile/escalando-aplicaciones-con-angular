@@ -6,15 +6,15 @@ import { of } from 'rxjs';
 import { GroupService } from './group.service';
 import { Group } from '@app/models/domain/group';
 
-class HttpClientMock {
-  get = jasmine.createSpy();
-}
-
 describe('Group Service', () => {
   let service: GroupService;
-  let httpClientMock: HttpClientMock;
+  let httpClientMock;
 
   beforeEach(() => {
+    // FIRST: La importancia de aislar correctamente
+    httpClientMock = {
+      get: jasmine.createSpy()
+    };
     TestBed.configureTestingModule({
       imports: [
         HttpClientTestingModule
@@ -23,12 +23,11 @@ describe('Group Service', () => {
         GroupService,
         {
           provide: HttpClient,
-          useClass: HttpClientMock
+          useValue: httpClientMock
         }
       ]
     });
     service = TestBed.inject(GroupService);
-    httpClientMock = TestBed.inject(HttpClient);
   });
 
   it('Should create an instance', () => {
@@ -39,6 +38,7 @@ describe('Group Service', () => {
     httpClientMock.get.and.returnValue(of({ list: [] }));
     service.getGroups();
     expect(httpClientMock.get).toHaveBeenCalledWith(environment.endpoint.groups);
+    //  console.log(1, httpClientMock.get.calls.all());
   });
 
   it('should set and get', () => {
@@ -50,5 +50,6 @@ describe('Group Service', () => {
     service.setGroups(list);
 
     expect(service.getStoredGroups()).toEqual(list);
+    //  console.log(2, httpClientMock.get.calls.all());
   });
 });

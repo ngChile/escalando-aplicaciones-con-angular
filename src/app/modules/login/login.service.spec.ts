@@ -32,7 +32,7 @@ describe('LoginService', () => {
     const email = 'herbie.hancock@gmail.com';
     const password = `masterOfJazzSince50's`;
     const bodyResponse = {
-      name: 'Herbie',
+      fullName: 'Herbie',
       lastName: 'Hancock'
     };
 

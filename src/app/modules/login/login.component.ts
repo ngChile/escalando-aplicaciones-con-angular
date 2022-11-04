@@ -2,11 +2,12 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { NgForm } from '@angular/forms';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { Router, ActivatedRoute } from '@angular/router';
-import { finalize } from 'rxjs/operators';
+import { catchError, finalize } from 'rxjs/operators';
 import { LoginService } from './login.service';
 import { LoginFormModel } from './login-form.model';
-import { FilterActivesPipe } from '@app/modules/core/filter-actives.pipe';
+import { FilterActivesPipe } from '../../modules/core/filter-actives.pipe';
 import { Group } from '@app/models/domain/group';
+import { of } from 'rxjs';
 
 interface JSONResponse {
   groups: Group[];
@@ -50,12 +51,14 @@ export class LoginComponent implements OnInit {
         .authenticate(this.formModel.email, this.formModel.password)
         .pipe(
            finalize(() => this.isLoading = false),
+           catchError(errorResponse => {
+            this.snackBar.open(errorResponse.error.message, null, { duration: 5000 });
+            return of(errorResponse.message)
+          })
          )
-         .subscribe(_ => {
-           this.router.navigateByUrl(this.loginService.fallbackUrl);
-         }, errorResponse => {
-           this.snackBar.open(errorResponse.error.message, null, { duration: 5000 });
-         });
+         .subscribe(() => {
+            this.router.navigateByUrl(this.loginService.fallbackUrl);
+         })
     }
   }
 }

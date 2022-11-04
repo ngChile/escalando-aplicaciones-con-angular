@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute, Data } from '@angular/router';
-import { FormGroup, FormControl, Validators, FormBuilder } from '@angular/forms';
+import { UntypedFormGroup, UntypedFormControl, Validators, UntypedFormBuilder } from '@angular/forms';
 import { MatTableDataSource } from '@angular/material/table';
 import { map } from 'rxjs/operators';
 
 import { AdminService } from './admin.service';
-import { User } from '@app/models/domain/user';
-import { FilterActivesPipe } from '@app/modules/core/filter-actives.pipe';
-import { Group } from '@app/models/domain/group';
+import { User } from '../../models/domain/user';
+import { FilterActivesPipe } from '../../modules/core/filter-actives.pipe';
+import { Group } from '../../models/domain/group';
 import { AdminResolverDataModel } from './admin-resolver.service';
 
 @Component({
@@ -16,7 +16,7 @@ import { AdminResolverDataModel } from './admin-resolver.service';
     styleUrls: ['./admin.component.scss']
 })
 export class AdminComponent implements OnInit {
-    form: FormGroup;
+    form: UntypedFormGroup;
     users: User[] = [];
     groups: Group[] = [];
     roles = [
@@ -37,14 +37,14 @@ export class AdminComponent implements OnInit {
         private route: ActivatedRoute,
         private filterActives: FilterActivesPipe,
         private adminService: AdminService,
-        private formBuilder: FormBuilder
+        private formBuilder: UntypedFormBuilder
     ) {
         this.form = this.formBuilder.group({
-            fullName: new FormControl('', [Validators.required, Validators.minLength(3)]),
-            email: new FormControl('', [Validators.required, Validators.email]),
-            password: new FormControl('', [Validators.required]),
-            group: new FormControl('', [Validators.required]),
-            roles: new FormControl('', [Validators.required])
+            fullName: new UntypedFormControl('', [Validators.required, Validators.minLength(3)]),
+            email: new UntypedFormControl('', [Validators.required, Validators.email]),
+            password: new UntypedFormControl('', [Validators.required]),
+            group: new UntypedFormControl('', [Validators.required]),
+            roles: new UntypedFormControl('', [Validators.required])
         });
     }
 

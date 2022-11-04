@@ -1,27 +1,25 @@
+const { pathsToModuleNameMapper } = require('ts-jest');
+const { defaults: jestNgPreset } = require('jest-preset-angular/presets');
+
+const { compilerOptions } = require(`${__dirname}/tsconfig.spec.json`);
+
 module.exports = {
-    collectCoverage: true,
-    collectCoverageFrom: [
-        '<rootDir>/src/app/**/*.ts',
-        '!<rootDir>/src/*.d.ts',
-    ],
-    coveragePathIgnorePatterns: [
-        '/node_modules/',
-        '/src-test/',
-        '/dist/'
-    ],
-    globals: {
-        'ts-jest': {
-            allowSyntheticDefaultImports: true,
-            tsConfig: '<rootDir>/src/tsconfig.spec.json',
-            stringifyContentPathRegex: '\\.html$',
-            diagnostics: false,
-        }
+  preset: 'jest-preset-angular',
+
+  globals: {
+    'ts-jest': {
+      ...jestNgPreset.globals['ts-jest'],
+      tsconfig: `${__dirname}/tsconfig.spec.json`
     },
-    moduleNameMapper: {
-        '^@app/(.*)$': '<rootDir>/src/app/$1'
-    },
-    modulePathIgnorePatterns: ['<rootDir>/docker'],
-    transform: {
-        '^.+\\.(j|t)s?$': 'ts-jest',
-    }
+  },
+
+  roots: ['<rootDir>/src/'],
+  testMatch: ['**/+(*.)+(spec).+(ts)'],
+//   setupFilesAfterEnv: ['<rootDir>/src/test.ts'],
+  collectCoverage: true,
+  coverageReporters: ['html'],
+  coverageDirectory: 'coverage/my-app',
+  moduleNameMapper: pathsToModuleNameMapper(compilerOptions.paths || {}, {
+    prefix: '<rootDir>/'
+  })
 };

@@ -15,15 +15,15 @@ import { of } from 'rxjs';
 
 import { AdminComponent } from './admin.component';
 import { AdminService } from './admin.service';
-import { FilterActivesPipe } from '@app/modules/core/filter-actives.pipe';
-import { User } from '@app/models/domain/user';
-import { Group } from '@app/models/domain/group';
+import { FilterActivesPipe } from '../../modules/core/filter-actives.pipe';
+import { User } from '../../models/domain/user';
+import { Group } from '../../models/domain/group';
 
 class ActivatedRouteMock {
     data = null;
 }
 class FilterActivesPipeMock {
-    transform = jasmine.createSpy('filterActives.transform');
+    transform = jest.fn();
 }
 
 class AdminServiceMock { }
@@ -72,7 +72,7 @@ describe('AdminComponent', () => {
         component = fixture.componentInstance;
 
         activateRouteMock = TestBed.inject(ActivatedRoute);
-        filterActivesPipeMock = TestBed.inject(FilterActivesPipe);
+        filterActivesPipeMock = TestBed.inject(FilterActivesPipe) as any;
     }));
 
     beforeEach(() => {
@@ -87,7 +87,8 @@ describe('AdminComponent', () => {
         activateRouteMock.data = of({
             userModelData: { groups, users },
         });
-        filterActivesPipeMock.transform.and.callFake(data => data);
+
+        filterActivesPipeMock.transform.mockImplementation((data) => data)
 
         fixture.detectChanges();
     });

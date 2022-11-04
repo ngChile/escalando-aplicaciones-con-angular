@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { FormGroup, FormControl } from '@angular/forms';
-import { Validators } from 'src/app/modules/core';
+import { UntypedFormGroup, UntypedFormControl } from '@angular/forms';
+import { Validators } from '../../modules/core';
 import { RegisterService } from './register.service';
 
 @Component({
@@ -11,10 +11,10 @@ import { RegisterService } from './register.service';
 export class RegisterComponent implements OnInit {
   isLoading = false;
 
-  form = new FormGroup({
-    fullName: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    email: new FormControl('', [Validators.required, Validators.minLength(3)]),
-    password: new FormControl('', [Validators.required, Validators.minLength(3)]),
+  form = new UntypedFormGroup({
+    fullName: new UntypedFormControl('', [Validators.required, Validators.minLength(3)]),
+    email: new UntypedFormControl('', [Validators.required, Validators.minLength(3)]),
+    password: new UntypedFormControl('', [Validators.required, Validators.minLength(3)]),
   });
 
   constructor(

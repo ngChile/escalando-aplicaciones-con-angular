@@ -3,7 +3,7 @@ import { RegisterService } from './register.service';
 import { HttpClient } from '@angular/common/http';
 
 class HttpClientMock {
-  get = jasmine.createSpy();
+  get = jest.fn();
 }
 
 describe('RegisterService', () => {

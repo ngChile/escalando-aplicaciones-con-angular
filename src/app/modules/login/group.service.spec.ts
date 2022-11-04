@@ -1,13 +1,13 @@
 import { TestBed } from '@angular/core/testing';
 import { HttpClientTestingModule } from '@angular/common/http/testing';
 import { HttpClient } from '@angular/common/http';
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../environments/environment';
 import { of } from 'rxjs';
 import { GroupService } from './group.service';
 import { Group } from '@app/models/domain/group';
 
 class HttpClientMock {
-  get = jasmine.createSpy();
+  get = jest.fn();
 }
 
 describe('Group Service', () => {
@@ -28,7 +28,7 @@ describe('Group Service', () => {
       ]
     });
     service = TestBed.inject(GroupService);
-    httpClientMock = TestBed.inject(HttpClient);
+    httpClientMock = TestBed.inject(HttpClient) as any;
   });
 
   it('Should create an instance', () => {
@@ -36,7 +36,7 @@ describe('Group Service', () => {
   });
 
   it('should call http get service', () => {
-    httpClientMock.get.and.returnValue(of({ list: [] }));
+    httpClientMock.get.mockReturnValue(of({ list: [] }));
     service.getGroups();
     expect(httpClientMock.get).toHaveBeenCalledWith(environment.endpoint.groups);
   });

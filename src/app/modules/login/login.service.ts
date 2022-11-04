@@ -3,7 +3,7 @@ import { Injectable } from '@angular/core';
 import { Observable, of } from 'rxjs';
 import { map } from 'rxjs/operators';
 
-import { environment } from 'src/environments/environment';
+import { environment } from '../../../environments/environment';
 import { User } from '@app/models/domain/user';
 
 @Injectable()

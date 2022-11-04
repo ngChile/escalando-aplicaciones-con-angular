@@ -1,4 +1,4 @@
-import { Given, When, Then } from "cypress-cucumber-preprocessor/steps";
+import { Given, When, Then } from "@badeball/cypress-cucumber-preprocessor";
 
 beforeEach(() => {
     cy.server();
@@ -24,10 +24,6 @@ When('hago clic en el enlace de postulación a la beca', () => {
 Then('soy redirigido a la página de postulación', () => {
     cy.url().should('contains','/scholarship-form');
 })
-
-Given('ingreso a la página de autenticación', () => {
-    cy.visit('/');
-});
 
 When('escribo en el input de email', () => {
     cy.get('input[name="email"]').type('MiNombre@test.org')

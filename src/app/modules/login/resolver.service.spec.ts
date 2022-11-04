@@ -3,7 +3,7 @@ import { ResolverService } from './resolver.service';
 import { GroupService } from './group.service';
 
 class GroupServiceMock {
-  getGroups = jasmine.createSpy();
+  getGroups = jest.fn();
 }
 describe('ResolverService', () => {
   beforeEach(() => TestBed.configureTestingModule({

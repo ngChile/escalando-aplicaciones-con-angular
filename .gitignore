@@ -1,15 +1,19 @@
 # See http://help.github.com/ignore-files/ for more about ignoring files.
 
-# compiled output
+# Compiled output
 /dist
 /tmp
 /out-tsc
+/bazel-out
 
-# dependencies
+# Node
 /node_modules
+npm-debug.log
+yarn-error.log
+test-results
 
 # IDEs and editors
-/.idea
+.idea/
 .project
 .classpath
 .c9/
@@ -17,28 +21,37 @@
 .settings/
 *.sublime-workspace
 
-# IDE - VSCode
+# Visual Studio Code
 .vscode/*
 !.vscode/settings.json
 !.vscode/tasks.json
 !.vscode/launch.json
 !.vscode/extensions.json
+.history/*
 
-# misc
-/.sass-cache
+# Miscellaneous
+/.angular/cache
+.sass-cache/
 /connect.lock
 /coverage
-/test-results
-/e2e/screenshots
-/e2e/videos
 /libpeerconnection.log
-npm-debug.log
-yarn-error.log
 testem.log
 /typings
-.all-contributorsrc
-/workspace_variables/
 
-# System Files
+# System files
 .DS_Store
 Thumbs.db
+
+# Created by https://www.toptal.com/developers/gitignore/api/cypressio
+# Edit at https://www.toptal.com/developers/gitignore?templates=cypressio
+
+### CypressIO ###
+# gitignore template for the CypressIO, browser test framework
+# website: https://www.cypress.io/
+
+cypress/results/*
+cypress/reports/*
+cypress/screenshots/*
+cypress/videos/*
+
+# End of https://www.toptal.com/developers/gitignore/api/cypressio

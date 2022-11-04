@@ -23,8 +23,9 @@ import { render } from '@testing-library/angular';
 //  Código del proyecto
 import { LoginService } from './login.service';
 import { LoginComponent } from './login.component';
-import { CoreModule } from '@app/modules/core';
-import { FilterActivesPipe } from '@app/modules/core/filter-actives.pipe';
+import { CoreModule } from '../../modules/core';
+import { FilterActivesPipe } from '../../modules/core/filter-actives.pipe';
+import { TestBed } from '@angular/core/testing';
 
 //  Mocks
 const activateRouteMock = {
@@ -50,7 +51,7 @@ const componentDependenciesBase = {
     MatInputModule,
     MatSnackBarModule
   ],
-  declarations: [ LoginComponent ],
+  declarations: [LoginComponent],
   providers: [
     LoginService,
     FilterActivesPipe,
@@ -59,23 +60,24 @@ const componentDependenciesBase = {
       useValue: activateRouteMock
     },
   ],
-  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
+  schemas: [CUSTOM_ELEMENTS_SCHEMA]
 };
 
 //  Pruebas Unitarias
 describe('LoginComponent Unit Testing', () => {
+  let router: Router;
+
   it('should create', async () => {
     const { fixture } = await render(LoginComponent, componentDependenciesBase);
     expect(fixture.componentInstance).toBeTruthy();
   });
 
-// https://codecraft.tv/courses/angular/unit-testing/asynchronous/
+  // https://codecraft.tv/courses/angular/unit-testing/asynchronous/
 
   it('should submit and call authenticate method when the loginForm it is valid', async () => {
     // "A"rrange
     const loginServiceMock = {
-      authenticate: jasmine.createSpy('LoginService.authenticate')
-        .and.returnValue(of(true))
+      authenticate: jest.fn().mockReturnValue(of(true))
     };
     const { fixture } = await render(LoginComponent, {
       ...componentDependenciesBase,
@@ -83,30 +85,34 @@ describe('LoginComponent Unit Testing', () => {
         { provide: LoginService, useValue: loginServiceMock },
       ],
     });
+    fixture.ngZone.run(() => {
+      // "A"ct -- Mostrar como esto produce en la terminal :
+      // WARN LOG: 'Navigation triggered outside Angular zone, did you forget to call 'ngZone.run()'?'
+      // WARN: 'Navigation triggered outside Angular zone, did you forget to call 'ngZone.run()'?'
+      // Solucion: con fixture.ngZone.run(() => {});
+      const component = fixture.componentInstance;
+      component.loginForm.setValue({
+        email: 'g.pincheira.a@gmail.com',
+        password: 'superscret123765',
+        group: 'A',
+        rememberMe: true
+      });
 
-    // "A"ct -- Mostrar como esto produce en la terminal :
-    // WARN LOG: 'Navigation triggered outside Angular zone, did you forget to call 'ngZone.run()'?'
-    // WARN: 'Navigation triggered outside Angular zone, did you forget to call 'ngZone.run()'?'
-    // Solucion: con fixture.ngZone.run(() => {});
-    const component = fixture.componentInstance;
-    component.loginForm.setValue({
-      email: 'g.pincheira.a@gmail.com',
-      password: 'superscret123765',
-      group: 'A',
-      rememberMe: true
+      // Acá utilizamos submit porque nos interesa lo que hace .submit a nivel de diseño de código, su firma y comportamiento
+      component.submit();
+
+      // "A"ssert
+      expect(loginServiceMock.authenticate).toHaveBeenCalled();
+      // Forzar a no romper la firma con esto
+      // expect(loginServiceMock.authenticate).toHaveBeenCalledWith(component.formModel.email, component.formModel.password);
+
+      // Mostrar como se puede dar más cobertura y fidelidad a la prueba
+      // pero que esto no sera reflejado en las métricas.
+      // Agregar cobertura para variable loading
+
     });
 
-    // Acá utilizamos submit porque nos interesa lo que hace .submit a nivel de diseño de código, su firma y comportamiento
-    component.submit();
 
-    // "A"ssert
-    expect(loginServiceMock.authenticate).toHaveBeenCalled();
-    // Forzar a no romper la firma con esto
-    // expect(loginServiceMock.authenticate).toHaveBeenCalledWith(component.formModel.email, component.formModel.password);
-
-    // Mostrar como se puede dar más cobertura y fidelidad a la prueba
-    // pero que esto no sera reflejado en las métricas.
-    // Agregar cobertura para variable loading
   });
 
   it('should set invalid fields', async () => {

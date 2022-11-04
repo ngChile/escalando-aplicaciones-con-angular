@@ -1,6 +1,6 @@
 import { Component, OnDestroy, ChangeDetectorRef } from '@angular/core';
 import { MediaMatcher } from '@angular/cdk/layout';
-import { LoginService } from 'src/app/modules';
+import { LoginService } from '../../../app/modules';
 import { Router } from '@angular/router';
 import { MatSnackBar } from '@angular/material/snack-bar';
 
